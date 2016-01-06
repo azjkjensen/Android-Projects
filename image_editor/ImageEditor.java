@@ -6,12 +6,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.regex.Pattern;
+
+import image_editor.Image;
 
 public class ImageEditor {
 
 	public static void main(String[] args) {
-		System.out.println("yo");
-//	public static void main("input.txt", "output.txt") {
 
         String fileName = args[0];
 		File file = new File(fileName);
@@ -27,14 +28,9 @@ public class ImageEditor {
 	        BufferedReader bufferedReader = new BufferedReader(fileReader);
 	        Scanner scanner = new Scanner(bufferedReader);
 	        
-	        scanner.next(); //Pass over the "P3" at the beginning of the file
-	        
-	        int w = scanner.nextInt(); //Get width of file
-	        int h = scanner.nextInt(); //Get height of file
-	        
-	        scanner.next(); //Pass over the max value. We assume a max of 255
-	        
-	        
+	        Image workingImage = new Image(scanner);
+//	        System.out.println(workingImage.hello());
+	        bufferedReader.close();
 //	        while((currentLine = bufferedReader.readLine()) != null) {
 //	        	if(!"P3".equals(currentLine) && !currentLine.startsWith("#")){
 //	        		System.out.println(currentLine);
@@ -43,10 +39,8 @@ public class ImageEditor {
 //	        		System.out.println("Getting rid of comments and silly P3 stuff...");
 //	        	}
 //	        }
-	        
+
 	        scanner.close();
-	        bufferedReader.close();
-	        
 	} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -59,7 +53,6 @@ public class ImageEditor {
             // Or we could just do this: 
             // ex.printStackTrace();
         }
-
         
 //		Scanner inputFile = null;
 //		try {
