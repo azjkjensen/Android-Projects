@@ -20,8 +20,8 @@ public class ImageEditor {
         FileReader fileReader;
         
         System.out.println(new File(".").getAbsolutePath());
-		try {
-			fileReader = new FileReader(fileName);
+        try {
+		fileReader = new FileReader(fileName);
 	        
 	        BufferedReader bufferedReader = new BufferedReader(fileReader);
 	        
@@ -36,12 +36,12 @@ public class ImageEditor {
 	        
 	        bufferedReader.close();
 	        
-		} catch (FileNotFoundException e) {
+	} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("Unable to open file '" + fileName + "'");  
-		}
-		catch(IOException ex) {
+	}
+	catch(IOException ex) {
             System.out.println(
                 "Error reading file '" 
                 + fileName + "'");                  
