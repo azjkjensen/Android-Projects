@@ -30,17 +30,9 @@ public class ImageEditor {
 	        
 	        Image workingImage = new Image(scanner);
 //	        System.out.println(workingImage.hello());
+	        
 	        bufferedReader.close();
-//	        while((currentLine = bufferedReader.readLine()) != null) {
-//	        	if(!"P3".equals(currentLine) && !currentLine.startsWith("#")){
-//	        		System.out.println(currentLine);
-//	        	}
-//	        	else {
-//	        		System.out.println("Getting rid of comments and silly P3 stuff...");
-//	        	}
-//	        }
 
-	        scanner.close();
 	} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
