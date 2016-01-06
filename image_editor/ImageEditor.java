@@ -1,7 +1,5 @@
 package image_editor;
 
-//New comment
-//This is a comment
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,26 +14,37 @@ public class ImageEditor {
 //	public static void main("input.txt", "output.txt") {
 
         String fileName = args[0];
+		File file = new File(fileName);
 		
-        String currentLine = null;
+//        String currentLine = null;
         
         FileReader fileReader;
         
-        System.out.println(new File(".").getAbsolutePath());
+//        System.out.println(new File(fileName).getAbsolutePath());
         try {
-		fileReader = new FileReader(fileName);
+        	fileReader = new FileReader(file);
 	        
 	        BufferedReader bufferedReader = new BufferedReader(fileReader);
+	        Scanner scanner = new Scanner(bufferedReader);
 	        
-	        while((currentLine = bufferedReader.readLine()) != null) {
-	        	if(!"P3".equals(currentLine) && !currentLine.startsWith("#")){
-	        		System.out.println(currentLine);
-	        	}
-	        	else {
-	        		System.out.println("Getting rid of comments and silly P3 stuff...");
-	        	}
-	        }
+	        scanner.next(); //Pass over the "P3" at the beginning of the file
 	        
+	        int w = scanner.nextInt(); //Get width of file
+	        int h = scanner.nextInt(); //Get height of file
+	        
+	        scanner.next(); //Pass over the max value. We assume a max of 255
+	        
+	        
+//	        while((currentLine = bufferedReader.readLine()) != null) {
+//	        	if(!"P3".equals(currentLine) && !currentLine.startsWith("#")){
+//	        		System.out.println(currentLine);
+//	        	}
+//	        	else {
+//	        		System.out.println("Getting rid of comments and silly P3 stuff...");
+//	        	}
+//	        }
+	        
+	        scanner.close();
 	        bufferedReader.close();
 	        
 	} catch (FileNotFoundException e) {
