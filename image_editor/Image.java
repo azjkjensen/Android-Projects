@@ -1,33 +1,70 @@
 package image_editor;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Image {
-	Pixel[][] pixels;
+	public Pixel[][] pixels;
+	public int width;
+	public int height;
+
 	public Image(Scanner scanner){
-        scanner.useDelimiter("\\s|#.*\r*\n*");
+        scanner.useDelimiter("\\s|#.*\r*\n");
 //		String skipExpression = "#.*\n";
-		
-		String p = scanner.nextLine(); //Pass over the "P3" at the beginning of the file
-//	    System.out.println(p + " --- end of P");
-  	    
-	    int width = scanner.nextInt(); //Get width of file
-//	    System.out.println("width: " + width);
-	    int height = scanner.nextInt(); //Get height of file
-//	    System.out.println("height: " + height);
-	    
+
+		String p = scanner.next(); //Pass over the "P3" at the beginning of the file
+  	    System.out.println(p);
+		scanner.next();
+		System.out.println(scanner.next()+"@");
+	    width = scanner.nextInt(); //Get width of file
+	    System.out.println("width: " + width);
+	    height = scanner.nextInt(); //Get height of file
+	    System.out.println("height: " + height);
+
 	    pixels = new Pixel[height][width];
+
+		String maxVal = scanner.next(); //Pass over the max value. We assume a max of 255
+//		System.out.println("max value: " + maxVal);
+
+		maxVal = scanner.next(); //Pass over the max value. We assume a max of 255
+		System.out.println("max value: " + maxVal);
 	    
-	    scanner.next(); //Pass over the max value. We assume a max of 255
-	    
-//		for(int i = 0; i < height; i++){
-//			for(int j = 0; j < width; j++){
-//	    		pixels[i][j] = new Pixel(scanner);
-	    		pixels[0][0] = new Pixel(scanner);
-//			}
-//		}
-		
+		for(int i = 0; i < height; i++){
+			for(int j = 0; j < width; j++){
+	    		pixels[i][j] = new Pixel(scanner);
+			}
+		}
+		System.out.println("here");
 	    scanner.close();
+	}
+
+	public void invert(){
+		Pixel[][] pixelsCopy = new Pixel[height][width];
+		pixelsCopy = Arrays.copyOf(pixels, pixels.length);
+		for(int i = 0; i < width; i++){
+			for(int j = 0; j < height; j++){
+				pixelsCopy[i][j].red = 255 - pixels[i][j].red;
+				pixelsCopy[i][j].green = 255 - pixels[i][j].green;
+				pixelsCopy[i][j].blue = 255 - pixels[i][j].blue;
+			}
+		}
+	}
+
+	public void grayscale(){
+		Pixel[][] pixelsCopy = new Pixel[height][width];
+		pixelsCopy = Arrays.copyOf(pixels, pixels.length);
+		for(int i = 0; i < width; i++){
+			for(int j = 0; j < height; j++){
+				int grayShade = averageColor(pixels[i][j]);
+				pixelsCopy[i][j].red = grayShade;
+				pixelsCopy[i][j].green = grayShade;
+				pixelsCopy[i][j].blue = grayShade;
+			}
+		}
+	}
+
+	public int averageColor(Pixel pixel){
+		return (pixel.red + pixel.green + pixel.blue)/3;
 	}
 	public String hello(){
 	    	String hello = "yo foool";

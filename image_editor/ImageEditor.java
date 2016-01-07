@@ -30,7 +30,7 @@ public class ImageEditor {
 	        
 	        Image workingImage = new Image(scanner);
 //	        System.out.println(workingImage.hello());
-//	        System.out.println(workingImage.pixels.length);
+	        System.out.println("length of pixel array is " + workingImage.pixels.length);
 	        bufferedReader.close();
 
 	} catch (FileNotFoundException e) {

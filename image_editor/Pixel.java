@@ -10,7 +10,7 @@ public class Pixel {
 	public Pixel(Scanner scanner){
 		if(scanner.hasNextInt()){
 			red = scanner.nextInt();
-			System.out.println(red);
+			System.out.println("red is " + red);
 
 			System.out.println(scanner.next() + "!");
 			System.out.println(scanner.next() + "!");
