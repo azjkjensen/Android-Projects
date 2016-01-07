@@ -66,10 +66,33 @@ public class Image {
 	public int averageColor(Pixel pixel){
 		return (pixel.red + pixel.green + pixel.blue)/3;
 	}
-	public String hello(){
-	    	String hello = "yo foool";
-	    	return hello;
-	    }
-    
-	
+
+	public void emboss(){
+		Pixel[][] pixelsCopy = new Pixel[height][width];
+		pixelsCopy = Arrays.copyOf(pixels, pixels.length);
+		for(int i = 0; i < width; i++){
+			for(int j = 0; j < height; j++){
+				int redDiff = pixels[i][j].red - pixels[i - 1][j - 1].red;
+				int greenDiff = pixels[i][j].green - pixels[i - 1][j - 1].green;
+				int blueDiff = pixels[i][j].blue - pixels[i - 1][j - 1].blue;
+			}
+		}
+	}
+
+	public int maxDiff(int one, int two, int three){
+		int max = one;
+		if(two > one){
+			max = two;
+			if(three > two) max = three;
+		}
+		if(three > one){
+			max = three;
+		}
+		return max;
+
+	}
+
+	public void motionBlur(){
+
+	}
 }
