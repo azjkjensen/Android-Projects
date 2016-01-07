@@ -9,7 +9,7 @@ public class Image {
 	public int height;
 
 	public Image(Scanner scanner){
-        scanner.useDelimiter("\\s|#.*\r*\n");
+        scanner.useDelimiter("\\s|#.*\r*\n+|\n+");
 //		String skipExpression = "#.*\n";
 
 		String p = scanner.next(); //Pass over the "P3" at the beginning of the file
