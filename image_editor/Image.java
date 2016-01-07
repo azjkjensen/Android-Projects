@@ -72,20 +72,36 @@ public class Image {
 		pixelsCopy = Arrays.copyOf(pixels, pixels.length);
 		for(int i = 0; i < width; i++){
 			for(int j = 0; j < height; j++){
-				int redDiff = pixels[i][j].red - pixels[i - 1][j - 1].red;
-				int greenDiff = pixels[i][j].green - pixels[i - 1][j - 1].green;
-				int blueDiff = pixels[i][j].blue - pixels[i - 1][j - 1].blue;
+				int v;
+				if(i == 0 || j == 0){
+					v = 128;
+				}
+				else {
+					int redDiff = pixels[i][j].red - pixels[i - 1][j - 1].red;
+					int greenDiff = pixels[i][j].green - pixels[i - 1][j - 1].green;
+					int blueDiff = pixels[i][j].blue - pixels[i - 1][j - 1].blue;
+
+					int max = maxDiff(redDiff, greenDiff, blueDiff);
+					v = 128 + max;
+				}
+
+				if(v < 0) v = 0;
+				if(v > 255) v = 255;
+
+				pixelsCopy[i][j].red = v;
+				pixelsCopy[i][j].green = v;
+				pixelsCopy[i][j].blue = v;
 			}
 		}
 	}
 
 	public int maxDiff(int one, int two, int three){
 		int max = one;
-		if(two > one){
+		if(Math.abs(two) > Math.abs(one)){
 			max = two;
-			if(three > two) max = three;
+			if(Math.abs(three) > Math.abs(two)) max = three;
 		}
-		if(three > one){
+		if(Math.abs(three) > Math.abs(one)){
 			max = three;
 		}
 		return max;
