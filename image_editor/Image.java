@@ -3,32 +3,29 @@ package image_editor;
 import java.util.Scanner;
 
 public class Image {
-
+	Pixel[][] pixels;
 	public Image(Scanner scanner){
-        scanner.useDelimiter("\\s|#.*\n");
+        scanner.useDelimiter("\\s|#.*\r*\n*");
 //		String skipExpression = "#.*\n";
 		
 		String p = scanner.nextLine(); //Pass over the "P3" at the beginning of the file
 //	    System.out.println(p + " --- end of P");
   	    
-	    int w = scanner.nextInt(); //Get width of file
-//	    System.out.println("width: " + w);
-	    int h = scanner.nextInt(); //Get height of file
-//	    System.out.println("height: " + h);
+	    int width = scanner.nextInt(); //Get width of file
+//	    System.out.println("width: " + width);
+	    int height = scanner.nextInt(); //Get height of file
+//	    System.out.println("height: " + height);
+	    
+	    pixels = new Pixel[height][width];
+	    
 	    scanner.next(); //Pass over the max value. We assume a max of 255
 	    
-		while(scanner.hasNext()){
-			while(scanner.hasNextInt()){
-	//			scanner.skip(skipExpression);
-				System.out.println("next: " + scanner.next());
-			}
-			if(scanner.hasNext()){
-				String nextLine = scanner.nextLine();
-				if(nextLine.startsWith("#")){
-					scanner.nextLine();
-				}
-			}
-		}
+//		for(int i = 0; i < height; i++){
+//			for(int j = 0; j < width; j++){
+//	    		pixels[i][j] = new Pixel(scanner);
+	    		pixels[0][0] = new Pixel(scanner);
+//			}
+//		}
 		
 	    scanner.close();
 	}
