@@ -9,65 +9,61 @@ public class Image {
 	public int height;
 
 	public Image(Scanner scanner){
-        scanner.useDelimiter("\\s|#.*\r*\n+|\n+");
-//		String skipExpression = "#.*\n";
+		try{	
+			String p = scanner.next(); //Pass over the "P3" at the beginning of the file
+	  	    System.out.println(p);
 
-		String p = scanner.next(); //Pass over the "P3" at the beginning of the file
-  	    System.out.println(p);
-		scanner.next();
-		System.out.println(scanner.next()+"@");
-	    width = scanner.nextInt(); //Get width of file
-	    System.out.println("width: " + width);
-	    height = scanner.nextInt(); //Get height of file
-	    System.out.println("height: " + height);
-
-	    pixels = new Pixel[height][width];
-
-		String maxVal = scanner.next(); //Pass over the max value. We assume a max of 255
-//		System.out.println("max value: " + maxVal);
-
-		maxVal = scanner.next(); //Pass over the max value. We assume a max of 255
-		System.out.println("max value: " + maxVal);
-	    
-		for(int i = 0; i < height; i++){
-			for(int j = 0; j < width; j++){
-	    		pixels[i][j] = new Pixel(scanner);
+		    width = scanner.nextInt(); //Get width of file
+		    System.out.println("width: " + width);
+		    height = scanner.nextInt(); //Get height of file
+		    System.out.println("height: " + height);
+	
+		    pixels = new Pixel[height][width];
+	
+			String maxVal = scanner.next(); //Pass over the max value. We assume a max of 255
+			System.out.println("max value: " + maxVal);
+		    
+			for(int i = 0; i < height; i++){
+				for(int j = 0; j < width; j++){
+		    		pixels[i][j] = new Pixel(scanner);
+				}
 			}
+			System.out.println("here");
+		    scanner.close();
 		}
-		System.out.println("here");
-	    scanner.close();
+		catch(Exception e){
+			System.out.println("Error in Image class\n" + e.getMessage());
+		}
 	}
 
-	public void invert(){
+	public void invert() throws Exception{
 		Pixel[][] pixelsCopy = new Pixel[height][width];
 		pixelsCopy = Arrays.copyOf(pixels, pixels.length);
-		for(int i = 0; i < width; i++){
-			for(int j = 0; j < height; j++){
-				pixelsCopy[i][j].red = 255 - pixels[i][j].red;
-				pixelsCopy[i][j].green = 255 - pixels[i][j].green;
-				pixelsCopy[i][j].blue = 255 - pixels[i][j].blue;
+		for(Pixel[] row : pixelsCopy){
+			for(Pixel p : row){
+				p.invert();
 			}
 		}
 	}
 
-	public void grayscale(){
+	public void grayscale() throws Exception{
 		Pixel[][] pixelsCopy = new Pixel[height][width];
 		pixelsCopy = Arrays.copyOf(pixels, pixels.length);
-		for(int i = 0; i < width; i++){
-			for(int j = 0; j < height; j++){
-				int grayShade = averageColor(pixels[i][j]);
-				pixelsCopy[i][j].red = grayShade;
-				pixelsCopy[i][j].green = grayShade;
-				pixelsCopy[i][j].blue = grayShade;
+		for(Pixel[] row : pixelsCopy){
+			for(Pixel p : row){
+				int grayShade = averageColor(p);
+				p.red.setColor(grayShade);
+				p.green.setColor(grayShade);
+				p.blue.setColor(grayShade);
 			}
 		}
 	}
 
 	public int averageColor(Pixel pixel){
-		return (pixel.red + pixel.green + pixel.blue)/3;
+		return (pixel.red.getColor() + pixel.green.getColor() + pixel.blue.getColor())/3;
 	}
 
-	public void emboss(){
+	public void emboss() throws Exception{
 		Pixel[][] pixelsCopy = new Pixel[height][width];
 		pixelsCopy = Arrays.copyOf(pixels, pixels.length);
 		for(int i = 0; i < width; i++){
@@ -77,9 +73,9 @@ public class Image {
 					v = 128;
 				}
 				else {
-					int redDiff = pixels[i][j].red - pixels[i - 1][j - 1].red;
-					int greenDiff = pixels[i][j].green - pixels[i - 1][j - 1].green;
-					int blueDiff = pixels[i][j].blue - pixels[i - 1][j - 1].blue;
+					int redDiff = pixels[i][j].red.getColor() - pixels[i - 1][j - 1].red.getColor();
+					int greenDiff = pixels[i][j].green.getColor() - pixels[i - 1][j - 1].green.getColor();
+					int blueDiff = pixels[i][j].blue.getColor() - pixels[i - 1][j - 1].blue.getColor();
 
 					int max = maxDiff(redDiff, greenDiff, blueDiff);
 					v = 128 + max;
@@ -88,9 +84,9 @@ public class Image {
 				if(v < 0) v = 0;
 				if(v > 255) v = 255;
 
-				pixelsCopy[i][j].red = v;
-				pixelsCopy[i][j].green = v;
-				pixelsCopy[i][j].blue = v;
+				pixelsCopy[i][j].red.setColor(v);
+				pixelsCopy[i][j].green.setColor(v);
+				pixelsCopy[i][j].blue.setColor(v);
 			}
 		}
 	}

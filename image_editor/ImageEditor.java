@@ -6,13 +6,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.regex.Pattern;
-
-import image_editor.Image;
 
 public class ImageEditor {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 
         String fileName = args[0];
 		File file = new File(fileName);
@@ -27,37 +24,24 @@ public class ImageEditor {
 	        
 	        BufferedReader bufferedReader = new BufferedReader(fileReader);
 	        Scanner scanner = new Scanner(bufferedReader);
+	        scanner.useDelimiter("\\s*#[^\\n]*\\n|\\s+");
 	        
 	        Image workingImage = new Image(scanner);
-//	        System.out.println(workingImage.hello());
-	        System.out.println("length of pixel array is " + workingImage.pixels.length);
+
+	        workingImage.invert();
+	        
 	        bufferedReader.close();
 
 	} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("Unable to open file '" + fileName + "'");  
 	}
 	catch(IOException ex) {
             System.out.println(
                 "Error reading file '" 
-                + fileName + "'");                  
-            // Or we could just do this: 
-            // ex.printStackTrace();
+                + fileName + "'");
         }
         
-//		Scanner inputFile = null;
-//		try {
-//			inputFile = new Scanner(file);
-//		} catch (FileNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		System.out.println("here");
-//		
-//		String input = inputFile.next();
-//		System.out.println(input);
-//		inputFile.close();
 	}
 
 }
