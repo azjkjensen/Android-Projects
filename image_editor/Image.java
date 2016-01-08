@@ -9,7 +9,7 @@ public class Image {
 	public int height;
 
 	public Image(Scanner scanner){
-        scanner.useDelimiter("#[^\\n]*\\n|\\s+");
+        scanner.useDelimiter("\\s*#[^\\n]*\\n|\\s+");
 //		scanner.useDelimiter("\\s|#.*\r*\n+|\n+");
 //		String skipExpression = "#.*\n";
 
