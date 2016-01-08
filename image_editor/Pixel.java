@@ -8,7 +8,11 @@ public class Pixel {
 	public int blue;
 	
 	public Pixel(Scanner scanner){
-		scanner.next();
+
+		while(scanner.hasNext() && !scanner.hasNextInt()){
+			scanner.next();
+		}
+
 		if(scanner.hasNextInt()){
 			red = scanner.nextInt();
 			System.out.println("red is " + red);
@@ -21,14 +25,20 @@ public class Pixel {
 			System.out.println("error on red");
 		}
 
-		scanner.next();
+		while(scanner.hasNext() && !scanner.hasNextInt()){
+			scanner.next();
+		}
+
 		if(scanner.hasNextInt()){
 			green = scanner.nextInt();
 			System.out.println("green is " + green);
 		}
 		else System.out.println("error on green");
 
-		scanner.next();
+		while(scanner.hasNext() && !scanner.hasNextInt()){
+			scanner.next();
+		}
+
 		if(scanner.hasNextInt()){
 			blue = scanner.nextInt();
 			System.out.println("blue is " + blue);

@@ -9,13 +9,14 @@ public class Image {
 	public int height;
 
 	public Image(Scanner scanner){
-        scanner.useDelimiter("\\s|#.*\r*\n+|\n+");
+        scanner.useDelimiter("#[^\\n]*\\n|\\s+");
+//		scanner.useDelimiter("\\s|#.*\r*\n+|\n+");
 //		String skipExpression = "#.*\n";
 
 		String p = scanner.next(); //Pass over the "P3" at the beginning of the file
   	    System.out.println(p);
 		scanner.next();
-		System.out.println(scanner.next()+"@");
+//		System.out.println(scanner.next()+"@");
 	    width = scanner.nextInt(); //Get width of file
 	    System.out.println("width: " + width);
 	    height = scanner.nextInt(); //Get height of file
@@ -23,10 +24,10 @@ public class Image {
 
 	    pixels = new Pixel[height][width];
 
-		String maxVal = scanner.next(); //Pass over the max value. We assume a max of 255
+//		String maxVal = scanner.next(); //Pass over the max value. We assume a max of 255
 //		System.out.println("max value: " + maxVal);
 
-		maxVal = scanner.next(); //Pass over the max value. We assume a max of 255
+		String maxVal = scanner.next(); //Pass over the max value. We assume a max of 255
 		System.out.println("max value: " + maxVal);
 	    
 		for(int i = 0; i < height; i++){
