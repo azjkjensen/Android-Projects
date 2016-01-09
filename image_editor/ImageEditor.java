@@ -13,12 +13,8 @@ public class ImageEditor {
 
         String fileName = args[0];
 		File file = new File(fileName);
-		
-//        String currentLine = null;
-        
         FileReader fileReader;
         
-//        System.out.println(new File(fileName).getAbsolutePath());
         try {
         	fileReader = new FileReader(file);
 	        
@@ -32,16 +28,13 @@ public class ImageEditor {
 	        
 	        bufferedReader.close();
 
-	} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			System.out.println("Unable to open file '" + fileName + "'");  
+		} catch (FileNotFoundException e) {
+				e.printStackTrace();
+				System.out.println("Unable to open file '" + fileName + "'");  
+		} catch(IOException ex) {
+	            System.out.println(
+	                "Error reading file '" 
+	                + fileName + "'");
+	    }
 	}
-	catch(IOException ex) {
-            System.out.println(
-                "Error reading file '" 
-                + fileName + "'");
-        }
-        
-	}
-
 }
