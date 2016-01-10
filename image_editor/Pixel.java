@@ -15,9 +15,19 @@ public class Pixel {
 		blue = new Color(scanner.nextInt());
 	}
 	
+	public Pixel(int redVal, int greenVal, int blueVal) throws Exception{
+		red = new Color(redVal);
+		green = new Color(greenVal);
+		blue = new Color(blueVal);
+	}
+	
 	public void invert(){
 		red.invert();
 		green.invert();
 		blue.invert();
+	}
+	
+	public String toString(){
+		return red.getColor() + " " + green.getColor() + " " + blue.getColor() + " ";
 	}
 }

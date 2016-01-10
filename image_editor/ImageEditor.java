@@ -12,6 +12,7 @@ public class ImageEditor {
 	public static void main(String[] args) throws Exception {
 
         String fileName = args[0];
+        String outputFileName = args[1];
 		File file = new File(fileName);
         FileReader fileReader;
         
@@ -24,10 +25,25 @@ public class ImageEditor {
 	        
 	        Image workingImage = new Image(scanner);
 
-	        workingImage.invert();
+	        switch(args[2]){
+	        case "invert":
+	        	workingImage.invert();
+	        	break;
+	        case "grayscale":
+	        	workingImage.grayscale();
+	        	break;
+	        case "emboss":
+	        	workingImage.emboss();
+	        	break;
+	        case "motionblur":
+	        	workingImage.motionBlur(Integer.parseInt(args[3]));
+	        	break;
+	        default:
+	        	System.out.println("Sorry, wrong perameter.\nPlease try again with a correct option.");
+	        }
+	        workingImage.writeToFile(outputFileName, workingImage.pixelsCopy);
 	        
 	        bufferedReader.close();
-
 		} catch (FileNotFoundException e) {
 				e.printStackTrace();
 				System.out.println("Unable to open file '" + fileName + "'");  
