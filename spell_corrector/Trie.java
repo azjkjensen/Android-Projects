@@ -49,7 +49,16 @@ public class Trie implements ITrie {
 
     @Override
     public INode find(String word) {
-        return null;
+        String wordLower = word.toLowerCase();
+        Node currentNode = rootNode;
+        for(int i = 0; i < wordLower.length(); i++){
+            if(currentNode.children[wordLower.charAt(i) - 'a'] == null){
+                return null;
+            } else{
+                currentNode = currentNode.children[wordLower.charAt(i) - 'a'];
+            }
+        }
+        return currentNode;
     }
 
     @Override

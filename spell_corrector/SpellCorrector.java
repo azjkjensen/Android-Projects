@@ -30,6 +30,7 @@ public class SpellCorrector implements ISpellCorrector{
 
     @Override
     public String suggestSimilarWord(String inputWord) throws NoSimilarWordFoundException {
+        System.out.println(dictionary.find(inputWord));
         return "WOOHOO";
     }
 }
