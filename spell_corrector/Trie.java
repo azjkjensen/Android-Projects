@@ -1,7 +1,41 @@
 package spell_corrector;
 
+import java.util.HashSet;
+
 /**
  * Created by Jordan on 1/13/2016.
+ *
+ * You are required to implement your dictionary as a Trie (pronounced “try”). A Trie is a
+// tree­based data structure designed to store items that are sequences of characters from an
+// alphabet. Each Trie­Node stores a count and a sequence of Nodes, one for each element in
+// the alphabet. Each Trie­Node has a single parent except for the root of the Trie which does
+// not have a parent. A sequence of characters from the alphabet is stored in the Trie as a path
+// in the Trie from the root to the last character of the sequence.
+// For our Trie we will be storing words (a word is a sequence of alphabetic characters) so the
+// length of the sequence of Nodes in every Node will be 26, one for each letter of the alphabet.
+// For any node a we will represent the count in a as a.count. For the array of Nodes in a we will
+// use a.nodes. For the node in a’s sequence of Nodes associated with the character c we will
+// use a.nodes[c]. For instance, a.nodes[‘b’] represents the node in a’s array of Nodes
+// corresponding to the character ‘b’.
+// Each node in the root’s array of Nodes represents the first letter of a word stored in the Trie.
+// Each of those Nodes has an array of Nodes for the second letter of the word, and so on. For
+// example, the word “kick” would be stored as follows:
+// root.nodes[‘k’].nodes[‘i’].nodes[‘c’].nodes[‘k’]
+// The count in a node represents the number of times a word represented by the path from the
+// root to that node appeared in the text file from which the dictionary was created. Thus, if the
+// word “kick” appeared twice, root.nodes[‘k’].nodes[‘i’].nodes[‘c’].nodes[‘k’].count = 2.
+// If the word “kicks” appears at least once in the text file then it would be stored as
+// root.nodes[‘k’].nodes[‘i’].nodes[‘c’].nodes[‘k’].nodes[‘s’]
+// and root.nodes[‘k’].nodes[‘i’].nodes[‘c’].nodes[‘k’].nodes[‘s’].count would be greater than or
+// equal to one.
+// If the the count value of any node, n, is zero then the word represented by the path from the
+// root to n did not appear in the original text file. For example, if root.nodes[‘k’].nodes[‘i’].count
+// = 0 then the word “ki” does not appear in the original text file. A node may have descendant
+// nodes even if its count is zero. Using the example above, some of the nodes representing
+// “kick” and “kicks” would have counts of 0 (e.g root.nodes[‘k’], root.nodes[‘k’].nodes[‘i’], and
+// root.nodes[‘k’].nodes[‘i’].nodes[‘c’]) but root.nodes[‘k’].node[‘i’].nodes[‘c’].nodes[‘k’] and
+// root.nodes[‘k’].node[‘i’].nodes[‘c’].nodes[‘k’].nodes[‘s’] would have counts greater than 0.
+
  */
 public class Trie implements ITrie {
     private static final int NUMBER_OF_CHILDREN = 26;
@@ -10,9 +44,12 @@ public class Trie implements ITrie {
     private int nodeCount;
     Node rootNode = new Node();
 
+    private HashSet <INode> acceptedWords = new HashSet<INode>();
+    private HashSet <INode> rejectedStrings = new HashSet<INode>();
+
     public Trie(){
         wordCount = 0;
-        nodeCount = 0;
+        nodeCount = 1;
     }
 
 //    public String toString(){
@@ -69,6 +106,31 @@ public class Trie implements ITrie {
     @Override
     public int getNodeCount() {
         return nodeCount;
+    }
+
+    public void deletionChecker(String word){
+        StringBuilder sbOriginal = new StringBuilder(word);
+        StringBuilder sbCopy = new StringBuilder(word);
+        for(int i = 0; i < sbOriginal.length(); i++) {
+            sbCopy.deleteCharAt(i); //Delete each character.
+            INode n = find(sbCopy.toString());
+            if(n == null) {
+                System.out.println("Rejected:");
+                System.out.println(sbCopy.toString());
+                rejectedStrings.add(n);//Add to set of rejected one-edit distance strings
+            } else if (n.getValue() == 0) {
+                System.out.println("Rejected:");
+                System.out.println(sbCopy.toString());
+                rejectedStrings.add(n);//Add to set of rejected one-edit distance strings
+            } else {
+                    System.out.println("Added:");
+                    System.out.println(n.getValue());
+                    System.out.println(sbCopy.toString());
+                    acceptedWords.add(n);//Add to set of accepted one-edit distance strings
+            }
+//            System.out.println(sbCopy.toString());
+            sbCopy = new StringBuilder(sbOriginal.toString());
+        }
     }
 
     public class Node implements INode{
