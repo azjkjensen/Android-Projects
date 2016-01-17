@@ -1,5 +1,7 @@
 package spell_corrector;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 
 /**
@@ -40,31 +42,38 @@ import java.util.HashSet;
 public class Trie implements ITrie {
     private static final int NUMBER_OF_CHILDREN = 26;
 
+    String bestWord = null;
+    int bestFrequency;
+
     private int wordCount;
     private int nodeCount;
     Node rootNode = new Node();
 
-    private HashSet <INode> acceptedWords = new HashSet<INode>();
-    private HashSet <INode> rejectedStrings = new HashSet<INode>();
+    private HashSet <INode> acceptedWords = new HashSet<>();
+    private HashSet <String> dictionaryWords = new HashSet<>();
+//    private HashSet <INode> rejectedWords = new HashSet<INode>();
 
     public Trie(){
         wordCount = 0;
         nodeCount = 1;
     }
 
-//    public String toString(){
-//        StringBuilder output = new StringBuilder("TESTING, TESTING");
-//        output.append("\r\n");
-//
-//
-//        return output.toString();
-//    }
+    public String toString(){
+        ArrayList sortedDictionary = new ArrayList(dictionaryWords);
+        Collections.sort(sortedDictionary);
+        StringBuilder sb = new StringBuilder();
+        for(Object i : sortedDictionary){
+            sb.append(i).append("\n");
+        }
+        return sb.toString();
+    }
 
     @Override
     public void add(String word) {
 //        System.out.println("Adding " + word);
         String wordLower = word.toLowerCase();
         Node currentNode = rootNode;
+        dictionaryWords.add(word);
         for(int i = 0; i < wordLower.length(); i++){
             int numValOfChar = wordLower.charAt(i) - 'a';
 //            System.out.println(wordLower.charAt(i));
@@ -108,29 +117,54 @@ public class Trie implements ITrie {
         return nodeCount;
     }
 
-    public void deletionChecker(String word){
-        StringBuilder sbOriginal = new StringBuilder(word);
+    public HashSet<INode> getPossibleSuggestions(){
+        return acceptedWords;
+    }
+
+    public String getBestWord(){
+        return bestWord;
+    }
+
+    public void deletionChecker(String word) {
+//        StringBuilder sbOriginal = new StringBuilder(word);
         StringBuilder sbCopy = new StringBuilder(word);
-        for(int i = 0; i < sbOriginal.length(); i++) {
+        for(int i = 0; i < word.length(); i++) {
             sbCopy.deleteCharAt(i); //Delete each character.
             INode n = find(sbCopy.toString());
             if(n == null) {
                 System.out.println("Rejected:");
                 System.out.println(sbCopy.toString());
-                rejectedStrings.add(n);//Add to set of rejected one-edit distance strings
+//                rejectedWords.add(n);//Add to set of rejected one-edit distance words
             } else if (n.getValue() == 0) {
                 System.out.println("Rejected:");
                 System.out.println(sbCopy.toString());
-                rejectedStrings.add(n);//Add to set of rejected one-edit distance strings
+//                rejectedWords.add(n);//Add to set of rejected one-edit distance words
             } else {
                     System.out.println("Added:");
-                    System.out.println(n.getValue());
                     System.out.println(sbCopy.toString());
-                    acceptedWords.add(n);//Add to set of accepted one-edit distance strings
+                    System.out.println("Frequency: " + n.getValue());
+                    acceptedWords.add(n);//Add to set of accepted one-edit distance words
+                    if(bestWord == null) bestWord = sbCopy.toString();
+                    else{
+                        INode bestNode = find(bestWord);
+                        if(bestNode.getValue() < n.getValue() ||
+                                (bestNode.getValue() == n.getValue() && bestWord.compareTo(word) > 0)){
+//                            System.out.println("Changing bestword to " + sbCopy.toString() + " with frequency " + n.getValue());
+                            bestWord = sbCopy.toString();
+                        }
+                    }
             }
-//            System.out.println(sbCopy.toString());
-            sbCopy = new StringBuilder(sbOriginal.toString());
+//            System.out.println(acceptedWords.toString());
+            sbCopy = new StringBuilder(word);
         }
+    }
+
+    public void findWordsAtOneEditDistance(String word){
+        if(find(word) != null){
+            bestWord = word;
+            return;
+        }
+        deletionChecker(word);
     }
 
     public class Node implements INode{
