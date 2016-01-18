@@ -43,14 +43,13 @@ public class Trie implements ITrie {
     private static final int NUMBER_OF_CHILDREN = 26;
 
     String bestWord = null;
-    int bestFrequency;
 
     private int wordCount;
     private int nodeCount;
     Node rootNode = new Node();
 
-    private HashSet <String> acceptedWords = new HashSet<String>();
-    private HashSet <String> dictionaryWords = new HashSet<String>();
+    private HashSet <String> acceptedWords = new HashSet<>();
+    private HashSet <String> dictionaryWords = new HashSet<>();
 
     public Trie(){
         wordCount = 0;
@@ -114,10 +113,6 @@ public class Trie implements ITrie {
     @Override
     public int getNodeCount() {
         return nodeCount;
-    }
-
-    public HashSet<String> getPossibleSuggestions(){
-        return acceptedWords;
     }
 
     public String getBestWord(){
@@ -245,7 +240,7 @@ public class Trie implements ITrie {
 
         Trie trie = (Trie) o;
 
-        if (wordCount != trie.wordCount) return false;
+//        if (wordCount != trie.wordCount) return false;
         return nodeCount == trie.nodeCount;
 
     }
