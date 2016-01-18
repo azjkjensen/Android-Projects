@@ -49,8 +49,8 @@ public class Trie implements ITrie {
     private int nodeCount;
     Node rootNode = new Node();
 
-    private HashSet <INode> acceptedWords = new HashSet<INode>();
-    private HashSet <String> dictionaryWords = new HashSet<String>();
+    private HashSet <INode> acceptedWords = new HashSet<>();
+    private HashSet <String> dictionaryWords = new HashSet<>();
 //    private HashSet <INode> rejectedWords = new HashSet<INode>();
 
     public Trie(){
