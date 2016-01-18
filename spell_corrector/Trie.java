@@ -124,42 +124,90 @@ public class Trie implements ITrie {
         return bestWord;
     }
 
-    private void deletionChecker(String word) {
+    private void deletionChecker(String wordIn) {
+        String word = wordIn.toLowerCase();
 //        StringBuilder sbOriginal = new StringBuilder(word);
         StringBuilder sbCopy = new StringBuilder(word);
         for(int i = 0; i < word.length(); i++) {
             sbCopy.deleteCharAt(i); //Delete each character.
             INode n = find(sbCopy.toString());
-//            if(n == null) {
-//                System.out.println("Rejected:");
-//                System.out.println(sbCopy.toString());
-//            } else if (n.getValue() == 0) {
-//                System.out.println("Rejected:");
-//                System.out.println(sbCopy.toString());
-//            }
             if(n != null){
                 if(n.getValue() != 0) {
-                    System.out.println("Added:");
-                    System.out.println(sbCopy.toString());
-                    System.out.println("Frequency: " + n.getValue());
+//                    System.out.println("Added:");
+//                    System.out.println(sbCopy.toString());
+//                    System.out.println("Frequency: " + n.getValue());
                     acceptedWords.add(sbCopy.toString());//Add to set of accepted one-edit distance words
                 }
             }
             sbCopy = new StringBuilder(word);
         }
-        System.out.println(acceptedWords.toString());
+//        System.out.println(acceptedWords.toString());
     }
 
-    private void transpositionChecker(String word) {
-
+    private void transpositionChecker(String wordIn) {
+        String word = wordIn.toLowerCase();
+        StringBuilder sbCopy = new StringBuilder(word.toLowerCase());
+        for(int i = 0; (i + 1) < word.length(); i++){
+            StringBuilder transposed = new StringBuilder();
+            transposed.append(sbCopy.substring(0, i));
+            transposed.append(sbCopy.charAt(i+1));
+            transposed.append(sbCopy.charAt(i));
+            transposed.append(sbCopy.substring(i+2, sbCopy.length()));
+//            System.out.println(transposed.toString());
+            INode n = find(transposed.toString());
+            if(n != null){
+                if(n.getValue() != 0) {
+//                    System.out.println("Added:");
+//                    System.out.println(transposed.toString());
+//                    System.out.println("Frequency: " + n.getValue());
+                    acceptedWords.add(transposed.toString());//Add to set of accepted one-edit distance words
+                }
+            }
+        }
     }
 
-    private void alterationChecker(String word) {
-
+    private void alterationChecker(String wordIn) {
+        String word = wordIn.toLowerCase();
+        StringBuilder sbCopy = new StringBuilder(word);
+        for(int i = 0; i < word.length(); i++){
+            for(int j = 0; j < NUMBER_OF_CHILDREN; j++){
+                sbCopy.deleteCharAt(i);
+                char charToInsert = (char) (j + 'a');
+                sbCopy.insert(i, charToInsert);
+//                System.out.println(sbCopy.toString());
+                INode n = find(sbCopy.toString());
+                if(n != null){
+                    if(n.getValue() != 0) {
+//                        System.out.println("Added:");
+//                        System.out.println(sbCopy.toString());
+//                        System.out.println("Frequency: " + n.getValue());
+                        acceptedWords.add(sbCopy.toString());//Add to set of accepted one-edit distance words
+                    }
+                }
+                sbCopy = new StringBuilder(word);
+            }
+        }
     }
 
-    private void insertionChecker(String word) {
-
+    private void insertionChecker(String wordIn) {
+        String word = wordIn.toLowerCase();
+        StringBuilder sbCopy = new StringBuilder(word);
+        for(int i = 0; i < word.length(); i++) {
+            for (int j = 0; j < NUMBER_OF_CHILDREN; j++) {
+                char charToInsert = (char) (j + 'a');
+                sbCopy.insert(i, charToInsert);
+                INode n = find(sbCopy.toString());
+                if(n != null){
+                    if(n.getValue() != 0) {
+//                        System.out.println("Added:");
+//                        System.out.println(sbCopy.toString());
+//                        System.out.println("Frequency: " + n.getValue());
+                        acceptedWords.add(sbCopy.toString());//Add to set of accepted one-edit distance words
+                    }
+                }
+                sbCopy = new StringBuilder(word);
+            }
+        }
     }
 
     private void assignBestWord(){
@@ -175,6 +223,19 @@ public class Trie implements ITrie {
                 }
             }
         }
+    }
+
+    public void findWordsAtOneEditDistance(String word){
+        if(find(word) != null){
+            bestWord = word;
+            return;
+        }
+        deletionChecker(word);
+        transpositionChecker(word);
+        insertionChecker(word);
+        alterationChecker(word);
+
+        assignBestWord();
     }
 
     @Override
@@ -194,16 +255,6 @@ public class Trie implements ITrie {
         int result = wordCount;
         result = 31 * result + nodeCount;
         return result;
-    }
-
-    public void findWordsAtOneEditDistance(String word){
-        if(find(word) != null){
-            bestWord = word;
-            return;
-        }
-        deletionChecker(word);
-
-        assignBestWord();
     }
 
     public class Node implements INode{

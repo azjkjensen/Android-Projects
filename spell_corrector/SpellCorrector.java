@@ -31,19 +31,8 @@ public class SpellCorrector implements ISpellCorrector{
     public String suggestSimilarWord(String inputWord) throws NoSimilarWordFoundException {
         dictionary.findWordsAtOneEditDistance(inputWord);
         HashSet<String> suggestions = dictionary.getPossibleSuggestions();
-//        findBestWord(suggestions);
-//        System.out.println(dictionary.find(inputWord));
+        System.out.println(dictionary.toString());
+
         return dictionary.getBestWord();
     }
-
-//    private void findBestWord(HashSet<ITrie.INode> suggestions){
-//        if(suggestions.isEmpty()){
-//            return;
-//        }
-//        for(ITrie.INode node : suggestions){
-//            if(bestWord == null){
-//                bestWord = node;
-//            }
-//        }
-//    }
 }
