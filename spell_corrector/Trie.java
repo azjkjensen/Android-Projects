@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.HashSet;
 
 /**
- * Created by Jordan on 1/13/2016.
+ * Created by Jk on 1/13/2016.
  *
  * You are required to implement your dictionary as a Trie (pronounced “try”). A Trie is a
 // tree­based data structure designed to store items that are sequences of characters from an
@@ -49,9 +49,8 @@ public class Trie implements ITrie {
     private int nodeCount;
     Node rootNode = new Node();
 
-    private HashSet <INode> acceptedWords = new HashSet<INode>();
+    private HashSet <String> acceptedWords = new HashSet<String>();
     private HashSet <String> dictionaryWords = new HashSet<String>();
-//    private HashSet <INode> rejectedWords = new HashSet<INode>();
 
     public Trie(){
         wordCount = 0;
@@ -117,7 +116,7 @@ public class Trie implements ITrie {
         return nodeCount;
     }
 
-    public HashSet<INode> getPossibleSuggestions(){
+    public HashSet<String> getPossibleSuggestions(){
         return acceptedWords;
     }
 
@@ -125,37 +124,56 @@ public class Trie implements ITrie {
         return bestWord;
     }
 
-    public void deletionChecker(String word) {
+    private void deletionChecker(String word) {
 //        StringBuilder sbOriginal = new StringBuilder(word);
         StringBuilder sbCopy = new StringBuilder(word);
         for(int i = 0; i < word.length(); i++) {
             sbCopy.deleteCharAt(i); //Delete each character.
             INode n = find(sbCopy.toString());
-            if(n == null) {
-                System.out.println("Rejected:");
-                System.out.println(sbCopy.toString());
-//                rejectedWords.add(n);//Add to set of rejected one-edit distance words
-            } else if (n.getValue() == 0) {
-                System.out.println("Rejected:");
-                System.out.println(sbCopy.toString());
-//                rejectedWords.add(n);//Add to set of rejected one-edit distance words
-            } else {
+//            if(n == null) {
+//                System.out.println("Rejected:");
+//                System.out.println(sbCopy.toString());
+//            } else if (n.getValue() == 0) {
+//                System.out.println("Rejected:");
+//                System.out.println(sbCopy.toString());
+//            }
+            if(n != null){
+                if(n.getValue() != 0) {
                     System.out.println("Added:");
                     System.out.println(sbCopy.toString());
                     System.out.println("Frequency: " + n.getValue());
-                    acceptedWords.add(n);//Add to set of accepted one-edit distance words
-                    if(bestWord == null) bestWord = sbCopy.toString();
-                    else{
-                        INode bestNode = find(bestWord);
-                        if(bestNode.getValue() < n.getValue() ||
-                                (bestNode.getValue() == n.getValue() && bestWord.compareTo(word) > 0)){
-//                            System.out.println("Changing bestword to " + sbCopy.toString() + " with frequency " + n.getValue());
-                            bestWord = sbCopy.toString();
-                        }
-                    }
+                    acceptedWords.add(sbCopy.toString());//Add to set of accepted one-edit distance words
+                }
             }
-//            System.out.println(acceptedWords.toString());
             sbCopy = new StringBuilder(word);
+        }
+        System.out.println(acceptedWords.toString());
+    }
+
+    private void transpositionChecker(String word) {
+
+    }
+
+    private void alterationChecker(String word) {
+
+    }
+
+    private void insertionChecker(String word) {
+
+    }
+
+    private void assignBestWord(){
+        if(acceptedWords.isEmpty()) return; //Leave bestword as null to signify no suggestion
+        for(String bestCandidate : acceptedWords){
+            if (bestWord == null) bestWord = bestCandidate; //Assign the first word to be our current best
+            else {
+                INode bestNode = find(bestWord);
+                INode candidateNode = find(bestCandidate);
+                if (bestNode.getValue() < candidateNode.getValue() ||
+                        (bestNode.getValue() == candidateNode.getValue() && bestWord.compareTo(bestCandidate) > 0)) {
+                    bestWord = bestCandidate; //Assign the current candidate to be the new best suggestion.
+                }
+            }
         }
     }
 
@@ -184,6 +202,8 @@ public class Trie implements ITrie {
             return;
         }
         deletionChecker(word);
+
+        assignBestWord();
     }
 
     public class Node implements INode{

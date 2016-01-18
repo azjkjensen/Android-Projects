@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Scanner;
-import java.util.jar.Pack200;
 
 /**
  * Created by Jordan on 1/13/2016.
@@ -31,7 +30,7 @@ public class SpellCorrector implements ISpellCorrector{
     @Override
     public String suggestSimilarWord(String inputWord) throws NoSimilarWordFoundException {
         dictionary.findWordsAtOneEditDistance(inputWord);
-        HashSet<ITrie.INode> suggestions = dictionary.getPossibleSuggestions();
+        HashSet<String> suggestions = dictionary.getPossibleSuggestions();
 //        findBestWord(suggestions);
 //        System.out.println(dictionary.find(inputWord));
         return dictionary.getBestWord();
