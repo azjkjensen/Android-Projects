@@ -49,8 +49,8 @@ public class Trie implements ITrie {
     private int nodeCount;
     Node rootNode = new Node();
 
-    private HashSet <INode> acceptedWords = new HashSet<>();
-    private HashSet <String> dictionaryWords = new HashSet<>();
+    private HashSet <INode> acceptedWords = new HashSet<INode>();
+    private HashSet <String> dictionaryWords = new HashSet<String>();
 //    private HashSet <INode> rejectedWords = new HashSet<INode>();
 
     public Trie(){
@@ -157,6 +157,25 @@ public class Trie implements ITrie {
 //            System.out.println(acceptedWords.toString());
             sbCopy = new StringBuilder(word);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Trie trie = (Trie) o;
+
+        if (wordCount != trie.wordCount) return false;
+        return nodeCount == trie.nodeCount;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = wordCount;
+        result = 31 * result + nodeCount;
+        return result;
     }
 
     public void findWordsAtOneEditDistance(String word){
