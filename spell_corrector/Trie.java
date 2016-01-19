@@ -233,16 +233,22 @@ public class Trie implements ITrie {
         assignBestWord();
     }
 
-    @Override
+     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Trie trie = (Trie) o;
-
-//        if (wordCount != trie.wordCount) return false;
-        return nodeCount == trie.nodeCount;
-
+        if (o == null) {
+            return false;
+        }
+        if (o.getClass() != this.getClass()) {
+            return false;
+        }
+        WordTrie ob = (WordTrie) o;
+        if (ob.getNodeCount() != this.nodeCount || ob.getWordCount() != this.getWordCount()) {
+            return false;
+        }
+        if (!this.root.equals(ob.getRoot())) {
+            return false;
+        }
+        return true;
     }
 
     @Override
