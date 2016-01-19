@@ -241,11 +241,11 @@ public class Trie implements ITrie {
         if (o.getClass() != this.getClass()) {
             return false;
         }
-        WordTrie ob = (WordTrie) o;
+        Trie ob = (Trie) o;
         if (ob.getNodeCount() != this.nodeCount || ob.getWordCount() != this.getWordCount()) {
             return false;
         }
-        if (!this.root.equals(ob.getRoot())) {
+        if (!this.root.equals(ob.root())) {
             return false;
         }
         return true;
@@ -269,6 +269,24 @@ public class Trie implements ITrie {
         @Override
         public int getValue() {
             return frequency;
+        }
+        
+         @Override
+        public boolean equals(Object obj) {
+            if (obj == null) {
+                return false;
+            }
+            if (this.getClass() != obj.getClass()) {
+                return false;
+            }
+            final Node other = (Node) obj;
+            if (this.frequency != other.frequency) {
+                return false;
+            }
+            if (!Arrays.deepEquals(this.children, other.children)) {
+                return false;
+            }
+            return true;
         }
     }
 }
