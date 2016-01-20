@@ -1,8 +1,7 @@
-package spell_corrector;
+package spell;
 
 import java.io.IOException;
-
-import spell_corrector.ISpellCorrector.NoSimilarWordFoundException;
+import spell.ISpellCorrector.NoSimilarWordFoundException;
 
 /**
  * A simple main class for running the spelling corrector. This class is not
@@ -25,6 +24,8 @@ public class Main {
 		ISpellCorrector corrector = new SpellCorrector();
 		
 		corrector.useDictionary(dictionaryFileName);
+		
+		
 		String suggestion = corrector.suggestSimilarWord(inputWord);
 		
 		System.out.println("Suggestion is: " + suggestion);

@@ -1,6 +1,7 @@
-package spell_corrector;
+package spell;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 
@@ -49,6 +50,7 @@ public class Trie implements ITrie {
     Node rootNode = new Node();
 
     private HashSet <String> acceptedWords = new HashSet<>();
+    private HashSet <String> rejectedWords = new HashSet<>();
     private HashSet <String> dictionaryWords = new HashSet<>();
 
     public Trie(){
@@ -57,7 +59,7 @@ public class Trie implements ITrie {
     }
 
     public String toString(){
-        ArrayList sortedDictionary = new ArrayList(dictionaryWords);
+        ArrayList<String> sortedDictionary = new ArrayList<String>(dictionaryWords);
         Collections.sort(sortedDictionary);
         StringBuilder sb = new StringBuilder();
         for(Object i : sortedDictionary){
@@ -65,13 +67,17 @@ public class Trie implements ITrie {
         }
         return sb.toString();
     }
+    
+    public void clear(){
+    	dictionaryWords.clear();
+    }
 
     @Override
     public void add(String word) {
-//        System.out.println("Adding " + word);
         String wordLower = word.toLowerCase();
+        if( wordLower == "t") System.out.println("Adding " + word);
         Node currentNode = rootNode;
-        dictionaryWords.add(word);
+        dictionaryWords.add(wordLower);
         for(int i = 0; i < wordLower.length(); i++){
             int numValOfChar = wordLower.charAt(i) - 'a';
 //            System.out.println(wordLower.charAt(i));
@@ -81,12 +87,13 @@ public class Trie implements ITrie {
                 nodeCount++;
             }
             currentNode = currentNode.children[numValOfChar];
-            if(i == wordLower.length() - 1){
+            if(i == word.length() - 1){
                 if(currentNode.frequency == 0){
                     wordCount++;
                 }
                 currentNode.frequency++;
 //                System.out.println("  Incrementing " + wordLower + " to " + currentNode.frequency);
+//                System.out.println("  Incrementing " + wordLower.charAt(i) + " " + i);
             }
         }
     }
@@ -102,6 +109,8 @@ public class Trie implements ITrie {
                 currentNode = currentNode.children[wordLower.charAt(i) - 'a'];
             }
         }
+//        System.out.println(wordLower.charAt(wordLower.length() - 1) + " has the frequency of " + currentNode.frequency);
+        if(currentNode.getValue() == 0) return null;
         return currentNode;
     }
 
@@ -134,6 +143,7 @@ public class Trie implements ITrie {
                     acceptedWords.add(sbCopy.toString());//Add to set of accepted one-edit distance words
                 }
             }
+            rejectedWords.add(sbCopy.toString());
             sbCopy = new StringBuilder(word);
         }
 //        System.out.println(acceptedWords.toString());
@@ -158,6 +168,7 @@ public class Trie implements ITrie {
                     acceptedWords.add(transposed.toString());//Add to set of accepted one-edit distance words
                 }
             }
+            rejectedWords.add(sbCopy.toString());
         }
     }
 
@@ -179,6 +190,7 @@ public class Trie implements ITrie {
                         acceptedWords.add(sbCopy.toString());//Add to set of accepted one-edit distance words
                     }
                 }
+                rejectedWords.add(sbCopy.toString());
                 sbCopy = new StringBuilder(word);
             }
         }
@@ -187,7 +199,7 @@ public class Trie implements ITrie {
     private void insertionChecker(String wordIn) {
         String word = wordIn.toLowerCase();
         StringBuilder sbCopy = new StringBuilder(word);
-        for(int i = 0; i < word.length(); i++) {
+        for(int i = 0; i <= word.length(); i++) {
             for (int j = 0; j < NUMBER_OF_CHILDREN; j++) {
                 char charToInsert = (char) (j + 'a');
                 sbCopy.insert(i, charToInsert);
@@ -200,6 +212,7 @@ public class Trie implements ITrie {
                         acceptedWords.add(sbCopy.toString());//Add to set of accepted one-edit distance words
                     }
                 }
+                rejectedWords.add(sbCopy.toString());
                 sbCopy = new StringBuilder(word);
             }
         }
@@ -221,9 +234,17 @@ public class Trie implements ITrie {
     }
 
     public void findWordsAtOneEditDistance(String word){
-        if(find(word) != null){
-            bestWord = word;
-            return;
+    	
+    	acceptedWords.clear();
+    	rejectedWords.clear();
+    	
+    	INode wordNode = find(word);
+        if(wordNode != null){
+        	if(wordNode.getValue() != 0){
+//	        	System.out.println("Word is in dictionary with frequency " + wordNode.getValue());
+	            bestWord = word;
+	            return;
+        	}
         }
         deletionChecker(word);
         transpositionChecker(word);
@@ -231,6 +252,18 @@ public class Trie implements ITrie {
         alterationChecker(word);
 
         assignBestWord();
+        
+        if(bestWord == null){
+        	HashSet<String> prevAccepted = new HashSet<String>(rejectedWords);
+        	acceptedWords.clear();
+        	for(String str : prevAccepted){
+                deletionChecker(str);
+                transpositionChecker(str);
+                insertionChecker(str);
+                alterationChecker(str);        		
+        	}
+        	assignBestWord();
+        }
     }
 
      @Override
@@ -245,7 +278,7 @@ public class Trie implements ITrie {
         if (ob.getNodeCount() != this.nodeCount || ob.getWordCount() != this.getWordCount()) {
             return false;
         }
-        if (!this.root.equals(ob.root())) {
+        if (!this.rootNode.equals(ob.rootNode)) {
             return false;
         }
         return true;
@@ -260,7 +293,11 @@ public class Trie implements ITrie {
 
     public class Node implements INode{
         Node[] children = new Node[NUMBER_OF_CHILDREN];
-        int frequency = 0;
+        int frequency;
+        
+        public Node(){
+            frequency = 0;
+        }
 
         public Node[] getChildren() {
             return children;

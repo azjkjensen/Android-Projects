@@ -1,4 +1,4 @@
-package spell_corrector;
+package spell;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package spell_corrector;
+package spell;
 
 /**
  * Your trie class should implement the ITrie interface
