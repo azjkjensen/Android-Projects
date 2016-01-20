@@ -59,7 +59,7 @@ public class Trie implements ITrie {
     }
 
     public String toString(){
-        ArrayList<String> sortedDictionary = new ArrayList<String>(dictionaryWords);
+        ArrayList<String> sortedDictionary = new ArrayList<>(dictionaryWords);
         Collections.sort(sortedDictionary);
         StringBuilder sb = new StringBuilder();
         for(Object i : sortedDictionary){
@@ -75,7 +75,6 @@ public class Trie implements ITrie {
     @Override
     public void add(String word) {
         String wordLower = word.toLowerCase();
-        if( wordLower == "t") System.out.println("Adding " + word);
         Node currentNode = rootNode;
         dictionaryWords.add(wordLower);
         for(int i = 0; i < wordLower.length(); i++){
@@ -254,7 +253,7 @@ public class Trie implements ITrie {
         assignBestWord();
         
         if(bestWord == null){
-        	HashSet<String> prevAccepted = new HashSet<String>(rejectedWords);
+        	HashSet<String> prevAccepted = new HashSet<>(rejectedWords);
         	acceptedWords.clear();
         	for(String str : prevAccepted){
                 deletionChecker(str);
@@ -299,10 +298,6 @@ public class Trie implements ITrie {
             frequency = 0;
         }
 
-        public Node[] getChildren() {
-            return children;
-        }
-
         @Override
         public int getValue() {
             return frequency;
@@ -320,10 +315,7 @@ public class Trie implements ITrie {
             if (this.frequency != other.frequency) {
                 return false;
             }
-            if (!Arrays.deepEquals(this.children, other.children)) {
-                return false;
-            }
-            return true;
+            return Arrays.deepEquals(this.children, other.children);
         }
     }
 }
