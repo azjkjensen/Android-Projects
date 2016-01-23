@@ -1,9 +1,7 @@
 package hangman;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Scanner;
-import java.util.Set;
 import java.util.TreeSet;
 
 /**
@@ -24,7 +22,7 @@ public class Main {
             Scanner inputReader = new Scanner(System.in);
             for(int i = numberOfGuesses;i > 0; i--){
                 System.out.println("You have " + i + " guesses left");
-                String read = "";
+                String read;
                 while(true) {
                     System.out.print("Enter guess: ");
                     read = inputReader.next();

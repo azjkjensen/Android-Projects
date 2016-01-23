@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.*;
-import java.util.stream.Collector;
 
 /**
  * Created by Jordan on 1/22/2016.
@@ -125,7 +124,7 @@ public class EvilHangmanGame implements IEvilHangmanGame {
                     }
                 }
 
-                if(bestKey == ""){
+                if(bestKey.equals("")){
                     System.out.println("No best key found");
                 }
             }
@@ -173,8 +172,7 @@ public class EvilHangmanGame implements IEvilHangmanGame {
     }
 
     private boolean guessMade(char guess){
-        if(guessed.contains(Character.toString(guess))) return true;
-        else return false;
+        return guessed.contains(Character.toString(guess));
     }
 
     public boolean gameWin(){
