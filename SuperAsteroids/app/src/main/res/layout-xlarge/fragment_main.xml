@@ -1,0 +1,45 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edu.byu.cs.superasteroids.main_menu.MainActivity$PlaceholderFragment">
+
+    <ImageView android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/mainscreen"
+        android:scaleType="fitXY"/>
+
+    <Button android:id="@+id/start_button"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:text="Start Game"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        android:onClick="startGame"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="250dp" />
+
+    <Button android:id="@+id/quick_play_button"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:text="Quick Play"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        android:onClick="quickPlay"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="150dp" />
+
+    <Button android:id="@+id/import_button"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:text="Import Data"
+        android:textColor="#ffffff"
+        android:textSize="24sp"
+        android:onClick="importData"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp" />
+
+</RelativeLayout>

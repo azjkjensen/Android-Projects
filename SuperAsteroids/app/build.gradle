@@ -1,0 +1,90 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion = "Amazon.com:Amazon Fire Tablet SDK Addon:19"
+    compileSdkVersion 19
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        applicationId "edu.byu.cs.superasteroids"
+        minSdkVersion 13
+        targetSdkVersion 19
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+}
+
+dependencies {
+    compile 'com.android.support:support-v4:19.1.0'
+    compile 'com.android.support:appcompat-v7:19.1.0'
+    compile files('libs/json-simple-1.1.1.jar')
+    testCompile 'junit:junit:4.12'
+}
+
+
+task uninstallDemo(type:Exec)  {
+
+    if (System.properties['os.name'].toLowerCase().contains('windows')) {
+        commandLine 'adb', 'shell', 'pm', 'uninstall', 'edu.byu.cs.superasteroids'
+    } else {
+        commandLine 'adb shell pm uninstall edu.byu.cs.superasteroids'
+    }
+
+    standardOutput = new ByteArrayOutputStream()
+
+    ext.output = {
+        return standardOutput.toString()
+    }
+
+    println ext.output.toString()
+}
+
+
+task installDemo(dependsOn:uninstallDemo, type:Exec)  {
+
+    if (System.properties['os.name'].toLowerCase().contains('windows')) {
+        commandLine 'adb', 'install', 'demo.apk'
+    } else {
+        commandLine 'adb install demo.apk'
+    }
+
+    standardOutput = new ByteArrayOutputStream()
+
+    ext.output = {
+        return standardOutput.toString()
+    }
+
+    println ext.output.toString()
+}
+
+
+task runDemo(dependsOn:installDemo, type:Exec)  {
+
+    if (System.properties['os.name'].toLowerCase().contains('windows')) {
+        commandLine 'adb', 'shell', 'am', 'start', '-n', 'edu.byu.cs.superasteroids/.main_menu.MainActivity'
+    } else {
+        commandLine 'adb shell am start -n edu.byu.cs.superasteroids/.main_menu.MainActivity'
+    }
+
+    standardOutput = new ByteArrayOutputStream()
+
+    ext.output = {
+        return standardOutput.toString()
+    }
+
+    println ext.output.toString()
+
+}
+
+task demo(dependsOn:runDemo) << {
+    println "Installing and running demo..."
+}
