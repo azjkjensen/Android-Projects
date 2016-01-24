@@ -51,7 +51,7 @@ public class EvilHangmanGame implements IEvilHangmanGame {
             while(scanner.hasNext()){
                 String current = scanner.next();
                 if(current.matches("[a-zA-Z]+")) {
-                    words.add(scanner.next()); //Read all words into set.
+                    words.add(current); //Read all words into set.
                 }
             }
         }
@@ -72,7 +72,7 @@ public class EvilHangmanGame implements IEvilHangmanGame {
     private String key(String word, char currChar){
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < word.length(); i++){
-            char ch = word.charAt(i);
+            char ch = word.toLowerCase().charAt(i);
             if(ch == currChar) sb.append(currChar);
             else sb.append("-");
         }

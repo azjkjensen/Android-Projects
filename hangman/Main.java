@@ -28,7 +28,7 @@ public class Main {
                     read = inputReader.next();
                     if(read.matches("[a-zA-Z]")) break;
                 }
-                char guessedChar = read.charAt(0);
+                char guessedChar = read.toLowerCase().charAt(0);
                 try {
                     hangman.makeGuess(guessedChar);
                     TreeSet<String> guessedChars = hangman.getGuessed();
