@@ -108,19 +108,19 @@ public class EvilHangmanGame implements IEvilHangmanGame {
                 if(containsNoGuesses(currentKey)) {
                     bestKey = currentKey;
                     bestSet = currSet;
-                    break;
+                    continue;
                 }
 
                 if(getNumberOfGuessedLetters(currentKey) < getNumberOfGuessedLetters(bestKey)){
                     bestKey = currentKey;
                     bestSet = currSet;
-                    break;
+                    continue;
                 }
                 if(!containsNoGuesses(bestKey)) {
                     if (rightMostIndexCompare(currentKey, bestKey)) {
                         bestKey = currentKey;
                         bestSet = currSet;
-                        break;
+                        continue;
                     }
                 }
 
