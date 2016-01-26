@@ -12,15 +12,6 @@ import java.util.Scanner;
  *
  */
 public class SpellCorrector implements ISpellCorrector{
-
-//	@SuppressWarnings("serial")
-//	public static class NoSimilarWordFoundException extends Exception {
-//		public NoSimilarWordFoundException(){}
-//		
-//		public NoSimilarWordFoundException(String message){
-//			super(message);
-//		}
-//	}
 	
     Trie dictionary = new Trie();
 

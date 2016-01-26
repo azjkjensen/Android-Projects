@@ -31,16 +31,16 @@ public class EvilHangmanGame implements IEvilHangmanGame {
     @Override
     public void startGame(File dictionary, int wordLength) {
         guessed = new TreeSet<>();
+        HashSet<String> partitionedWords = new HashSet<>(); //Set for only words of length wordLength
         createPartialWord(wordLength);
         readDictionary(dictionary); //Read in word file for use as current dictionary
-        HashSet<String> partitionedWords = new HashSet<>(); //Set for only words of length wordLength
         for(String str : words){
             if(str.length() == wordLength){
                 partitionedWords.add(str);
             }
         }
         words = partitionedWords;
-        System.out.println(partitionedWords.toString());
+//        System.out.println(partitionedWords.toString());
     }
 
     private void readDictionary(File dictionary){
@@ -85,13 +85,14 @@ public class EvilHangmanGame implements IEvilHangmanGame {
         if(guessMade(guess)) throw new GuessAlreadyMadeException();
         partitions.clear();
         guessed.add(Character.toString(guess));
+//        System.out.println(words.toString());
         for(String currWord : words){
             String currentKey = key(currWord, guess);
             if(partitions.containsKey(currentKey)){
-                partitions.get(currentKey).add(currWord);
+                partitions.get(currentKey).add(currWord.toLowerCase());
             } else {
                 HashSet<String> newSet = new HashSet<>();
-                newSet.add(currWord);
+                newSet.add(currWord.toLowerCase());
                 partitions.put(currentKey, newSet);
             }
         }
@@ -108,20 +109,23 @@ public class EvilHangmanGame implements IEvilHangmanGame {
                 if(containsNoGuesses(currentKey)) {
                     bestKey = currentKey;
                     bestSet = currSet;
-                    break;
+                    continue;
                 }
 
                 if(getNumberOfGuessedLetters(currentKey) < getNumberOfGuessedLetters(bestKey)){
                     bestKey = currentKey;
                     bestSet = currSet;
-                    break;
+                    continue;
                 }
-                if(!containsNoGuesses(bestKey)) {
-                    if (rightMostIndexCompare(currentKey, bestKey)) {
-                        bestKey = currentKey;
-                        bestSet = currSet;
-                        break;
-                    }
+                else if (getNumberOfGuessedLetters(currentKey) == getNumberOfGuessedLetters(bestKey)){
+	                if(!containsNoGuesses(bestKey)) {
+	//                	System.out.println("Comparing " + currentKey + " and " + bestKey);
+	                    if (rightMostIndexCompare(currentKey, bestKey)) {
+	                        bestKey = currentKey;
+	                        bestSet = currSet;
+	                        continue;
+	                    }
+	                }
                 }
 
                 if(bestKey.equals("")){
@@ -159,16 +163,25 @@ public class EvilHangmanGame implements IEvilHangmanGame {
     }
 
     private boolean rightMostIndexCompare(String word1, String word2){
-        int index1 = 0;
-        int index2 = 0;
-        for(int i = 0; i < word1.length(); i++){
-            if(word1.charAt(i) != '-') index1 = i;
-            if(word2.charAt(i) != '-') index2 = i;
+//    	System.out.println("Comparing " + word1 + " and " + word2);
+        int index1 = word1.length() - 1;
+        int index2 = word2.length() - 1;
+        for(int i = word1.length() - 1; i >= 0; i--){
+            if(word1.charAt(i) != '-'){
+            	index1 = i;
+            	break;
+            }
         }
-        if(index1 == index2) {
+        for(int j = word2.length() - 1; j >= 0; j--){
+            if(word2.charAt(j) != '-'){
+            	index2 = j;
+            	break;
+            }
+        }
+        if(index1 == index2 && index1 != 0 && index2 != 0) {
             return rightMostIndexCompare(word1.substring(0, index1), word2.substring(0, index2));
         }
-        return index1 < index2;
+        return index1 > index2;
     }
 
     private boolean guessMade(char guess){
