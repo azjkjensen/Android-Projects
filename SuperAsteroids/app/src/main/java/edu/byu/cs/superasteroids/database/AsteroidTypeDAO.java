@@ -30,7 +30,11 @@ public class AsteroidTypeDAO {
         db = database;
     }
 
-    public void addItem(){
+    /**
+     * Takes <code>asteroid</code> and inserts it into the proper table
+     * @param asteroid
+     */
+    public void addItem(AsteroidType asteroid){
 
     }
 
@@ -43,7 +47,6 @@ public class AsteroidTypeDAO {
     }
 
 
-//    AsteroidType asteroid
 
 //    public boolean addAsteroidType(Book book) {
 //        ContentValues values = new ContentValues();
