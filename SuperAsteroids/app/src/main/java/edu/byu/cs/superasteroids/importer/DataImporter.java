@@ -2,6 +2,9 @@ package edu.byu.cs.superasteroids.importer;
 
 import java.io.InputStreamReader;
 
+import edu.byu.cs.superasteroids.database.AsteroidTypeDAO;
+import edu.byu.cs.superasteroids.main_menu.MainActivity;
+
 /**
  * Created by Jk on 2/12/2016.
  */
@@ -16,6 +19,8 @@ public class DataImporter implements  IGameDataImporter {
      */
     @Override
     public boolean importData(InputStreamReader dataInputReader) {
+        AsteroidTypeDAO asteroidTypeDAO = new AsteroidTypeDAO(MainActivity.db);
+//        asteroidTypeDAO.
         return false;
     }
 }

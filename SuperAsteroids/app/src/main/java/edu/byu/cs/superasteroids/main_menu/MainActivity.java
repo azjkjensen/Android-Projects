@@ -20,6 +20,9 @@ import edu.byu.cs.superasteroids.ship_builder.ShipBuildingActivity;
 
 public class MainActivity extends ActionBarActivityView implements IMainMenuView {
 
+    //TODO: Not sure if this is right
+    public static SQLiteDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +40,7 @@ public class MainActivity extends ActionBarActivityView implements IMainMenuView
 
 
         //TODO: Initialize your database
-        SQLiteDatabase db = new DbOpenHelper(this).getWritableDatabase();
+        db = new DbOpenHelper(this).getWritableDatabase();
 
         ContentManager.getInstance().setResources(getResources());
 

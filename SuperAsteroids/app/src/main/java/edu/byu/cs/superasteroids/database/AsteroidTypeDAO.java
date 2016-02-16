@@ -42,7 +42,7 @@ public class AsteroidTypeDAO {
         values.put("image", asteroid.getViewableInfo().getImage());
         values.put("image_height", asteroid.getViewableInfo().getImageHeight());
         values.put("image_width", asteroid.getViewableInfo().getImageWidth());
-        db.insert("asteroid_type", null, values);
+        db.insert("asteroidTypes", null, values);
     }
 
     /**
@@ -51,11 +51,11 @@ public class AsteroidTypeDAO {
      */
     public Set<AsteroidType> getByID(int id){
         final String SQLGet = "SELECT NAME, TYPE, IMAGE, IMAGE_HEIGHT," +
-                "IMAGE_WIDTH FROM ASTEROID_TYPE WHERE ID = " + id;
+                "IMAGE_WIDTH FROM asteroidTypes WHERE ID = " + Integer.toString(id);
 
         Set<AsteroidType> result = new HashSet<>();
 
-        Cursor cursor = db.rawQuery(SQLGet, new String[]{id});
+        Cursor cursor = db.rawQuery(SQLGet, new String[]{Integer.toString(id)});
         try {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
@@ -132,4 +132,4 @@ public class AsteroidTypeDAO {
 //
 //        return result;
 //    }
-}
+//}
