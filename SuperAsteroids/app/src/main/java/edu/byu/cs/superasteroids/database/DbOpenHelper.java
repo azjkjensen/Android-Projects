@@ -23,7 +23,7 @@ public class DbOpenHelper extends SQLiteOpenHelper {
      */
     public void onCreate(SQLiteDatabase db) {
 
-        final String SQL =
+        final String CREATE_ASTEROID_TYPE =
                 "create table book " +
                         "(" +
                         "   id integer not null primary key autoincrement," +
@@ -33,7 +33,7 @@ public class DbOpenHelper extends SQLiteOpenHelper {
                         "   constraint ck_genre check (genre in ('Unspecified', 'Fiction', 'NonFiction', 'HistoricalFiction'))" +
                         ")";
 
-        db.execSQL(SQL);
+        db.execSQL(CREATE_ASTEROID_TYPE);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

@@ -1,6 +1,7 @@
 package edu.byu.cs.superasteroids.main_menu;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import edu.byu.cs.superasteroids.R;
 import edu.byu.cs.superasteroids.base.ActionBarActivityView;
 import edu.byu.cs.superasteroids.content.ContentManager;
+import edu.byu.cs.superasteroids.database.DbOpenHelper;
 import edu.byu.cs.superasteroids.game.GameActivity;
 import edu.byu.cs.superasteroids.importer.ImportActivity;
 import edu.byu.cs.superasteroids.ship_builder.ShipBuildingActivity;
@@ -35,7 +37,7 @@ public class MainActivity extends ActionBarActivityView implements IMainMenuView
 
 
         //TODO: Initialize your database
- 
+        SQLiteDatabase db = new DbOpenHelper(this).getWritableDatabase();
 
         ContentManager.getInstance().setResources(getResources());
 

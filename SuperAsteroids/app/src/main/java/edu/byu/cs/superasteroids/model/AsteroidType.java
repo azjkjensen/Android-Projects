@@ -11,6 +11,8 @@ public class AsteroidType {
     String mType;
     /**The image information for the asteroid image. */
     ViewableObject mViewableInfo;
+    /**The id associated with this item in the database */
+    int mID;
 
     /**
     * Default Constructor
@@ -24,10 +26,19 @@ public class AsteroidType {
      * @param type
      * @param viewableInfo
      */
-    public AsteroidType(String name, String type, ViewableObject viewableInfo) {
+    public AsteroidType(String name, String type, ViewableObject viewableInfo, int id) {
         mName = name;
         mType = type;
         mViewableInfo = viewableInfo;
+        mID = id;
+    }
+
+    public int getID() {
+        return mID;
+    }
+
+    public void setID(int ID) {
+        mID = ID;
     }
 
     public String getName() {

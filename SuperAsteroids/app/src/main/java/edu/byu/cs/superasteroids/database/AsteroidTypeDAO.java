@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import edu.byu.cs.superasteroids.model.AsteroidType;
+import edu.byu.cs.superasteroids.model.ViewableObject;
 
 /**
  * Created by Jk on 2/12/2016.\n
@@ -35,15 +36,52 @@ public class AsteroidTypeDAO {
      * @param asteroid
      */
     public void addItem(AsteroidType asteroid){
-
+        ContentValues values = new ContentValues();
+        values.put("name", asteroid.getName());
+        values.put("type", asteroid.getType());
+        values.put("image", asteroid.getViewableInfo().getImage());
+        values.put("image_height", asteroid.getViewableInfo().getImageHeight());
+        values.put("image_width", asteroid.getViewableInfo().getImageWidth());
+        db.insert("asteroid_type", null, values);
     }
 
     /**
      * Finds the item in the database by id.
      * @param id
      */
-    public void getByID(int id){
+    public Set<AsteroidType> getByID(int id){
+        final String SQLGet = "SELECT NAME, TYPE, IMAGE, IMAGE_HEIGHT," +
+                "IMAGE_WIDTH FROM ASTEROID_TYPE WHERE ID = " + id;
 
+        Set<AsteroidType> result = new HashSet<>();
+
+        Cursor cursor = db.rawQuery(SQLGet, new String[]{id});
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                AsteroidType asteroidType = new AsteroidType();
+
+                asteroidType.setID(cursor.getInt(0));
+                asteroidType.setName(cursor.getString(1));
+                asteroidType.setType(cursor.getString(2));
+                asteroidType.setViewableInfo(
+                        new ViewableObject(
+                            cursor.getString(3),
+                            cursor.getInt(4),
+                            cursor.getInt(5)
+                ));
+
+                result.add(asteroidType);
+
+                cursor.moveToNext();
+            }
+        }
+        finally {
+            cursor.close();
+        }
+
+        return result;
+    }
     }
 
 
