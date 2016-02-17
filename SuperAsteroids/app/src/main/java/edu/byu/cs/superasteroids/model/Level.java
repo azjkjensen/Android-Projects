@@ -18,7 +18,7 @@ public class Level {
     /**Filepath to the music file for the level */
     String mMusic;
     /**An array of images associated with the level */
-    LevelObject[] mLevelObjects;
+    BackgroundImage[] mBackgroundImages;
     /**An arrray of the asteroids in the level */
     AsteroidType[] mLevelAsteroids;
 
@@ -27,14 +27,14 @@ public class Level {
 
     public Level(int number, int width, int height,
                  String title, String hint, String music,
-                 LevelObject[] levelObjects, AsteroidType[] levelAsteroids) {
+                 BackgroundImage[] backgroundImages, AsteroidType[] levelAsteroids) {
         mNumber = number;
         mWidth = width;
         mHeight = height;
         mTitle = title;
         mHint = hint;
         mMusic = music;
-        mLevelObjects = levelObjects;
+        mBackgroundImages = backgroundImages;
         mLevelAsteroids = levelAsteroids;
     }
 
@@ -86,12 +86,12 @@ public class Level {
         mMusic = music;
     }
 
-    public LevelObject[] getLevelObjects() {
-        return mLevelObjects;
+    public BackgroundImage[] getBackgroundImages() {
+        return mBackgroundImages;
     }
 
-    public void setLevelObjects(LevelObject[] levelObjects) {
-        mLevelObjects = levelObjects;
+    public void setBackgroundImages(BackgroundImage[] backgroundImages) {
+        mBackgroundImages = backgroundImages;
     }
 
     public AsteroidType[] getLevelAsteroids() {

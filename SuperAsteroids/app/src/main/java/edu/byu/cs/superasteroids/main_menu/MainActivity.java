@@ -20,7 +20,7 @@ import edu.byu.cs.superasteroids.ship_builder.ShipBuildingActivity;
 
 public class MainActivity extends ActionBarActivityView implements IMainMenuView {
 
-    //TODO: Not sure if this is right
+    //TODO: Not sure if this is right, verify with the TA's that this should be public or global or how the data importer is to use it.
     public static SQLiteDatabase db;
 
     @Override

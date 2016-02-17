@@ -4,7 +4,7 @@ package edu.byu.cs.superasteroids.model;
  * Created by Jordan on 2/12/2016.
  * This class stores the information for displaying a given image on a level.
  */
-public class LevelObject {
+public class BackgroundImage {
     /**The x/y position of the image object in the level */
     Coordinate mPosition;
     /**The image path to the image file for this object */
@@ -12,10 +12,10 @@ public class LevelObject {
     /**A scalar multiple to scale the image by */
     float mScale;
 
-    public LevelObject() {
+    public BackgroundImage() {
     }
 
-    public LevelObject(Coordinate position, String imagePath, float scale) {
+    public BackgroundImage(Coordinate position, String imagePath, float scale) {
         mPosition = position;
         mImagePath = imagePath;
         mScale = scale;

@@ -2,6 +2,9 @@ package edu.byu.cs.superasteroids.database;
 
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import edu.byu.cs.superasteroids.model.ExtraPart;
 
 /**
@@ -39,6 +42,14 @@ public class ExtraPartDAO {
      */
     public void getByID(int id){
 
+    }
+
+    /**
+     * Returns a set of all Extra Parts from the database
+     * @return
+     */
+    public Set<ExtraPart> getAll(){
+        return new HashSet<>();
     }
 }
 

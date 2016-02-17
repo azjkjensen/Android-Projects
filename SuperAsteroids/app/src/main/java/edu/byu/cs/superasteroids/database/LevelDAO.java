@@ -2,6 +2,9 @@ package edu.byu.cs.superasteroids.database;
 
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import edu.byu.cs.superasteroids.model.Level;
 
 /**
@@ -38,5 +41,13 @@ public class LevelDAO {
      */
     public void getByID(int id){
 
+    }
+
+    /**
+     * Returns a set of all Levels from the database
+     * @return
+     */
+    public Set<Level> getAll(){
+        return new HashSet<>();
     }
 }

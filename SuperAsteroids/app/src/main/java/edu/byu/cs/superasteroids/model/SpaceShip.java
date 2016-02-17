@@ -37,6 +37,21 @@ public class SpaceShip {
     }
 
     /**
+     * Shoot a laser in the direction that the ship is facing.
+     */
+    public void shoot(){
+
+    }
+
+    /**
+     * Rotates the ship toward the direction parameter.
+     * @param direction that the ship should rotate toward
+     */
+    public void rotate(int direction){
+
+    }
+
+    /**
      * Draws the image associated with this object
      */
     public void draw(){

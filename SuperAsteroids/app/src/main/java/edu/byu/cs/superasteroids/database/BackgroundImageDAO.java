@@ -2,18 +2,21 @@ package edu.byu.cs.superasteroids.database;
 
 import android.database.sqlite.SQLiteDatabase;
 
-import edu.byu.cs.superasteroids.model.LevelObject;
+import java.util.HashSet;
+import java.util.Set;
+
+import edu.byu.cs.superasteroids.model.BackgroundImage;
 
 /**
  * Created by Jk on 2/12/2016.\n
  * This is our database access object class. It is used to let the model interface with the
  * database.
  */
-public class LevelObjectDAO {
+public class BackgroundImageDAO {
 
     private SQLiteDatabase db;
 
-    public LevelObjectDAO(SQLiteDatabase db) {
+    public BackgroundImageDAO(SQLiteDatabase db) {
         this.db = db;
     }
 
@@ -26,10 +29,10 @@ public class LevelObjectDAO {
     }
 
     /**
-     * Takes <code>levelObject</code> and inserts it into the proper table
-     * @param levelObject
+     * Takes <code>backgroundImage</code> and inserts it into the proper table
+     * @param backgroundImage
      */
-    public void addItem(LevelObject levelObject){
+    public void addItem(BackgroundImage backgroundImage){
 
     }
 
@@ -39,5 +42,13 @@ public class LevelObjectDAO {
      */
     public void getByID(int id){
 
+    }
+
+    /**
+     * Returns a set of all background images from the database
+     * @return
+     */
+    public Set<BackgroundImage> getAll(){
+        return new HashSet<>();
     }
 }

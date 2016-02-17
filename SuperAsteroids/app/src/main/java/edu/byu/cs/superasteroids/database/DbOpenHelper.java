@@ -115,8 +115,10 @@ public class DbOpenHelper extends SQLiteOpenHelper {
                     "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "cannonBoost INTEGER NOT NULL," +
                     "engineBoost INTEGER NOT NULL," +
-                    "image INTEGER NOT NULL" +
+                    "image TEXT NOT NULL" +
                 ")";
+
+        //TODO: add drop table if exists statements?
 
         db.execSQL(CREATE_OBJECTS);
         db.execSQL(CREATE_ASTEROID_TYPES);
@@ -128,7 +130,6 @@ public class DbOpenHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_EXTRA_PARTS);
         db.execSQL(CREATE_ENGINES);
         db.execSQL(CREATE_POWER_CORES);
-
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

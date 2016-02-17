@@ -2,6 +2,9 @@ package edu.byu.cs.superasteroids.database;
 
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import edu.byu.cs.superasteroids.model.MainBody;
 
 /**
@@ -39,5 +42,13 @@ public class MainBodyDAO {
      */
     public void getByID(int id){
 
+    }
+
+    /**
+     * Returns a set of all Main Bodies from the database
+     * @return
+     */
+    public Set<MainBody> getAll(){
+        return new HashSet<>();
     }
 }

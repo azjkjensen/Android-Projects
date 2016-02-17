@@ -2,6 +2,9 @@ package edu.byu.cs.superasteroids.database;
 
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import edu.byu.cs.superasteroids.model.PowerCore;
 
 /**
@@ -39,5 +42,13 @@ public class PowerCoreDAO {
      */
     public void getByID(int id){
 
+    }
+
+    /**
+     * Returns a set of all Power Cores from the database
+     * @return
+     */
+    public Set<PowerCore> getAll(){
+        return new HashSet<>();
     }
 }

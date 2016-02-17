@@ -11,6 +11,12 @@ public class AsteroidType {
     String mType;
     /**The image information for the asteroid image. */
     ViewableObject mViewableInfo;
+    /** The direction the Asteroid is moving */
+    int mDirection;
+    /**The speed of the Asteroid, in pixels/second */
+    int mSpeed;
+    /**The number of hitpoints remaining on the Asteroid */
+    int mHitPoints;
     /**The id associated with this item in the database */
     int mID;
 
@@ -63,6 +69,55 @@ public class AsteroidType {
 
     public void setViewableInfo(ViewableObject viewableInfo) {
         mViewableInfo = viewableInfo;
+    }
+
+    public int getDirection() {
+        return mDirection;
+    }
+
+    public void setDirection(int direction) {
+        mDirection = direction;
+    }
+
+    public int getSpeed() {
+        return mSpeed;
+    }
+
+    public void setSpeed(int speed) {
+        mSpeed = speed;
+    }
+
+    public int getHitPoints() {
+        return mHitPoints;
+    }
+
+    public void setHitPoints(int hitPoints) {
+        mHitPoints = hitPoints;
+    }
+
+    /**
+     * Accounts for when the asteroid takes a hit.
+     */
+    public void takeHit(){
+        mHitPoints--;
+    }
+
+    /**
+     * @return Whether the asteroid is ready to split or not.
+     */
+    public boolean shouldSplit(){
+        return false;
+    }
+
+    /**
+     *
+     * @return whether the asteroid has been shot enough to explode.
+     */
+    public boolean shouldExplode(){
+        if(mHitPoints == 0) {
+            return true;
+        }
+        else return false;
     }
 
     /**
