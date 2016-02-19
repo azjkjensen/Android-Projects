@@ -1,5 +1,6 @@
 package edu.byu.cs.superasteroids.model;
 
+//TODO: add model class with populate()
 /**
  * Created by Jk on 2/12/2016.
  * This class contains each asteroid type available to the game to use.
