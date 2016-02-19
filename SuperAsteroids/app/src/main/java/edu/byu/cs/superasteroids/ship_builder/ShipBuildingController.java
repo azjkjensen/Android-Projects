@@ -73,4 +73,7 @@ public class ShipBuildingController
     public void onResume() {
         //Not necessary for our implementation?
     }
+
+    SetArrow(ViewDirection viewDirection, Boolean visible, String text){
+    }
 }
