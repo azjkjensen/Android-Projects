@@ -23,6 +23,49 @@ public class DbOpenHelper extends SQLiteOpenHelper {
      */
     public void onCreate(SQLiteDatabase db) {
 
+
+        final String DROP_OBJECTS =
+                "DROP TABLE IF EXISTS" + " objects;";
+
+        final String DROP_ASTEROID_TYPES =
+                "DROP TABLE IF EXISTS" + " asteroidTypes;";
+
+        final String DROP_LEVELS =
+                "DROP TABLE IF EXISTS" + " levels;";
+
+        final String DROPE_LEVEL_ASTEROIDS =
+                "DROP TABLE IF EXISTS" + " levelAsteroids;";
+
+        final String DROP__LEVEL_OBJECTS =
+                "DROP TABLE IF EXISTS" + " levelObjects;";
+
+        final String DROP_MAIN_BODIES =
+                "DROP TABLE IF EXISTS" + " mainBodies;";
+
+        final String DROP_CANNONS =
+                "DROP TABLE IF EXISTS" + " cannons;";
+
+        final String DROP_EXTRA_PARTS =
+                "DROP TABLE IF EXISTS" + " extraParts;";
+
+        final String DROP_ENGINES =
+                "DROP TABLE IF EXISTS" + " engines;";
+
+        final String DROP_POWER_CORES =
+                "DROP TABLE IF EXISTS" + " powerCores;";
+
+
+        db.execSQL(DROP_OBJECTS);
+        db.execSQL(DROP_ASTEROID_TYPES);
+        db.execSQL(DROP_LEVELS);
+        db.execSQL(DROPE_LEVEL_ASTEROIDS);
+        db.execSQL(DROP__LEVEL_OBJECTS);
+        db.execSQL(DROP_MAIN_BODIES);
+        db.execSQL(DROP_CANNONS);
+        db.execSQL(DROP_EXTRA_PARTS);
+        db.execSQL(DROP_ENGINES);
+        db.execSQL(DROP_POWER_CORES);
+
         final String CREATE_OBJECTS =
                 "CREATE TABLE objects(" +
                         "id INTEGER PRIMARY KEY AUTOINCREMENT," +

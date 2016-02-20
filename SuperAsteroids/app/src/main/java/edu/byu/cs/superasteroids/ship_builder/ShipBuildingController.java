@@ -12,6 +12,10 @@ public class ShipBuildingController
 
     private ShipBuildingActivity mShipBuildingActivity;
 
+    public ShipBuildingController(ShipBuildingActivity shipBuildingActivity){
+        mShipBuildingActivity = shipBuildingActivity;
+    }
+
     @Override
     public IView getView() {
         return null;
@@ -74,6 +78,6 @@ public class ShipBuildingController
         //Not necessary for our implementation?
     }
 
-    SetArrow(ViewDirection viewDirection, Boolean visible, String text){
+    private void SetArrow(IShipBuildingView.ViewDirection viewDirection, Boolean visible, String text){
     }
 }
