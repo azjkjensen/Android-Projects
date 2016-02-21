@@ -2,6 +2,7 @@ package edu.byu.cs.superasteroids.ship_builder;
 
 import edu.byu.cs.superasteroids.base.IView;
 import edu.byu.cs.superasteroids.content.ContentManager;
+import edu.byu.cs.superasteroids.model.AsteroidsGameModel;
 import edu.byu.cs.superasteroids.model.MainBody;
 
 /**
@@ -49,6 +50,7 @@ public class ShipBuildingController
     @Override
     public void loadContent(ContentManager content) {
         //Populate the model, then setPartViewImageList for each part
+        AsteroidsGameModel.getInstance().populate();
 //        mShipBuildingActivity.setPartViewImageList(IShipBuildingView.PartSelectionView.MAIN_BODY,
 //                MainBody.getListOfImageIds());
     }

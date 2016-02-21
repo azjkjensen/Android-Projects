@@ -19,8 +19,16 @@ public class AsteroidTypeDAO {
 
     private SQLiteDatabase db;
 
-    public AsteroidTypeDAO(SQLiteDatabase db) {
-        this.db = db;
+    private static AsteroidTypeDAO instance = null;
+
+    private AsteroidTypeDAO() {
+    }
+
+    public static AsteroidTypeDAO getInstance() {
+        if(instance == null) {
+            instance = new AsteroidTypeDAO();
+        }
+        return instance;
     }
 
     /**
