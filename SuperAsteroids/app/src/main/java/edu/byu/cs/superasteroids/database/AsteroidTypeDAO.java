@@ -3,6 +3,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -48,9 +49,10 @@ public class AsteroidTypeDAO {
         values.put("name", asteroid.getName());
         values.put("type", asteroid.getType());
         values.put("image", asteroid.getViewableInfo().getImage());
-        values.put("image_height", asteroid.getViewableInfo().getImageHeight());
-        values.put("image_width", asteroid.getViewableInfo().getImageWidth());
-        db.insert("asteroidTypes", null, values);
+        values.put("imageHeight", asteroid.getViewableInfo().getImageHeight());
+        values.put("imageWidth", asteroid.getViewableInfo().getImageWidth());
+        long result = db.insert("asteroidTypes", null, values);
+        if(result == -1) Log.i("JsonDomParserExample", "Failed to add Asteroid Type to db.");
     }
 
     /**

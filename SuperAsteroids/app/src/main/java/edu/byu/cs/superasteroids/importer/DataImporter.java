@@ -8,6 +8,11 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import edu.byu.cs.superasteroids.database.AsteroidTypeDAO;
+import edu.byu.cs.superasteroids.database.BackgroundImageDAO;
+import edu.byu.cs.superasteroids.model.AsteroidType;
+import edu.byu.cs.superasteroids.model.ViewableObject;
+
 /**
  * Created by Jk on 2/12/2016.
  */
@@ -22,28 +27,46 @@ public class DataImporter implements  IGameDataImporter {
      */
     @Override
     public boolean importData(InputStreamReader dataInputReader) {
-//        AsteroidTypeDAO asteroidTypeDAO = new AsteroidTypeDAO(MainActivity.db);
-//        asteroidTypeDAO.
-
-
-//        public static void run(Reader reader) throws Exception {
+        //TODO: Make it so that data can't be imported twice (AKA the tables are dropped and recreated)
         try {
             JSONObject rootObj = new JSONObject(makeString(dataInputReader));
-//            rootObj.getJSONObject("asteroidsGame").getJSONArray("Objects");
-            JSONObject gameObject = rootObj.getJSONObject("asteroidsGame");
-            JSONArray backgroundObjectArray = gameObject.getJSONArray("objects");
-            for (int i = 0; i < backgroundObjectArray.length(); ++i) {
-                String  backgroundImagePath = backgroundObjectArray.getString(i);
-//                JSONObject cdObj = elemObj.getJSONObject("CD");
-//
-//                String title = cdObj.getString("TITLE");
-//                String artist = cdObj.getString("ARTIST");
 
-                Log.i("JsonDomParserExample", "Image path:\n");
-                Log.i("JsonDomParserExample", "     " + backgroundImagePath);
+            //The entire game object
+            JSONObject gameObject = rootObj.getJSONObject("asteroidsGame");
+
+            //The array of Asteroid Types
+            JSONArray asteroidTypeArray = gameObject.getJSONArray("asteroids");
+            //Iterate over the Asteroid Types and insert each into the database
+            for(int i = 0; i < asteroidTypeArray.length(); i++){
+                JSONObject currentAsteroid = asteroidTypeArray.getJSONObject(i);
+                String name = currentAsteroid.getString("name");
+                String imagePath = currentAsteroid.getString("image");
+                int imageWidth = currentAsteroid.getInt("imageWidth");
+                int imageHeight = currentAsteroid.getInt("imageHeight");
+                String type = currentAsteroid.getString("type");
+
+//                Log.i("JsonDomParserExample", "name: " + name +
+//                        "\nimage: " + imagePath +
+//                        "\nwidth: " + imageWidth +
+//                        "\nheight: " + imageHeight +
+//                        "\ntype: " + type);
+
+                ViewableObject asteroidViewable = new ViewableObject(imagePath, imageWidth,imageHeight);
+                AsteroidType newAsteroid = new AsteroidType(name, type, asteroidViewable, i + 1);
+                AsteroidTypeDAO.getInstance().addItem(newAsteroid);
+            }
+            //The array of background images
+            JSONArray backgroundObjectArray = gameObject.getJSONArray("objects");
+            //Iterate over the background images and insert each into the database
+            for (int i = 0; i < backgroundObjectArray.length(); i++) {
+                String  backgroundImagePath = backgroundObjectArray.getString(i);
+                BackgroundImageDAO.getInstance().addItem(backgroundImagePath);
+//                Log.i("JsonDomParserExample", "Image path:");
+//                Log.i("JsonDomParserExample", "           " + backgroundImagePath);
             }
         } catch (Exception e) {
             Log.i("JsonDomParserExample", e.getMessage());
+            return false;
         }
         return true;
     }

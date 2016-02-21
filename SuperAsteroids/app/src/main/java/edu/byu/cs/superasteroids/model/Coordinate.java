@@ -33,4 +33,9 @@ public class Coordinate {
     public void setYPos(int YPos) {
         mYPos = YPos;
     }
+
+    @Override
+    public String toString() {
+        return Integer.toString(mXPos) + "," + Integer.toString(mYPos);
+    }
 }

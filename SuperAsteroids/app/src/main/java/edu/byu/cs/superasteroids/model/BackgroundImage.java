@@ -6,23 +6,30 @@ package edu.byu.cs.superasteroids.model;
  */
 public class BackgroundImage {
     /**The x/y position of the image object in the level */
-    Coordinate mPosition;
+    private Coordinate mPosition;
     /**The image path to the image file for this object */
-    String mImagePath;
+    private String mImagePath;
     /**A scalar multiple to scale the image by */
-    float mScale;
+    private float mScale;
+    /** */
+    private int mObjectID;
 
     public BackgroundImage() {
     }
 
-    public BackgroundImage(Coordinate position, String imagePath, float scale) {
+    public BackgroundImage(Coordinate position, String imagePath, float scale, int objectID) {
         mPosition = position;
         mImagePath = imagePath;
         mScale = scale;
+        mObjectID = objectID;
     }
 
     public Coordinate getPosition() {
         return mPosition;
+    }
+
+    public String getPositionString(){
+        return mPosition.toString();
     }
 
     public void setPosition(Coordinate position) {
@@ -43,6 +50,10 @@ public class BackgroundImage {
 
     public void setScale(float scale) {
         mScale = scale;
+    }
+
+    public int getObjectID() {
+        return mObjectID;
     }
 
     /**

@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import edu.byu.cs.superasteroids.R;
 import edu.byu.cs.superasteroids.base.ActionBarActivityView;
 import edu.byu.cs.superasteroids.content.ContentManager;
+import edu.byu.cs.superasteroids.database.AsteroidTypeDAO;
+import edu.byu.cs.superasteroids.database.BackgroundImageDAO;
 import edu.byu.cs.superasteroids.database.DbOpenHelper;
 import edu.byu.cs.superasteroids.game.GameActivity;
 import edu.byu.cs.superasteroids.importer.ImportActivity;
@@ -41,6 +43,9 @@ public class MainActivity extends ActionBarActivityView implements IMainMenuView
 
         //TODO: Initialize your database
         db = new DbOpenHelper(this).getWritableDatabase();
+        AsteroidTypeDAO.getInstance().setDatabase(db);
+        BackgroundImageDAO.getInstance().setDatabase(db);
+
 
         ContentManager.getInstance().setResources(getResources());
 
