@@ -4,12 +4,14 @@ import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.DOMErrorHandler;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 import edu.byu.cs.superasteroids.database.AsteroidTypeDAO;
 import edu.byu.cs.superasteroids.database.BackgroundImageDAO;
+import edu.byu.cs.superasteroids.database.DbOpenHelper;
 import edu.byu.cs.superasteroids.model.AsteroidType;
 import edu.byu.cs.superasteroids.model.ViewableObject;
 
@@ -27,7 +29,8 @@ public class DataImporter implements  IGameDataImporter {
      */
     @Override
     public boolean importData(InputStreamReader dataInputReader) {
-        //TODO: Make it so that data can't be imported twice (AKA the tables are dropped and recreated)
+        //Call onCreate() on our DBopenHelper to reset the database and drop all tables
+        DbOpenHelper.getInstance(null).onCreate(DbOpenHelper.getInstance(null).getWritableDatabase());
         try {
             JSONObject rootObj = new JSONObject(makeString(dataInputReader));
 

@@ -13,8 +13,17 @@ public class DbOpenHelper extends SQLiteOpenHelper {
     /**The version of the database */
     private static final int DB_VERSION = 1;
 
-    public DbOpenHelper(Context context) {
+    private static DbOpenHelper instance;
+
+    private DbOpenHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
+    }
+
+    public static DbOpenHelper getInstance(Context context){
+        if(instance == null){
+            instance =  new DbOpenHelper(context);
+        }
+        return instance;
     }
 
     /**

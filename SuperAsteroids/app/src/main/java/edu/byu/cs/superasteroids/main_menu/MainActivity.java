@@ -42,7 +42,7 @@ public class MainActivity extends ActionBarActivityView implements IMainMenuView
 
 
         //TODO: Initialize your database
-        db = new DbOpenHelper(this).getWritableDatabase();
+        db = DbOpenHelper.getInstance(this).getWritableDatabase();
         AsteroidTypeDAO.getInstance().setDatabase(db);
         BackgroundImageDAO.getInstance().setDatabase(db);
 
