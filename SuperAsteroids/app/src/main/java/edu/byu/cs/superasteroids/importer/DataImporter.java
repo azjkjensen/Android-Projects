@@ -1,9 +1,12 @@
 package edu.byu.cs.superasteroids.importer;
 
-import java.io.InputStreamReader;
+import android.util.Log;
 
-import edu.byu.cs.superasteroids.database.AsteroidTypeDAO;
-import edu.byu.cs.superasteroids.main_menu.MainActivity;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * Created by Jk on 2/12/2016.
@@ -19,8 +22,42 @@ public class DataImporter implements  IGameDataImporter {
      */
     @Override
     public boolean importData(InputStreamReader dataInputReader) {
-        AsteroidTypeDAO asteroidTypeDAO = new AsteroidTypeDAO(MainActivity.db);
+//        AsteroidTypeDAO asteroidTypeDAO = new AsteroidTypeDAO(MainActivity.db);
 //        asteroidTypeDAO.
-        return false;
+
+
+//        public static void run(Reader reader) throws Exception {
+        try {
+            JSONObject rootObj = new JSONObject(makeString(dataInputReader));
+//            rootObj.getJSONObject("asteroidsGame").getJSONArray("Objects");
+            JSONObject gameObject = rootObj.getJSONObject("asteroidsGame");
+            JSONArray backgroundObjectArray = gameObject.getJSONArray("objects");
+            for (int i = 0; i < backgroundObjectArray.length(); ++i) {
+                String  backgroundImagePath = backgroundObjectArray.getString(i);
+//                JSONObject cdObj = elemObj.getJSONObject("CD");
+//
+//                String title = cdObj.getString("TITLE");
+//                String artist = cdObj.getString("ARTIST");
+
+                Log.i("JsonDomParserExample", "Image path:\n");
+                Log.i("JsonDomParserExample", "     " + backgroundImagePath);
+            }
+        } catch (Exception e) {
+            Log.i("JsonDomParserExample", e.getMessage());
+        }
+        return true;
     }
+
+        private static String makeString(InputStreamReader reader) throws IOException {
+
+            StringBuilder sb = new StringBuilder();
+            char[] buf = new char[512];
+
+            int n = 0;
+            while ((n = reader.read(buf)) > 0) {
+                sb.append(buf, 0, n);
+            }
+
+            return sb.toString();
+        }
 }
