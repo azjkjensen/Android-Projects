@@ -1,6 +1,8 @@
 package edu.byu.cs.superasteroids.database;
 
+import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,8 +18,15 @@ public class ExtraPartDAO {
 
     private SQLiteDatabase db;
 
-    public ExtraPartDAO(SQLiteDatabase db) {
-        this.db = db;
+    private static ExtraPartDAO instance = null;
+
+    public ExtraPartDAO() {}
+
+    public static ExtraPartDAO getInstance() {
+        if(instance == null) {
+            instance = new ExtraPartDAO();
+        }
+        return instance;
     }
 
     /**
@@ -32,8 +41,15 @@ public class ExtraPartDAO {
      * Takes <code>extraPart</code> and inserts it into the proper table
      * @param extraPart
      */
-    public void addItem(ExtraPart extraPart){
-
+    public void addExtraPart(ExtraPart extraPart){
+        ContentValues values = new ContentValues();
+        values.put("attachPoint", extraPart.getAttachPoint().toString());
+        values.put("image", extraPart.getViewableInfo().getImage());
+        values.put("imageWidth", extraPart.getViewableInfo().getImageWidth());
+        values.put("imageHeight", extraPart.getViewableInfo().getImageHeight());
+        long result = db.insert("extraParts", null, values);
+//        if(result == -1) Log.i("JsonDomParserExample", "Failed to add extraPart to db.");
+//        else Log.i("JsonDomParserExample", "Successfully added extraPart to db");
     }
 
     /**

@@ -1,6 +1,8 @@
 package edu.byu.cs.superasteroids.database;
 
+import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,10 +18,16 @@ public class CannonDAO {
 
     private SQLiteDatabase db;
 
-    public CannonDAO(SQLiteDatabase db) {
-        this.db = db;
-    }
+    private static CannonDAO instance = null;
 
+    public CannonDAO() {}
+
+    public static CannonDAO getInstance() {
+        if(instance == null) {
+            instance = new CannonDAO();
+        }
+        return instance;
+    }
     /**
      * Sets the DAO database to param:database
      * @param database
@@ -32,8 +40,21 @@ public class CannonDAO {
      * Takes <code>cannon</code> and inserts it into the proper table
      * @param cannon
      */
-    public void addItem(Cannon cannon){
-
+    public void addCannon(Cannon cannon){
+        ContentValues values = new ContentValues();
+        values.put("attachPoint", cannon.getAttachPoint().toString());
+        values.put("emitPoint", cannon.getEmitPoint().toString());
+        values.put("attackImage", cannon.getLaserShot().getAttackViewableInfo().getImage());
+        values.put("attackImageHeight", cannon.getLaserShot().getAttackViewableInfo().getImageHeight());
+        values.put("attackImageWidth", cannon.getLaserShot().getAttackViewableInfo().getImageWidth());
+        values.put("attackSound", cannon.getLaserShot().getAttackSound());
+        values.put("damage", cannon.getLaserShot().getDamage());
+        values.put("image", cannon.getMainViewableInfo().getImage());
+        values.put("imageWidth", cannon.getMainViewableInfo().getImageWidth());
+        values.put("imageHeight", cannon.getMainViewableInfo().getImageHeight());
+        long result = db.insert("cannons", null, values);
+//        if(result == -1) Log.i("JsonDomParserExample", "Failed to add cannon to db.");
+//        else Log.i("JsonDomParserExample", "Successfully added cannon to db");
     }
 
     /**

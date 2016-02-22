@@ -44,7 +44,7 @@ public class AsteroidTypeDAO {
      * Takes <code>asteroid</code> and inserts it into the proper table
      * @param asteroid
      */
-    public void addItem(AsteroidType asteroid){
+    public void addAsteroidType(AsteroidType asteroid){
         ContentValues values = new ContentValues();
         values.put("name", asteroid.getName());
         values.put("type", asteroid.getType());
@@ -52,7 +52,7 @@ public class AsteroidTypeDAO {
         values.put("imageHeight", asteroid.getViewableInfo().getImageHeight());
         values.put("imageWidth", asteroid.getViewableInfo().getImageWidth());
         long result = db.insert("asteroidTypes", null, values);
-        if(result == -1) Log.i("JsonDomParserExample", "Failed to add Asteroid Type to db.");
+//        if(result == -1) Log.i("JsonDomParserExample", "Failed to add Asteroid Type to db.");
     }
 
     /**

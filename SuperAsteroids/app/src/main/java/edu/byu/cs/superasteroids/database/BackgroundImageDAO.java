@@ -41,7 +41,7 @@ public class BackgroundImageDAO {
      * Takes <code>backgroundImage</code> and inserts it into the proper table
      * @param backgroundImagePath
      */
-    public void addItem(String backgroundImagePath){
+    public void addBackgroundImage(String backgroundImagePath){
         ContentValues values = new ContentValues();
 //        values.put("position", backgroundImage.getPositionString());
 //        values.put("scale", Float.toString(backgroundImage.getScale()));

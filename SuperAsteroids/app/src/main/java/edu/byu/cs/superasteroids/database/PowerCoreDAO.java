@@ -1,6 +1,8 @@
 package edu.byu.cs.superasteroids.database;
 
+import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,8 +18,16 @@ public class PowerCoreDAO {
 
     private SQLiteDatabase db;
 
-    public PowerCoreDAO(SQLiteDatabase db) {
-        this.db = db;
+    private static PowerCoreDAO instance = null;
+
+    public PowerCoreDAO() {}
+
+
+    public static PowerCoreDAO getInstance() {
+        if (instance == null) {
+            instance = new PowerCoreDAO();
+        }
+        return instance;
     }
 
     /**
@@ -32,8 +42,14 @@ public class PowerCoreDAO {
      * Takes <code>powerCore</code> and inserts it into the proper table
      * @param powerCore
      */
-    public void addItem(PowerCore powerCore){
-
+    public void addPowerCore (PowerCore powerCore){
+        ContentValues values = new ContentValues();
+        values.put("image", powerCore.getImage());
+        values.put("cannonBoost", powerCore.getCannonBoost());
+        values.put("engineBoost", powerCore.getEngineBoost());
+        long result = db.insert("powerCores", null, values);
+        if(result == -1) Log.i("JsonDomParserExample", "Failed to add powerCore to db.");
+        else Log.i("JsonDomParserExample", "Successfully added powerCore to db");
     }
 
     /**

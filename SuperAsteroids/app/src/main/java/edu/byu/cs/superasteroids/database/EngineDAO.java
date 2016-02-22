@@ -1,6 +1,8 @@
 package edu.byu.cs.superasteroids.database;
 
+import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,8 +18,16 @@ public class EngineDAO {
 
     private SQLiteDatabase db;
 
-    public EngineDAO(SQLiteDatabase db) {
-        this.db = db;
+    private static EngineDAO instance = null;
+
+    public EngineDAO() {}
+
+
+    public static EngineDAO getInstance() {
+        if(instance == null) {
+            instance = new EngineDAO();
+        }
+        return instance;
     }
 
     /**
@@ -32,8 +42,17 @@ public class EngineDAO {
      * Takes <code>engine</code> and inserts it into the proper table
      * @param engine
      */
-    public void addItem(Engine engine){
-
+    public void addEngine (Engine engine){
+        ContentValues values = new ContentValues();
+        values.put("baseSpeed", engine.getBaseSpeed());
+        values.put("baseTurnRate", engine.getBaseTurnRate());
+        values.put("attachPoint", engine.getAttachPoint().toString());
+        values.put("image", engine.getViewableInfo().getImage());
+        values.put("imageWidth", engine.getViewableInfo().getImageWidth());
+        values.put("imageHeight", engine.getViewableInfo().getImageHeight());
+        long result = db.insert("engines", null, values);
+        if(result == -1) Log.i("JsonDomParserExample", "Failed to add engine to db.");
+        else Log.i("JsonDomParserExample", "Successfully added engine to db");
     }
 
     /**

@@ -15,7 +15,13 @@ import edu.byu.cs.superasteroids.base.ActionBarActivityView;
 import edu.byu.cs.superasteroids.content.ContentManager;
 import edu.byu.cs.superasteroids.database.AsteroidTypeDAO;
 import edu.byu.cs.superasteroids.database.BackgroundImageDAO;
+import edu.byu.cs.superasteroids.database.CannonDAO;
 import edu.byu.cs.superasteroids.database.DbOpenHelper;
+import edu.byu.cs.superasteroids.database.EngineDAO;
+import edu.byu.cs.superasteroids.database.ExtraPartDAO;
+import edu.byu.cs.superasteroids.database.LevelDAO;
+import edu.byu.cs.superasteroids.database.MainBodyDAO;
+import edu.byu.cs.superasteroids.database.PowerCoreDAO;
 import edu.byu.cs.superasteroids.game.GameActivity;
 import edu.byu.cs.superasteroids.importer.ImportActivity;
 import edu.byu.cs.superasteroids.ship_builder.ShipBuildingActivity;
@@ -45,6 +51,12 @@ public class MainActivity extends ActionBarActivityView implements IMainMenuView
         db = DbOpenHelper.getInstance(this).getWritableDatabase();
         AsteroidTypeDAO.getInstance().setDatabase(db);
         BackgroundImageDAO.getInstance().setDatabase(db);
+        CannonDAO.getInstance().setDatabase(db);
+        LevelDAO.getInstance().setDatabase(db);
+        MainBodyDAO.getInstance().setDatabase(db);
+        ExtraPartDAO.getInstance().setDatabase(db);
+        EngineDAO.getInstance().setDatabase(db);
+        PowerCoreDAO.getInstance().setDatabase(db);
 
 
         ContentManager.getInstance().setResources(getResources());

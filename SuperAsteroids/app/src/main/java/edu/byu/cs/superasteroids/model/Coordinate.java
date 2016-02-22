@@ -1,5 +1,7 @@
 package edu.byu.cs.superasteroids.model;
 
+import android.util.Log;
+
 /**
  * Created by Jordan on 2/12/2016.
  * This class stores information regarding a coordinate of a given image.
@@ -16,6 +18,15 @@ public class Coordinate {
     public Coordinate(int XPos, int YPos) {
         mXPos = XPos;
         mYPos = YPos;
+    }
+
+    public Coordinate(String coordString) {
+        String[] positions = coordString.split(",");
+        if(positions.length != 2) Log.i("JsonDomParserExample", "Coordinate failed to create");
+        else{
+            mXPos = Integer.parseInt(positions[0]);
+            mYPos = Integer.parseInt(positions[1]);
+        }
     }
 
     public int getXPos() {

@@ -38,6 +38,17 @@ public class Level {
         mLevelAsteroids = levelAsteroids;
     }
 
+    public Level(int number, int width, int height,
+                 String title, String hint, String music) {
+        mNumber = number;
+        mWidth = width;
+        mHeight = height;
+        mTitle = title;
+        mHint = hint;
+        mMusic = music;
+    }
+
+
     public int getNumber() {
         return mNumber;
     }

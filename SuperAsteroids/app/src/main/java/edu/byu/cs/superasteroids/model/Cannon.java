@@ -11,16 +11,19 @@ public class Cannon {
     Coordinate mEmitPoint;
     /**The image information for the cannon */
     ViewableObject mMainViewableInfo;
+    /**The laser that shoots from this cannon */
+    Laser mLaserShot;
 
     public Cannon() {
     }
 
     public Cannon(Coordinate attachPoint, Coordinate emitPoint,
-                  ViewableObject mainViewableInfo, ViewableObject attackViewableInfo,
-                  String attackSound, int damage) {
+                  ViewableObject mainViewableInfo,
+                  String attackSound, int damage, Laser laserShot) {
         mAttachPoint = attachPoint;
         mEmitPoint = emitPoint;
         mMainViewableInfo = mainViewableInfo;
+        mLaserShot = laserShot;
     }
 
     public Coordinate getAttachPoint() {
@@ -45,6 +48,14 @@ public class Cannon {
 
     public void setMainViewableInfo(ViewableObject mainViewableInfo) {
         mMainViewableInfo = mainViewableInfo;
+    }
+
+    public Laser getLaserShot() {
+        return mLaserShot;
+    }
+
+    public void setLaserShot(Laser laserShot) {
+        mLaserShot = laserShot;
     }
 
     /**
