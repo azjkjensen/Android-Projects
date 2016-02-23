@@ -36,6 +36,7 @@ public class AsteroidsGameModel {
      * Populates the model with all information from the database.
      */
     public void populate(){
+        //TODO: Find out from the TA's how to handle images in the content manager.
         mAsteroidTypes = AsteroidTypeDAO.getInstance().getAll();
         mBackgroundImages = BackgroundImageDAO.getInstance().getAll();
         //mCannons = CannonDAO.getInstance().getAll();

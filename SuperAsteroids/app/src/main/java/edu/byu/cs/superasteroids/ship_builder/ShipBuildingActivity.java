@@ -39,8 +39,8 @@ public class ShipBuildingActivity extends ActivityView implements IShipBuildingV
         setContentView(R.layout.activity_ship_building);
 
 
-        //TODO: Set this activity's controller to an instance of your ShipBuildingController
-        //TODO: Pass the ShipBuildingController's constructor a reference to its IShipBuildingView (this)
+        //T//ODO: Set this activity's controller to an instance of your ShipBuildingController
+        //T//ODO: Pass the ShipBuildingController's constructor a reference to its IShipBuildingView (this)
         IShipBuildingController controller = new ShipBuildingController(this);
         setController(controller);
 
