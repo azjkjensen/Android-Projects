@@ -3,6 +3,7 @@ package edu.byu.cs.superasteroids.model;
 import java.util.Set;
 
 import edu.byu.cs.superasteroids.database.AsteroidTypeDAO;
+import edu.byu.cs.superasteroids.database.BackgroundImageDAO;
 
 /**
  * Created by Jk on 2/19/2016.
@@ -36,7 +37,7 @@ public class AsteroidsGameModel {
      */
     public void populate(){
         mAsteroidTypes = AsteroidTypeDAO.getInstance().getAll();
-        //mBackgroundImages = BackgroundImageDAO.getInstance().getAll();
+        mBackgroundImages = BackgroundImageDAO.getInstance().getAll();
         //mCannons = CannonDAO.getInstance().getAll();
         //mEngines = EngineDAO.getInstance().getAll();
         //mExtraParts = ExtraPartDAO.getInstance().getAll();

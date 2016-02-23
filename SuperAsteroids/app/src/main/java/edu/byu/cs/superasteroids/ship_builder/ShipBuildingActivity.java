@@ -44,7 +44,6 @@ public class ShipBuildingActivity extends ActivityView implements IShipBuildingV
         IShipBuildingController controller = new ShipBuildingController(this);
         setController(controller);
 
-
         //Configure the part selection fragments
         mainBodyFragment.setPartView(PartSelectionView.MAIN_BODY);
         mainBodyFragment.setController(getController());

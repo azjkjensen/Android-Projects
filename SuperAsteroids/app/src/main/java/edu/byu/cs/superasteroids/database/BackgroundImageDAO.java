@@ -63,6 +63,35 @@ public class BackgroundImageDAO {
      * @return
      */
     public Set<BackgroundImage> getAll(){
-        return new HashSet<>();
+        final String SQLGet = "SELECT * FROM objects";
+
+        Set<BackgroundImage> result = new HashSet<>();
+
+//        Cursor cursor = db.rawQuery(SQLGet, new String[]{});
+//        try {
+//            cursor.moveToFirst();
+//            while (!cursor.isAfterLast()) {
+//                AsteroidType asteroidType = new AsteroidType();
+//
+//                asteroidType.setID(cursor.getInt(0));
+//                asteroidType.setName(cursor.getString(1));
+//                asteroidType.setType(cursor.getString(2));
+//                asteroidType.setViewableInfo(
+//                        new ViewableObject(
+//                                cursor.getString(3),
+//                                cursor.getInt(4),
+//                                cursor.getInt(5)
+//                        ));
+//
+//                result.add(asteroidType);
+//
+//                cursor.moveToNext();
+//            }
+//        }
+//        finally {
+//            cursor.close();
+//        }
+
+        return result;
     }
 }
