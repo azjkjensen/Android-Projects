@@ -3,7 +3,6 @@ package edu.byu.cs.superasteroids.model;
 import java.util.Set;
 
 import edu.byu.cs.superasteroids.database.AsteroidTypeDAO;
-import edu.byu.cs.superasteroids.database.BackgroundImageDAO;
 
 /**
  * Created by Jk on 2/19/2016.
@@ -36,9 +35,9 @@ public class AsteroidsGameModel {
      * Populates the model with all information from the database.
      */
     public void populate(){
-        //TODO: Find out from the TA's how to handle images in the content manager.
+        //TODO: Make sure that images are getting loaded into contentManager properly.
         mAsteroidTypes = AsteroidTypeDAO.getInstance().getAll();
-        mBackgroundImages = BackgroundImageDAO.getInstance().getAll();
+        //mBackgroundImages = BackgroundImageDAO.getInstance().getAll();
         //mCannons = CannonDAO.getInstance().getAll();
         //mEngines = EngineDAO.getInstance().getAll();
         //mExtraParts = ExtraPartDAO.getInstance().getAll();

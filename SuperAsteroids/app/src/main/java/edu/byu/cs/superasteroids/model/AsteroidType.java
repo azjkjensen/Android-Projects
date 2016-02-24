@@ -19,6 +19,8 @@ public class AsteroidType {
     int mHitPoints;
     /**The id associated with this item in the database */
     int mID;
+    /**The id of the image stored in the content manager */
+    int mImageID;
 
     /**
     * Default Constructor
@@ -37,6 +39,7 @@ public class AsteroidType {
         mType = type;
         mViewableInfo = viewableInfo;
         mID = id;
+//        mImageID = imageID;
     }
 
     public int getID() {
@@ -93,6 +96,14 @@ public class AsteroidType {
 
     public void setHitPoints(int hitPoints) {
         mHitPoints = hitPoints;
+    }
+
+    public int getImageID() {
+        return mImageID;
+    }
+
+    public void setImageID(int imageID) {
+        mImageID = imageID;
     }
 
     /**

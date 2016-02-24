@@ -1,0 +1,172 @@
+{
+  "asteroidsGame": {
+    "objects": [
+      "images/planet1.png",
+      "images/planet2.png",
+      "images/planet3.png",
+      "images/planet4.png",
+      "images/planet5.png",
+      "images/planet6.png",
+      "images/station.png",
+      "images/nebula1.png",
+      "images/nebula2.png",
+      "images/nebula3.png",
+      "images/nebula4.png",
+      "images/nebula5.png"
+    ],
+    "asteroids": [
+      {
+        "name": "regular",
+        "image": "images/asteroids/asteroid.png",
+        "imageWidth": 169,
+        "imageHeight": 153,
+        "type": "regular"
+      },
+      {
+        "name": "growing",
+        "image": "images/asteroids/blueasteroid.png",
+        "imageWidth": 161,
+        "imageHeight": 178,
+        "type": "growing"
+      },
+      {
+        "name": "octeroid",
+        "image": "images/asteroids/asteroid.png",
+        "imageWidth": 169,
+        "imageHeight": 153,
+        "type": "octeroid"
+      }
+    ],
+    "levels": [
+      {
+        "number": 1,
+        "title": "Level 1",
+        "hint": "Destroy 1 Asteroid",
+        "width": 3000,
+        "height": 3000,
+        "music": "sounds/SpyHunter.ogg",
+        "levelObjects": [
+          {
+            "position": "1000,1000",
+            "objectId": 1,
+            "scale": 1.5
+          },
+          {
+            "position": "2000,2000",
+            "objectId": 2,
+            "scale": 1.0
+          }
+        ],
+        "levelAsteroids": [
+          {
+            "number": 1,
+            "asteroidId": 1
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "title": "Level 2",
+        "hint": "Destroy 1 Asteroid",
+        "width": 3000,
+        "height": 3000,
+        "music": "sounds/SpyHunter.ogg",
+        "levelObjects": [],
+        "levelAsteroids": [
+          {
+            "number": 1,
+            "asteroidId": 1
+          }
+        ]
+      }
+    ],
+    "mainBodies": [
+      {
+        "cannonAttach": "190,227",
+        "engineAttach": "102,392",
+        "extraAttach": "6,253",
+        "image": "images/parts/mainbody1.png",
+        "imageWidth": 200,
+        "imageHeight": 400
+      },
+      {
+        "cannonAttach": "143,323",
+        "engineAttach": "85,459",
+        "extraAttach": "26,323",
+        "image": "images/parts/mainbody2.png",
+        "imageWidth": 156,
+        "imageHeight": 459
+      }
+    ],
+    "cannons": [
+      {
+        "attachPoint": "14,240",
+        "emitPoint": "104,36",
+        "image": "images/parts/cannon1.png",
+        "imageWidth": 160,
+        "imageHeight": 360,
+        "attackImage": "images/parts/laser.png",
+        "attackImageWidth": 50,
+        "attackImageHeight": 250,
+        "attackSound": "sounds/laser.mp3",
+        "damage": 1
+      },
+      {
+        "attachPoint": "19,137",
+        "emitPoint": "184,21",
+        "image": "images/parts/cannon2.png",
+        "imageWidth": 325,
+        "imageHeight": 386,
+        "attackImage": "images/parts/laser2.png",
+        "attackImageWidth": 105,
+        "attackImageHeight": 344,
+        "attackSound": "sounds/laser.mp3",
+        "damage": 2
+      }
+    ],
+    "extraParts": [
+      {
+        "attachPoint": "312,94",
+        "image": "images/parts/extrapart1.png",
+        "imageWidth": 320,
+        "imageHeight": 240
+      },
+      {
+        "attachPoint": "310,124",
+        "image": "images/parts/extrapart2.png",
+        "imageWidth": 331,
+        "imageHeight": 309
+      }
+    ],
+    "engines": [
+      {
+        "baseSpeed": 350,
+        "baseTurnRate": 270,
+        "attachPoint": "106,6",
+        "image": "images/parts/engine1.png",
+        "imageWidth": 220,
+        "imageHeight": 160
+      },
+      {
+        "baseSpeed": 500,
+        "baseTurnRate": 360,
+        "attachPoint": "107,7",
+        "image": "images/parts/engine2.png",
+        "imageWidth": 208,
+        "imageHeight": 222
+      }
+    ],
+    "powerCores": [
+      {
+        "cannonBoost": 10,
+        "engineBoost": 10,
+        "image": "images/Ellipse.png"
+      },
+      {
+        "cannonBoost": 10,
+        "engineBoost": 10,
+        "image": "images/Triangle.png"
+      }
+    ]
+  }
+}

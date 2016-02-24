@@ -18,7 +18,7 @@ public class BackgroundImageDAO {
 
     private SQLiteDatabase db;
 
-    private  static  BackgroundImageDAO instance = null;
+    private static BackgroundImageDAO instance = null;
 
     private BackgroundImageDAO() {}
 
@@ -29,11 +29,11 @@ public class BackgroundImageDAO {
         return instance;
     }
     /**
-     * Sets the DAO database to param:database
+     * Sets the DAO database to database
      * @param database
      */
     public void setDatabase(SQLiteDatabase database){
-        Log.i("DAO", "Assigning database for BackgroundImageDAO");
+//        Log.i("DAO", "Assigning database for BackgroundImageDAO");
         db = database;
     }
 
@@ -63,35 +63,6 @@ public class BackgroundImageDAO {
      * @return
      */
     public Set<BackgroundImage> getAll(){
-        final String SQLGet = "SELECT * FROM objects";
-
-        Set<BackgroundImage> result = new HashSet<>();
-
-//        Cursor cursor = db.rawQuery(SQLGet, new String[]{});
-//        try {
-//            cursor.moveToFirst();
-//            while (!cursor.isAfterLast()) {
-//                AsteroidType asteroidType = new AsteroidType();
-//
-//                asteroidType.setID(cursor.getInt(0));
-//                asteroidType.setName(cursor.getString(1));
-//                asteroidType.setType(cursor.getString(2));
-//                asteroidType.setViewableInfo(
-//                        new ViewableObject(
-//                                cursor.getString(3),
-//                                cursor.getInt(4),
-//                                cursor.getInt(5)
-//                        ));
-//
-//                result.add(asteroidType);
-//
-//                cursor.moveToNext();
-//            }
-//        }
-//        finally {
-//            cursor.close();
-//        }
-
-        return result;
+        return new HashSet<>();
     }
 }

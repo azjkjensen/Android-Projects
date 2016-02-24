@@ -4,10 +4,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import edu.byu.cs.superasteroids.content.ContentManager;
 import edu.byu.cs.superasteroids.model.AsteroidType;
 import edu.byu.cs.superasteroids.model.ViewableObject;
 
@@ -74,9 +76,13 @@ public class AsteroidTypeDAO {
                 asteroidType.setID(cursor.getInt(0));
                 asteroidType.setName(cursor.getString(1));
                 asteroidType.setType(cursor.getString(2));
+                String imagePath = cursor.getString(3);
+                int imageID = ContentManager.getInstance().loadImage(imagePath);
+                if(imageID == -1) Log.i("modelPopulate", "Failed to load image " + imagePath);
+                asteroidType.setImageID(imageID);
                 asteroidType.setViewableInfo(
                         new ViewableObject(
-                            cursor.getString(3),
+                            imagePath,
                             cursor.getInt(4),
                             cursor.getInt(5)
                 ));
@@ -111,9 +117,16 @@ public class AsteroidTypeDAO {
                 asteroidType.setID(cursor.getInt(0));
                 asteroidType.setName(cursor.getString(1));
                 asteroidType.setType(cursor.getString(2));
+                String imagePath = cursor.getString(3);
+                int imageID = ContentManager.getInstance().loadImage(imagePath);
+                if(imageID == -1) {
+                    Log.i("modelPopulate", "Failed to load image " + imagePath);
+                    throw new Exception("AsteroidType failed to populate");
+                }
+                asteroidType.setImageID(imageID);
                 asteroidType.setViewableInfo(
                         new ViewableObject(
-                                cursor.getString(3),
+                                imagePath,
                                 cursor.getInt(4),
                                 cursor.getInt(5)
                         ));
@@ -122,11 +135,12 @@ public class AsteroidTypeDAO {
 
                 cursor.moveToNext();
             }
-        }
-        finally {
+        } catch(Exception e) {
+            Log.i("modelPopulate", e.getMessage());
+        } finally {
             cursor.close();
         }
 
         return result;
     }
-    }
+}

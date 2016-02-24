@@ -170,6 +170,8 @@ public class DbOpenHelper extends SQLiteOpenHelper {
                     "image TEXT NOT NULL" +
                 ")";
 
+        //TODO: add drop table if exists statements?
+
         db.execSQL(CREATE_OBJECTS);
         db.execSQL(CREATE_ASTEROID_TYPES);
         db.execSQL(CREATE_LEVELS);

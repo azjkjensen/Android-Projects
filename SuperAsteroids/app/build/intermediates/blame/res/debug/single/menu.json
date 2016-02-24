@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_import.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\src\\main\\res\\menu\\menu_import.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_main.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\src\\main\\res\\menu\\menu_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\menu\\main.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\src\\main\\res\\menu\\main.xml"
+    }
+]
