@@ -7,9 +7,16 @@ package edu.byu.cs.superasteroids.model;
  */
 public class ViewableObject {
     String mImage;
-    int mImageWidth, mImageHeight, imageID;
+    int mImageWidth, mImageHeight, mImageID;
 
     public ViewableObject() {
+    }
+
+    public ViewableObject(String image, int imageWidth, int imageHeight, int imageID) {
+        mImage = image;
+        mImageWidth = imageWidth;
+        mImageHeight = imageHeight;
+        mImageID = imageID;
     }
 
     public ViewableObject(String image, int imageWidth, int imageHeight) {
@@ -40,5 +47,13 @@ public class ViewableObject {
 
     public void setImageHeight(int imageHeight) {
         mImageHeight = imageHeight;
+    }
+
+    public int getImageID() {
+        return mImageID;
+    }
+
+    public void setImageID(int imageID) {
+        this.mImageID = imageID;
     }
 }

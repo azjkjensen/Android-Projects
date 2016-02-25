@@ -1,101 +1,101 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:2:1-52:12
+ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:2:1-52:12
 	xmlns:android
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:2:11-69
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:2:11-69
 	package
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:3:5-40
-		INJECTED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:3:5-40
+		INJECTED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml
 	android:versionName
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:5:5-30
-		INJECTED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:5:5-30
+		INJECTED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml
 	android:versionCode
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:4:5-28
-		INJECTED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:4:5-28
+		INJECTED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml
 uses-sdk
-ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:7:5-9:41
-MERGED from [com.android.support:appcompat-v7:19.1.0] C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\19.1.0\AndroidManifest.xml:18:5-42
+ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:appcompat-v7:19.1.0] C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\19.1.0\AndroidManifest.xml:18:5-42
 	android:targetSdkVersion
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:9:9-38
-		INJECTED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:9:9-38
+		INJECTED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:8:9-35
-		INJECTED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:8:9-35
+		INJECTED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml
 uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:11:5-81
+ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:11:5-81
 	android:name
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:11:22-78
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:11:22-78
 android:uses-permission#android.permission.READ_PHONE_STATE
-ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:13:5-83
+ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:13:5-83
 	android:name
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:13:30-80
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:13:30-80
 android:uses-permission#android.permission.READ_EXTERNAL_STORAGE
-ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:14:5-16:38
+ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:14:5-16:38
 	android:maxSdkVersion
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:16:9-35
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:16:9-35
 	android:name
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:15:9-64
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:15:9-64
 application
-ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:18:5-50:19
-MERGED from [com.android.support:appcompat-v7:19.1.0] C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\19.1.0\AndroidManifest.xml:19:5-20
+ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:18:5-50:19
+MERGED from [com.android.support:appcompat-v7:19.1.0] C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\19.1.0\AndroidManifest.xml:19:5-20
 	android:label
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:21:9-41
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:21:9-41
 	android:allowBackup
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:19:9-35
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:19:9-35
 	android:icon
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:20:9-45
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:20:9-45
 	android:theme
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:22:9-40
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:22:9-40
 activity#edu.byu.cs.superasteroids.main_menu.MainActivity
-ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:23:9-32:20
+ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:23:9-32:20
 	android:screenOrientation
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:26:13-50
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:26:13-50
 	android:label
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:25:13-45
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:25:13-45
 	android:name
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:24:13-51
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:24:13-51
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:27:13-31:29
+ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:27:13-31:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:28:17-69
+ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:28:17-69
 	android:name
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:28:25-66
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:28:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:30:17-77
+ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:30:17-77
 	android:name
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:30:27-74
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:30:27-74
 activity#edu.byu.cs.superasteroids.game.GameActivity
-ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:33:9-35:53
+ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:33:9-35:53
 	android:screenOrientation
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:35:13-50
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:35:13-50
 	android:name
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:34:13-46
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:34:13-46
 activity#edu.byu.cs.superasteroids.ship_builder.ShipBuildingActivity
-ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:36:9-40:20
+ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:36:9-40:20
 	android:screenOrientation
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:39:13-50
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:39:13-50
 	android:label
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:38:13-41
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:38:13-41
 	android:name
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:37:13-62
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:37:13-62
 activity#edu.byu.cs.superasteroids.importer.ImportActivity
-ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:41:9-49:20
+ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:41:9-49:20
 	android:screenOrientation
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:45:13-50
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:45:13-50
 	android:label
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:43:13-58
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:43:13-58
 	android:parentActivityName
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:44:13-65
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:44:13-65
 	android:name
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:42:13-52
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:42:13-52
 meta-data#android.support.PARENT_ACTIVITY
-ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:46:13-48:84
+ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:46:13-48:84
 	android:name
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:47:17-63
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:47:17-63
 	android:value
-		ADDED from C:\Users\Jordan\Documents\CS240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:48:17-81
+		ADDED from C:\Users\Jordan\Documents\CS240\cs240\cs240\SuperAsteroids\app\src\main\AndroidManifest.xml:48:17-81

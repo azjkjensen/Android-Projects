@@ -1,5 +1,10 @@
 package edu.byu.cs.superasteroids.model;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * Created by Jordan on 2/12/2016.
  * This class stores the information corresponding to a given level in the game.
@@ -18,16 +23,18 @@ public class Level {
     /**Filepath to the music file for the level */
     String mMusic;
     /**An array of images associated with the level */
-    BackgroundImage[] mBackgroundImages;
-    /**An arrray of the asteroids in the level */
-    AsteroidType[] mLevelAsteroids;
+    Set<BackgroundImage> mBackgroundImages;
+    /**A map of the asteroids in the level and the number of each */
+    Map<AsteroidType, Integer> mLevelAsteroids;
 
     public Level() {
+        mBackgroundImages = new HashSet<>();
+        mLevelAsteroids = new HashMap<>();
     }
 
     public Level(int number, int width, int height,
                  String title, String hint, String music,
-                 BackgroundImage[] backgroundImages, AsteroidType[] levelAsteroids) {
+                 Set<BackgroundImage> backgroundImages, Map<AsteroidType, Integer> levelAsteroids) {
         mNumber = number;
         mWidth = width;
         mHeight = height;
@@ -97,19 +104,19 @@ public class Level {
         mMusic = music;
     }
 
-    public BackgroundImage[] getBackgroundImages() {
+    public Set<BackgroundImage> getBackgroundImages() {
         return mBackgroundImages;
     }
 
-    public void setBackgroundImages(BackgroundImage[] backgroundImages) {
+    public void setBackgroundImages(Set<BackgroundImage> backgroundImages) {
         mBackgroundImages = backgroundImages;
     }
 
-    public AsteroidType[] getLevelAsteroids() {
+    public Map<AsteroidType, Integer> getLevelAsteroids() {
         return mLevelAsteroids;
     }
 
-    public void setLevelAsteroids(AsteroidType[] levelAsteroids) {
+    public void setLevelAsteroids(Map<AsteroidType, Integer> levelAsteroids) {
         mLevelAsteroids = levelAsteroids;
     }
 

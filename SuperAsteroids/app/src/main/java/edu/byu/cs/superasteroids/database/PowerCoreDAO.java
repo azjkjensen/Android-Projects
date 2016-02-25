@@ -1,12 +1,14 @@
 package edu.byu.cs.superasteroids.database;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import edu.byu.cs.superasteroids.content.ContentManager;
 import edu.byu.cs.superasteroids.model.PowerCore;
 
 /**
@@ -65,6 +67,38 @@ public class PowerCoreDAO {
      * @return
      */
     public Set<PowerCore> getAll(){
-        return new HashSet<>();
+        final String SQLGet = "SELECT * FROM powerCores";
+
+        Set<PowerCore> result = new HashSet<>();
+
+        Cursor cursor = db.rawQuery(SQLGet, new String[]{});
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                PowerCore powerCore = new PowerCore();
+
+                powerCore.setCannonBoost(cursor.getInt(1));
+                powerCore.setEngineBoost(cursor.getInt(2));
+                String imagePath = cursor.getString(3);
+                int imageID = ContentManager.getInstance().loadImage(imagePath);
+                if(imageID == -1) {
+                    Log.i("modelPopulate", "Failed to load image " + imagePath);
+                    throw new Exception("PowerCore failed to populate");
+                }
+
+                powerCore.setImage(imagePath);
+                powerCore.setImageID(imageID);
+
+                result.add(powerCore);
+
+                cursor.moveToNext();
+            }
+        } catch(Exception e) {
+            Log.i("modelPopulate", e.getMessage());
+        } finally {
+            cursor.close();
+        }
+
+        return result;
     }
 }

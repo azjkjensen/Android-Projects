@@ -1,11 +1,35 @@
 [
     {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\layout-xlarge-v4\\row_import_file.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\cs240\\SuperAsteroids\\app\\src\\main\\res\\layout-xlarge\\row_import_file.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240repo\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\layout-xlarge-v4\\fragment_import.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240repo\\cs240\\SuperAsteroids\\app\\src\\main\\res\\layout-xlarge\\fragment_import.xml"
+    },
+    {
         "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\layout-xlarge-v4\\fragment_main.xml",
         "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\src\\main\\res\\layout-xlarge\\fragment_main.xml"
     },
     {
         "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\layout-xlarge-v4\\fragment_import.xml",
         "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\src\\main\\res\\layout-xlarge\\fragment_import.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\layout-xlarge-v4\\fragment_import.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\cs240\\SuperAsteroids\\app\\src\\main\\res\\layout-xlarge\\fragment_import.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240repo\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\layout-xlarge-v4\\fragment_main.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240repo\\cs240\\SuperAsteroids\\app\\src\\main\\res\\layout-xlarge\\fragment_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240repo\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\layout-xlarge-v4\\row_import_file.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240repo\\cs240\\SuperAsteroids\\app\\src\\main\\res\\layout-xlarge\\row_import_file.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\layout-xlarge-v4\\fragment_main.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\cs240\\SuperAsteroids\\app\\src\\main\\res\\layout-xlarge\\fragment_main.xml"
     },
     {
         "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\layout-xlarge-v4\\row_import_file.xml",

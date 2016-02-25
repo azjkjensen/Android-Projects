@@ -11,8 +11,17 @@ public class Laser {
     String mAttackSound;
     /**The number of damage that the laser does when it hits an object. */
     int mDamage;
+    /**The id associated with this item in the content manager */
+    int mAttackSoundID;
 
     public Laser() {
+    }
+
+    public Laser(ViewableObject attackViewableInfo, String attackSound, int attackSoundID, int damage) {
+        mAttackViewableInfo = attackViewableInfo;
+        mAttackSound = attackSound;
+        mAttackSoundID = attackSoundID;
+        mDamage = damage;
     }
 
     public Laser(ViewableObject attackViewableInfo, String attackSound, int damage) {

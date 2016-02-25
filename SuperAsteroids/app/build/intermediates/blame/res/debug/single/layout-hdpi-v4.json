@@ -2,5 +2,13 @@
     {
         "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\layout-hdpi-v4\\fragment_part_chooser.xml",
         "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\src\\main\\res\\layout-hdpi\\fragment_part_chooser.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\layout-hdpi-v4\\fragment_part_chooser.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\cs240\\SuperAsteroids\\app\\src\\main\\res\\layout-hdpi\\fragment_part_chooser.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240repo\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\layout-hdpi-v4\\fragment_part_chooser.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240repo\\cs240\\SuperAsteroids\\app\\src\\main\\res\\layout-hdpi\\fragment_part_chooser.xml"
     }
 ]

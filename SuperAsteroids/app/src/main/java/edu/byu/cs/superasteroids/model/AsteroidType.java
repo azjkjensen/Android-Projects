@@ -19,8 +19,8 @@ public class AsteroidType {
     int mHitPoints;
     /**The id associated with this item in the database */
     int mID;
-    /**The id of the image stored in the content manager */
-    int mImageID;
+    /**The number of this type of asteroid (for level asteroids) */
+    int numberOfAsteroids;
 
     /**
     * Default Constructor
@@ -98,12 +98,12 @@ public class AsteroidType {
         mHitPoints = hitPoints;
     }
 
-    public int getImageID() {
-        return mImageID;
+    public int getNumberOfAsteroids() {
+        return numberOfAsteroids;
     }
 
-    public void setImageID(int imageID) {
-        mImageID = imageID;
+    public void setNumberOfAsteroids(int numberOfAsteroids) {
+        this.numberOfAsteroids = numberOfAsteroids;
     }
 
     /**

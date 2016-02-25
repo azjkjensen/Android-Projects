@@ -1,13 +1,17 @@
 package edu.byu.cs.superasteroids.database;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import edu.byu.cs.superasteroids.content.ContentManager;
+import edu.byu.cs.superasteroids.model.Coordinate;
 import edu.byu.cs.superasteroids.model.ExtraPart;
+import edu.byu.cs.superasteroids.model.ViewableObject;
 
 /**
  * Created by Jk on 2/12/2016.\n
@@ -65,7 +69,45 @@ public class ExtraPartDAO {
      * @return
      */
     public Set<ExtraPart> getAll(){
-        return new HashSet<>();
+
+        final String SQLGet = "SELECT * FROM extraParts";
+
+        Set<ExtraPart> result = new HashSet<>();
+
+        Cursor cursor = db.rawQuery(SQLGet, new String[]{});
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                ExtraPart extraPart = new ExtraPart();
+
+                extraPart.setAttachPoint(new Coordinate(cursor.getString(1)));
+
+                String imagePath = cursor.getString(2);
+                int imageID = ContentManager.getInstance().loadImage(imagePath);
+                if(imageID == -1) {
+                    Log.i("modelPopulate", "Failed to load image " + imagePath);
+                    throw new Exception("ExtraPart failed to populate");
+                }
+
+                extraPart.setViewableInfo(
+                        new ViewableObject(
+                                imagePath,
+                                cursor.getInt(3),
+                                cursor.getInt(4),
+                                imageID
+                        ));
+
+                result.add(extraPart);
+
+                cursor.moveToNext();
+            }
+        } catch(Exception e) {
+            Log.i("modelPopulate", e.getMessage());
+        } finally {
+            cursor.close();
+        }
+
+        return result;
     }
 }
 

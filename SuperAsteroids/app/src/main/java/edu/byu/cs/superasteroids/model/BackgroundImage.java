@@ -11,8 +11,10 @@ public class BackgroundImage {
     private String mImagePath;
     /**A scalar multiple to scale the image by */
     private float mScale;
-    /** */
+    /**The id associated with this item in the database  */
     private int mObjectID;
+    /** The id associated with this item in the contentManager */
+    private int mImageID;
 
     public BackgroundImage() {
     }
@@ -54,6 +56,18 @@ public class BackgroundImage {
 
     public int getObjectID() {
         return mObjectID;
+    }
+
+    public void setObjectID(int objectID) {
+        mObjectID = objectID;
+    }
+
+    public int getImageID() {
+        return mImageID;
+    }
+
+    public void setImageID(int imageID) {
+        mImageID = imageID;
     }
 
     /**

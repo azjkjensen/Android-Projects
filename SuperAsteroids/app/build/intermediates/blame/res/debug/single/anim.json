@@ -1,11 +1,47 @@
 [
     {
-        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_top.xml",
-        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\anim\\abc_slide_out_top.xml"
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240repo\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\anim\\slide_out_down.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240repo\\cs240\\SuperAsteroids\\app\\src\\main\\res\\anim\\slide_out_down.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240repo\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_bottom.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240repo\\cs240\\SuperAsteroids\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\anim\\abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_bottom.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\anim\\abc_slide_out_bottom.xml"
     },
     {
         "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\anim\\slide_in_up.xml",
         "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\src\\main\\res\\anim\\slide_in_up.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\anim\\slide_out_left.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\cs240\\SuperAsteroids\\app\\src\\main\\res\\anim\\slide_out_left.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240repo\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_bottom.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240repo\\cs240\\SuperAsteroids\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\anim\\abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_top.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\anim\\abc_slide_out_top.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\anim\\slide_out_down.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\cs240\\SuperAsteroids\\app\\src\\main\\res\\anim\\slide_out_down.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\anim\\slide_out_down.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\src\\main\\res\\anim\\slide_out_down.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240repo\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\anim\\slide_in_right.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240repo\\cs240\\SuperAsteroids\\app\\src\\main\\res\\anim\\slide_in_right.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240repo\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_in.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240repo\\cs240\\SuperAsteroids\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\anim\\abc_fade_in.xml"
     },
     {
         "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_out.xml",
@@ -16,8 +52,24 @@
         "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\anim\\abc_slide_out_bottom.xml"
     },
     {
-        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\anim\\slide_out_down.xml",
-        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\src\\main\\res\\anim\\slide_out_down.xml"
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240repo\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_top.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240repo\\cs240\\SuperAsteroids\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\anim\\abc_slide_in_top.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_out.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\anim\\abc_fade_out.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\anim\\slide_in_right.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\cs240\\SuperAsteroids\\app\\src\\main\\res\\anim\\slide_in_right.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_bottom.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\anim\\abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_top.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\anim\\abc_slide_in_top.xml"
     },
     {
         "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_in_bottom.xml",
@@ -32,11 +84,39 @@
         "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\anim\\abc_slide_in_top.xml"
     },
     {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\anim\\slide_in_up.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\cs240\\SuperAsteroids\\app\\src\\main\\res\\anim\\slide_in_up.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240repo\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\anim\\slide_in_up.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240repo\\cs240\\SuperAsteroids\\app\\src\\main\\res\\anim\\slide_in_up.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240repo\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\anim\\slide_out_left.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240repo\\cs240\\SuperAsteroids\\app\\src\\main\\res\\anim\\slide_out_left.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240repo\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_out.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240repo\\cs240\\SuperAsteroids\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\anim\\abc_fade_out.xml"
+    },
+    {
         "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\anim\\slide_out_left.xml",
         "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\src\\main\\res\\anim\\slide_out_left.xml"
     },
     {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_top.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\anim\\abc_slide_out_top.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_fade_in.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\anim\\abc_fade_in.xml"
+    },
+    {
         "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\anim\\slide_in_right.xml",
         "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240\\SuperAsteroids\\app\\src\\main\\res\\anim\\slide_in_right.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jordan\\Documents\\CS240\\cs240repo\\cs240\\SuperAsteroids\\app\\build\\intermediates\\res\\merged\\debug\\anim\\abc_slide_out_top.xml",
+        "source": "C:\\Users\\Jordan\\Documents\\CS240\\cs240repo\\cs240\\SuperAsteroids\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\19.1.0\\res\\anim\\abc_slide_out_top.xml"
     }
 ]

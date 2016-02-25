@@ -11,6 +11,8 @@ public class PowerCore {
     int mEngineBoost;
     /**The filepath for the image */
     String mImage;
+    /**The id associated with this item in the content manager */
+    int mImageID;
 
     public PowerCore() {
     }
@@ -49,6 +51,14 @@ public class PowerCore {
 
     public void setImage(String image) {
         mImage = image;
+    }
+
+    public int getImageID() {
+        return mImageID;
+    }
+
+    public void setImageID(int imageID) {
+        mImageID = imageID;
     }
 
     /**

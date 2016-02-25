@@ -13,6 +13,8 @@ public class Cannon {
     ViewableObject mMainViewableInfo;
     /**The laser that shoots from this cannon */
     Laser mLaserShot;
+//    /**The id associated with this item in the database */
+//    int mID;
 
     public Cannon() {
     }

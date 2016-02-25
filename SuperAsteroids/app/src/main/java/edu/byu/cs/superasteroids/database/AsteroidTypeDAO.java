@@ -6,7 +6,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import edu.byu.cs.superasteroids.content.ContentManager;
@@ -46,7 +48,7 @@ public class AsteroidTypeDAO {
      * Takes <code>asteroid</code> and inserts it into the proper table
      * @param asteroid
      */
-    public void addAsteroidType(AsteroidType asteroid){
+    public long addAsteroidType(AsteroidType asteroid){
         ContentValues values = new ContentValues();
         values.put("name", asteroid.getName());
         values.put("type", asteroid.getType());
@@ -55,19 +57,20 @@ public class AsteroidTypeDAO {
         values.put("imageWidth", asteroid.getViewableInfo().getImageWidth());
         long result = db.insert("asteroidTypes", null, values);
 //        if(result == -1) Log.i("JsonDomParserExample", "Failed to add Asteroid Type to db.");
+        return result;
     }
 
     /**
      * Finds the item in the database by id.
      * @param id
      */
-    public Set<AsteroidType> getByID(int id){
+    public Set<AsteroidType> getByID(long id){
         final String SQLGet = "SELECT NAME, TYPE, IMAGE, IMAGE_HEIGHT," +
-                "IMAGE_WIDTH FROM asteroidTypes WHERE ID = " + Integer.toString(id);
+                "IMAGE_WIDTH FROM asteroidTypes WHERE ID = " + Long.toString(id);
 
         Set<AsteroidType> result = new HashSet<>();
 
-        Cursor cursor = db.rawQuery(SQLGet, new String[]{Integer.toString(id)});
+        Cursor cursor = db.rawQuery(SQLGet, new String[]{Long.toString(id)});
         try {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
@@ -79,12 +82,13 @@ public class AsteroidTypeDAO {
                 String imagePath = cursor.getString(3);
                 int imageID = ContentManager.getInstance().loadImage(imagePath);
                 if(imageID == -1) Log.i("modelPopulate", "Failed to load image " + imagePath);
-                asteroidType.setImageID(imageID);
+                asteroidType.getViewableInfo().setImageID(imageID);
                 asteroidType.setViewableInfo(
                         new ViewableObject(
                             imagePath,
                             cursor.getInt(4),
-                            cursor.getInt(5)
+                            cursor.getInt(5),
+                            imageID
                 ));
 
                 result.add(asteroidType);
@@ -116,21 +120,22 @@ public class AsteroidTypeDAO {
 
                 asteroidType.setID(cursor.getInt(0));
                 asteroidType.setName(cursor.getString(1));
-                asteroidType.setType(cursor.getString(2));
-                String imagePath = cursor.getString(3);
+                String imagePath = cursor.getString(2);
                 int imageID = ContentManager.getInstance().loadImage(imagePath);
                 if(imageID == -1) {
                     Log.i("modelPopulate", "Failed to load image " + imagePath);
                     throw new Exception("AsteroidType failed to populate");
                 }
-                asteroidType.setImageID(imageID);
+
                 asteroidType.setViewableInfo(
                         new ViewableObject(
                                 imagePath,
+                                cursor.getInt(3),
                                 cursor.getInt(4),
-                                cursor.getInt(5)
+                                imageID
                         ));
 
+                asteroidType.setType(cursor.getString(5));
                 result.add(asteroidType);
 
                 cursor.moveToNext();
@@ -143,4 +148,5 @@ public class AsteroidTypeDAO {
 
         return result;
     }
+
 }

@@ -1,13 +1,17 @@
 package edu.byu.cs.superasteroids.database;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import edu.byu.cs.superasteroids.content.ContentManager;
+import edu.byu.cs.superasteroids.model.Coordinate;
 import edu.byu.cs.superasteroids.model.MainBody;
+import edu.byu.cs.superasteroids.model.ViewableObject;
 
 /**
  * Created by Jk on 2/12/2016.\n
@@ -65,6 +69,45 @@ public class MainBodyDAO {
      * @return
      */
     public Set<MainBody> getAll(){
-        return new HashSet<>();
+        final String SQLGet = "SELECT * FROM mainBodies";
+
+        Set<MainBody> result = new HashSet<>();
+
+        Cursor cursor = db.rawQuery(SQLGet, new String[]{});
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                MainBody mainBody = new MainBody();
+
+                mainBody.setCannonAttach(new Coordinate(cursor.getString(1)));
+                mainBody.setEngineAttach(new Coordinate(cursor.getString(2)));
+                mainBody.setExtraAttach(new Coordinate(cursor.getString(3)));
+
+                String imagePath = cursor.getString(4);
+                int imageID = ContentManager.getInstance().loadImage(imagePath);
+                if(imageID == -1) {
+                    Log.i("modelPopulate", "Failed to load image " + imagePath);
+                    throw new Exception("MainBody failed to populate");
+                }
+
+                mainBody.setViewableInfo(
+                        new ViewableObject(
+                                imagePath,
+                                cursor.getInt(5),
+                                cursor.getInt(6),
+                                imageID
+                        ));
+
+                result.add(mainBody);
+
+                cursor.moveToNext();
+            }
+        } catch(Exception e) {
+            Log.i("modelPopulate", e.getMessage());
+        } finally {
+            cursor.close();
+        }
+
+        return result;
     }
 }
