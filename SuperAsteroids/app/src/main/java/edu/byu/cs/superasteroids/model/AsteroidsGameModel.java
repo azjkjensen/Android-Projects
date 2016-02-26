@@ -1,5 +1,7 @@
 package edu.byu.cs.superasteroids.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -72,5 +74,21 @@ public class AsteroidsGameModel {
 
     public void setCurrentLevel(Level currentLevel) {
         mCurrentLevel = currentLevel;
+    }
+
+    public List<Integer> getMainBodyImageIDs(){
+        List<Integer> result = new ArrayList<>();
+        for(MainBody mainBody : mMainBodies){
+            result.add(mainBody.getViewableInfo().getImageID());
+        }
+        return result;
+    }
+
+    public List<Integer>  getCannonImageIDs(){
+        List<Integer> result = new ArrayList<>();
+        for(Cannon cannon : mCannons){
+            result.add(cannon.getMainViewableInfo().getImageID());
+        }
+        return result;
     }
 }

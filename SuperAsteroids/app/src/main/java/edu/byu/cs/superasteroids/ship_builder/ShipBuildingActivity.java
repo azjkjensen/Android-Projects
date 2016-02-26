@@ -182,7 +182,7 @@ public class ShipBuildingActivity extends ActivityView implements IShipBuildingV
 		}
 	}
 	
-	private ViewDirection getOppositeDirection(ViewDirection direction) {
+	public ViewDirection getOppositeDirection(ViewDirection direction) {
 		switch(direction) {
 		case LEFT: 		return ViewDirection.RIGHT;
 		case RIGHT: 	return ViewDirection.LEFT;

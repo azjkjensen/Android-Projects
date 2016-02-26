@@ -3,7 +3,6 @@ package edu.byu.cs.superasteroids.ship_builder;
 import edu.byu.cs.superasteroids.base.IView;
 import edu.byu.cs.superasteroids.content.ContentManager;
 import edu.byu.cs.superasteroids.model.AsteroidsGameModel;
-import edu.byu.cs.superasteroids.model.MainBody;
 
 /**
  * Created by Jk on 2/17/2016.
@@ -11,6 +10,8 @@ import edu.byu.cs.superasteroids.model.MainBody;
 public class ShipBuildingController
         implements IShipBuildingController {
 
+    private ShipBuilderStates.State mBuilderState = ShipBuilderStates.States.MAIN_BODY_STATE;
+    private boolean mShipComplete = false;
     private ShipBuildingActivity mShipBuildingActivity;
 
     public ShipBuildingController(ShipBuildingActivity shipBuildingActivity){
@@ -39,27 +40,34 @@ public class ShipBuildingController
 
     @Override
     public void draw() {
-
     }
 
     @Override
     public void onViewLoaded(IShipBuildingView.PartSelectionView partView) {
-        //shipBuildingActivity.setArrow() ORR switch() on the partView
+        //shipBuildingActivity.setArrow() OR switch() on the partView
     }
 
     @Override
     public void loadContent(ContentManager content) {
         //Populate the model, then setPartViewImageList for each part
         AsteroidsGameModel.getInstance().populate();
-//        mShipBuildingActivity.setPartViewImageList(IShipBuildingView.PartSelectionView.MAIN_BODY,
-//                MainBody.getListOfImageIds());
+        //Set the images to display for each part in the builder.
+        setPartViews();
+    }
+
+    private void setPartViews(){
+        mShipBuildingActivity.setPartViewImageList(IShipBuildingView.PartSelectionView.MAIN_BODY,
+                AsteroidsGameModel.getInstance().getMainBodyImageIDs());
+        mShipBuildingActivity.setPartViewImageList(IShipBuildingView.PartSelectionView.CANNON,
+                AsteroidsGameModel.getInstance().getCannonImageIDs());
     }
 
     @Override
     public void onSlideView(IShipBuildingView.ViewDirection direction) {
         //animate the slide change OR switch() on the current state
-//        mShipBuildingActivity.animateToView(partSeletionView,
-//                mShipBuildingActivity.getOppositeDirection(direction));
+        mShipBuildingActivity.animateToView(mBuilderState.getNextView(),
+                mShipBuildingActivity.getOppositeDirection(direction));
+        mBuilderState = mBuilderState.getNext();
         //Change state to new view state.
     }
 
@@ -68,6 +76,7 @@ public class ShipBuildingController
         //Select the part with the given index
         //Attach part to the image
         //If the ship is complete, shipBuildingActivity.setStartGameButton(true);
+        if(mShipComplete) mShipBuildingActivity.setStartGameButton(true);
     }
 
     @Override
