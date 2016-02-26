@@ -91,4 +91,28 @@ public class AsteroidsGameModel {
         }
         return result;
     }
+
+    public List<Integer>  getEngineImageIDs(){
+        List<Integer> result = new ArrayList<>();
+        for(Engine engine : mEngines){
+            result.add(engine.getViewableInfo().getImageID());
+        }
+        return result;
+    }
+
+    public List<Integer>  getExtraPartImageIDs(){
+        List<Integer> result = new ArrayList<>();
+        for(ExtraPart extraPart : mExtraParts){
+            result.add(extraPart.getViewableInfo().getImageID());
+        }
+        return result;
+    }
+
+    public List<Integer>  getPowerCoreImageIDs(){
+        List<Integer> result = new ArrayList<>();
+        for(PowerCore powerCore : mPowerCores){
+            result.add(powerCore.getImageID());
+        }
+        return result;
+    }
 }

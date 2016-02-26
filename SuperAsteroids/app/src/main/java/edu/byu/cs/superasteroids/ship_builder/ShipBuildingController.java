@@ -30,7 +30,7 @@ public class ShipBuildingController
 
     @Override
     public void update(double elapsedTime) {
-
+        //Empty
     }
 
     @Override
@@ -60,19 +60,33 @@ public class ShipBuildingController
                 AsteroidsGameModel.getInstance().getMainBodyImageIDs());
         mShipBuildingActivity.setPartViewImageList(IShipBuildingView.PartSelectionView.CANNON,
                 AsteroidsGameModel.getInstance().getCannonImageIDs());
+        mShipBuildingActivity.setPartViewImageList(IShipBuildingView.PartSelectionView.ENGINE,
+                AsteroidsGameModel.getInstance().getEngineImageIDs());
+        mShipBuildingActivity.setPartViewImageList(IShipBuildingView.PartSelectionView.EXTRA_PART,
+                AsteroidsGameModel.getInstance().getExtraPartImageIDs());
+        mShipBuildingActivity.setPartViewImageList(IShipBuildingView.PartSelectionView.POWER_CORE,
+                AsteroidsGameModel.getInstance().getPowerCoreImageIDs());
     }
 
     @Override
     public void onSlideView(IShipBuildingView.ViewDirection direction) {
-        //animate the slide change OR switch() on the current state
-        mShipBuildingActivity.animateToView(mBuilderState.getNextView(),
-                mShipBuildingActivity.getOppositeDirection(direction));
-        mBuilderState = mBuilderState.getNext();
-        //Change state to new view state.
+        //animate the slide change
+        if(direction == IShipBuildingView.ViewDirection.LEFT) {
+            mShipBuildingActivity.animateToView(mBuilderState.getNextView(),
+                    mShipBuildingActivity.getOppositeDirection(direction));
+            mBuilderState = mBuilderState.getNext();
+        }
+        else if(direction == IShipBuildingView.ViewDirection.RIGHT) {
+            mShipBuildingActivity.animateToView(mBuilderState.getPrevView(),
+                    mShipBuildingActivity.getOppositeDirection(direction));
+            mBuilderState = mBuilderState.getPrev();
+        }
+        //Else do nothing. Only the left and right swipes will do anything.
     }
 
     @Override
     public void onPartSelected(int index) {
+        //TODO: Figure out where the ship is supposed to be drawn/how to use DrawingHelper.drawImage
         //Select the part with the given index
         //Attach part to the image
         //If the ship is complete, shipBuildingActivity.setStartGameButton(true);
