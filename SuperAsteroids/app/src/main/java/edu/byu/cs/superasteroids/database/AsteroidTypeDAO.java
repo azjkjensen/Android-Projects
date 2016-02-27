@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -107,10 +108,10 @@ public class AsteroidTypeDAO {
      * Gets all AsteroidType items from the table.
      * @return the set of all AsteroidTypes from the table
      */
-    public Set<AsteroidType> getAll(){
+    public ArrayList<AsteroidType> getAll(){
         final String SQLGet = "SELECT * FROM asteroidTypes";
 
-        Set<AsteroidType> result = new HashSet<>();
+        ArrayList<AsteroidType> result = new ArrayList<>();
 
         Cursor cursor = db.rawQuery(SQLGet, new String[]{});
         try {

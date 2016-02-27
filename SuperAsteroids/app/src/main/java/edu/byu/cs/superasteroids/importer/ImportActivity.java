@@ -40,7 +40,7 @@ public class ImportActivity extends ActionBarActivity {
                     .commit();
         }
 
-        //TODO: Set the dataimporter to an instance of your GameDataImporter
+        //Set the dataimporter to an instance of GameDataImporter
         dataImporter = new DataImporter();
     }
 

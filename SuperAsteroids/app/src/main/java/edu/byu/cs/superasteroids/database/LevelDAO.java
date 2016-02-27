@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -98,11 +99,11 @@ public class LevelDAO {
      * asteroids on the way.
      * @return
      */
-    public Set<Level> getAll(Set<AsteroidType> asteroidTypes, Set<BackgroundImage> backgroundImages){
+    public ArrayList<Level> getAll(ArrayList<AsteroidType> asteroidTypes, ArrayList<BackgroundImage> backgroundImages){
 
         final String SQLGet = "SELECT * FROM levels";
 
-        Set<Level> result = new HashSet<>();
+        ArrayList<Level> result = new ArrayList<>();
 
         Cursor cursor = db.rawQuery(SQLGet, new String[]{});
         try {
@@ -137,7 +138,7 @@ public class LevelDAO {
         return result;
     }
 
-    private void setLevelAsteroids(Set<Level> levels, Set<AsteroidType> asteroidTypes){
+    private void setLevelAsteroids(ArrayList<Level> levels, ArrayList<AsteroidType> asteroidTypes){
 
         final String SQLGet = "SELECT * FROM levelAsteroids";
 
@@ -171,7 +172,7 @@ public class LevelDAO {
         }
     }
 
-    private void setLevelObjects(Set<Level> levels, Set<BackgroundImage> backgroundImages){
+    private void setLevelObjects(ArrayList<Level> levels, ArrayList<BackgroundImage> backgroundImages){
 
         final String SQLGet = "SELECT * FROM levelObjects";
 

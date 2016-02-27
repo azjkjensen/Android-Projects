@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -74,11 +75,11 @@ public class CannonDAO {
      * Returns a set of all Cannons from the database
      * @return
      */
-    public Set<Cannon> getAll(){
+    public ArrayList<Cannon> getAll(){
 
         final String SQLGet = "SELECT * FROM cannons";
 
-        Set<Cannon> result = new HashSet<>();
+        ArrayList<Cannon> result = new ArrayList<>();
 
         Cursor cursor = db.rawQuery(SQLGet, new String[]{});
         try {

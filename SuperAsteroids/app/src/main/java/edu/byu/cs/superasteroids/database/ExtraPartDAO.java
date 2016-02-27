@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -68,11 +69,11 @@ public class ExtraPartDAO {
      * Returns a set of all Extra Parts from the database
      * @return
      */
-    public Set<ExtraPart> getAll(){
+    public ArrayList<ExtraPart> getAll(){
 
         final String SQLGet = "SELECT * FROM extraParts";
 
-        Set<ExtraPart> result = new HashSet<>();
+        ArrayList<ExtraPart> result = new ArrayList<>();
 
         Cursor cursor = db.rawQuery(SQLGet, new String[]{});
         try {

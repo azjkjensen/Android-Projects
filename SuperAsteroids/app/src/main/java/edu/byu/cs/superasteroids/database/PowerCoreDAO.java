@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -66,10 +67,10 @@ public class PowerCoreDAO {
      * Returns a set of all Power Cores from the database
      * @return
      */
-    public Set<PowerCore> getAll(){
+    public ArrayList<PowerCore> getAll(){
         final String SQLGet = "SELECT * FROM powerCores";
 
-        Set<PowerCore> result = new HashSet<>();
+        ArrayList<PowerCore> result = new ArrayList<>();
 
         Cursor cursor = db.rawQuery(SQLGet, new String[]{});
         try {

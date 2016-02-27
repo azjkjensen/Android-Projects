@@ -36,6 +36,46 @@ public class SpaceShip {
         mMovingObjectInfo = movingObjectInfo;
     }
 
+    public Cannon getCannon() {
+        return mCannon;
+    }
+
+    public void setCannon(Cannon cannon) {
+        mCannon = cannon;
+    }
+
+    public Engine getEngine() {
+        return mEngine;
+    }
+
+    public void setEngine(Engine engine) {
+        mEngine = engine;
+    }
+
+    public ExtraPart getExtraPart() {
+        return mExtraPart;
+    }
+
+    public void setExtraPart(ExtraPart extraPart) {
+        mExtraPart = extraPart;
+    }
+
+    public MainBody getMainBody() {
+        return mMainBody;
+    }
+
+    public void setMainBody(MainBody mainBody) {
+        mMainBody = mainBody;
+    }
+
+    public PowerCore getPowerCore() {
+        return mPowerCore;
+    }
+
+    public void setPowerCore(PowerCore powerCore) {
+        mPowerCore = powerCore;
+    }
+
     /**
      * Shoot a laser in the direction that the ship is facing.
      */
@@ -63,5 +103,13 @@ public class SpaceShip {
      */
     public void update(){
 
+    }
+
+    public boolean shipIsComplete() {
+        return mCannon != null &&
+                mEngine != null &&
+                mExtraPart != null &&
+                mMainBody != null &&
+                mPowerCore != null;
     }
 }

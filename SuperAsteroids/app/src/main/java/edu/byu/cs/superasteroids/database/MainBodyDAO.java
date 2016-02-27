@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -68,10 +69,10 @@ public class MainBodyDAO {
      * Returns a set of all Main Bodies from the database
      * @return
      */
-    public Set<MainBody> getAll(){
+    public ArrayList<MainBody> getAll(){
         final String SQLGet = "SELECT * FROM mainBodies";
 
-        Set<MainBody> result = new HashSet<>();
+        ArrayList<MainBody> result = new ArrayList<>();
 
         Cursor cursor = db.rawQuery(SQLGet, new String[]{});
         try {

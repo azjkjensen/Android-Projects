@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -71,11 +72,11 @@ public class EngineDAO {
      * Returns a set of all Engines from the database
      * @return
      */
-    public Set<Engine> getAll(){
+    public ArrayList<Engine> getAll(){
 
         final String SQLGet = "SELECT * FROM engines";
 
-        Set<Engine> result = new HashSet<>();
+        ArrayList<Engine> result = new ArrayList<>();
 
         Cursor cursor = db.rawQuery(SQLGet, new String[]{});
         try {

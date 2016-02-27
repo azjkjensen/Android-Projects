@@ -21,19 +21,21 @@ public class AsteroidsGameModel {
     SpaceShip mSpaceShip;
     Level mCurrentLevel;
 
-    Set<AsteroidType> mAsteroidTypes;
+    ArrayList<AsteroidType> mAsteroidTypes;
     Map<Integer, AsteroidType> mLevelAsteroids;
-    Set<BackgroundImage> mBackgroundImages;
-    Set<Cannon> mCannons;
-    Set<Engine> mEngines;
-    Set<ExtraPart> mExtraParts;
-    Set<Level> mLevels;
-    Set<MainBody> mMainBodies;
-    Set<PowerCore> mPowerCores;
+    ArrayList<BackgroundImage> mBackgroundImages;
+    ArrayList<Cannon> mCannons;
+    ArrayList<Engine> mEngines;
+    ArrayList<ExtraPart> mExtraParts;
+    ArrayList<Level> mLevels;
+    ArrayList<MainBody> mMainBodies;
+    ArrayList<PowerCore> mPowerCores;
 
     private static AsteroidsGameModel instance = null;
 
-    private AsteroidsGameModel(){}
+    private AsteroidsGameModel(){
+        mSpaceShip = new SpaceShip();
+    }
 
     public static AsteroidsGameModel getInstance() {
         if(instance == null) {
@@ -46,7 +48,6 @@ public class AsteroidsGameModel {
      * Populates the model with all information from the database.
      */
     public void populate(){
-        //TODO: Make sure that images are getting loaded into contentManager properly.
         mAsteroidTypes = AsteroidTypeDAO.getInstance().getAll();
 
         /*getAllImages() does NOT get the information for an object associated with a specific
@@ -74,6 +75,78 @@ public class AsteroidsGameModel {
 
     public void setCurrentLevel(Level currentLevel) {
         mCurrentLevel = currentLevel;
+    }
+
+    public ArrayList<AsteroidType> getAsteroidTypes() {
+        return mAsteroidTypes;
+    }
+
+    public void setAsteroidTypes(ArrayList<AsteroidType> asteroidTypes) {
+        mAsteroidTypes = asteroidTypes;
+    }
+
+    public Map<Integer, AsteroidType> getLevelAsteroids() {
+        return mLevelAsteroids;
+    }
+
+    public void setLevelAsteroids(Map<Integer, AsteroidType> levelAsteroids) {
+        mLevelAsteroids = levelAsteroids;
+    }
+
+    public ArrayList<BackgroundImage> getBackgroundImages() {
+        return mBackgroundImages;
+    }
+
+    public void setBackgroundImages(ArrayList<BackgroundImage> backgroundImages) {
+        mBackgroundImages = backgroundImages;
+    }
+
+    public ArrayList<Cannon> getCannons() {
+        return mCannons;
+    }
+
+    public void setCannons(ArrayList<Cannon> cannons) {
+        mCannons = cannons;
+    }
+
+    public ArrayList<Engine> getEngines() {
+        return mEngines;
+    }
+
+    public void setEngines(ArrayList<Engine> engines) {
+        mEngines = engines;
+    }
+
+    public ArrayList<ExtraPart> getExtraParts() {
+        return mExtraParts;
+    }
+
+    public void setExtraParts(ArrayList<ExtraPart> extraParts) {
+        mExtraParts = extraParts;
+    }
+
+    public ArrayList<Level> getLevels() {
+        return mLevels;
+    }
+
+    public void setLevels(ArrayList<Level> levels) {
+        mLevels = levels;
+    }
+
+    public ArrayList<MainBody> getMainBodies() {
+        return mMainBodies;
+    }
+
+    public void setMainBodies(ArrayList<MainBody> mainBodies) {
+        mMainBodies = mainBodies;
+    }
+
+    public ArrayList<PowerCore> getPowerCores() {
+        return mPowerCores;
+    }
+
+    public void setPowerCores(ArrayList<PowerCore> powerCores) {
+        mPowerCores = powerCores;
     }
 
     public List<Integer> getMainBodyImageIDs(){
@@ -114,5 +187,9 @@ public class AsteroidsGameModel {
             result.add(powerCore.getImageID());
         }
         return result;
+    }
+
+    public boolean shipIsComplete() {
+        return mSpaceShip.shipIsComplete();
     }
 }

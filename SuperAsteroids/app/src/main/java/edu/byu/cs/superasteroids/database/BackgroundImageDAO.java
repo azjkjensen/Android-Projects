@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -65,12 +66,12 @@ public class BackgroundImageDAO {
      * Returns a set of all background images from the database
      * @return
      */
-    public Set<BackgroundImage> getAllImages(){
+    public ArrayList<BackgroundImage> getAllImages(){
 
         //First get all information necessary from objects table
         final String SQLGet = "SELECT * FROM objects";
 
-        Set<BackgroundImage> result = new HashSet<>();
+        ArrayList<BackgroundImage> result = new ArrayList<>();
 
         Cursor cursor = db.rawQuery(SQLGet, new String[]{});
         try {
