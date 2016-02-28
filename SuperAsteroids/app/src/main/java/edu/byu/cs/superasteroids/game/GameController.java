@@ -35,7 +35,9 @@ public class GameController implements IGameDelegate {
      *                files.
      */
     public void loadContent(ContentManager content){
-
+        AsteroidsGameModel.getInstance().setCurrentLevel(
+                AsteroidsGameModel.getInstance().getLevels().get(0)
+        );
     }
 
     /**
@@ -53,6 +55,6 @@ public class GameController implements IGameDelegate {
      * Draws the game delegate. This function will be 60 times a second.
      */
     public void draw(){
-
+        AsteroidsGameModel.getInstance().draw();
     }
 }

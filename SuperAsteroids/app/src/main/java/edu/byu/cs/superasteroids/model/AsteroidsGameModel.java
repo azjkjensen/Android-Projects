@@ -36,6 +36,7 @@ public class AsteroidsGameModel {
     private static AsteroidsGameModel instance = null;
 
     private AsteroidsGameModel(){
+        mCurrentLevel = new Level();
         mViewPort = new ViewPort(DrawingHelper.getGameViewWidth(),
                 DrawingHelper.getGameViewHeight(), mCurrentLevel.getBackgroundImages(), this);
         mSpaceShip = new SpaceShip();
@@ -153,6 +154,14 @@ public class AsteroidsGameModel {
         mPowerCores = powerCores;
     }
 
+    public ViewPort getViewPort() {
+        return mViewPort;
+    }
+
+    public void setViewPort(ViewPort viewPort) {
+        mViewPort = viewPort;
+    }
+
     public List<Integer> getMainBodyImageIDs(){
         List<Integer> result = new ArrayList<>();
         for(MainBody mainBody : mMainBodies){
@@ -206,12 +215,17 @@ public class AsteroidsGameModel {
     }
 
     public void update(){
+        mViewPort.setXDimension(DrawingHelper.getGameViewWidth());
+        mViewPort.setYDimension(DrawingHelper.getGameViewHeight());
         mSpaceShip.update();
 
         mViewPort.update();
     }
 
     public void draw(){
-
+        mViewPort.draw();
+        for(BackgroundImage backgroundImage : mCurrentLevel.getBackgroundImages()){
+            backgroundImage.draw();
+        }
     }
 }

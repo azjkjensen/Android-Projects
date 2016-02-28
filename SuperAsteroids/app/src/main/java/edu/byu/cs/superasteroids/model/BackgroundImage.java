@@ -1,5 +1,8 @@
 package edu.byu.cs.superasteroids.model;
 
+import edu.byu.cs.superasteroids.content.ContentManager;
+import edu.byu.cs.superasteroids.drawing.DrawingHelper;
+
 /**
  * Created by Jordan on 2/12/2016.
  * This class stores the information for displaying a given image on a level.
@@ -74,13 +77,12 @@ public class BackgroundImage {
      * Draws the image associated with this object
      */
     public void draw(){
-
-    }
-
-    /**
-     * Updates the information associated with this object
-     */
-    public void update(){
-
+        if(mImagePath != null){
+            int imageID = ContentManager.getInstance().getImageId(mImagePath);
+            Coordinate positionInView = AsteroidsGameModel.getInstance()
+                    .getViewPort().toViewCoordinates(mPosition);
+            DrawingHelper.drawImage(imageID, positionInView.getXPos(), positionInView.getYPos(),
+                    0, mScale, mScale, 255);
+        }
     }
 }

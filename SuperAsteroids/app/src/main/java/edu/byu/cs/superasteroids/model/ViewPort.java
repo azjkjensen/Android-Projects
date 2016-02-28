@@ -1,7 +1,10 @@
 package edu.byu.cs.superasteroids.model;
 
+import android.graphics.Rect;
+
 import java.util.List;
 
+import edu.byu.cs.superasteroids.content.ContentManager;
 import edu.byu.cs.superasteroids.drawing.DrawingHelper;
 
 /**
@@ -14,8 +17,8 @@ public class ViewPort {
     /**The y dimension of the viewport */
     private int mYDimension;
 
-    private float mXPosition;
-    private float mYPosition;
+    private float mXPosition = 0;
+    private float mYPosition = 0;
     /**The background image for the level */
     private List<BackgroundImage> mBackgroundImages;
 
@@ -44,6 +47,10 @@ public class ViewPort {
     }
 
     public ViewPort() {
+        mXDimension = DrawingHelper.getGameViewWidth();
+        mYDimension = DrawingHelper.getGameViewHeight();
+        //Loads base image for every level.
+        ContentManager.getInstance().loadImage("images/space.bmp");
     }
 
     public ViewPort(int XDimension, int YDimension, List<BackgroundImage> backgroundImages,
@@ -52,6 +59,8 @@ public class ViewPort {
         mYDimension = YDimension;
         mBackgroundImages = backgroundImages;
         mGame = game;
+        //Loads base image for every level.
+        ContentManager.getInstance().loadImage("images/space.bmp");
     }
 
     public Coordinate toViewCoordinates(Coordinate worldCoord){
@@ -72,6 +81,7 @@ public class ViewPort {
     }
 
     public void draw(){
-
+        DrawingHelper.drawImage(ContentManager.getInstance().getImageId("images/space.bmp"),
+                new Rect(Math.round(mXPosition),Math.round(mYPosition), mXDimension, mYDimension), null);
     }
 }
