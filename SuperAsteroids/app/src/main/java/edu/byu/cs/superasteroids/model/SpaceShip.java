@@ -6,9 +6,9 @@ package edu.byu.cs.superasteroids.model;
  */
 public class SpaceShip {
     /**The speed of the ship */
-    int mSpeed;
+    int mSpeed = 2;
     /**The direction (in degrees ccw from 0) of the ship */
-    int mDirection;
+    int mDirection = 90;
     /**The cannon part for the ship */
     Cannon mCannon;
     /**The engine part of the ship */
@@ -21,6 +21,8 @@ public class SpaceShip {
     PowerCore mPowerCore;
     /**The information necessary for the ship to move and be redrawn */
     MovingObject mMovingObjectInfo;
+    private float mXPosition = 0;
+    private float mYPosition = 0;
 
     public SpaceShip() {
     }
@@ -74,6 +76,22 @@ public class SpaceShip {
 
     public void setPowerCore(PowerCore powerCore) {
         mPowerCore = powerCore;
+    }
+
+    public float getXPosition() {
+        return mXPosition;
+    }
+
+    public void setXPosition(float XPosition) {
+        mXPosition = XPosition;
+    }
+
+    public float getYPosition() {
+        return mYPosition;
+    }
+
+    public void setYPosition(float YPosition) {
+        mYPosition = YPosition;
     }
 
     /**

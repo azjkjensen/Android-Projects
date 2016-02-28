@@ -1,7 +1,9 @@
 package edu.byu.cs.superasteroids.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -23,18 +25,18 @@ public class Level {
     /**Filepath to the music file for the level */
     String mMusic;
     /**An array of images associated with the level */
-    Set<BackgroundImage> mBackgroundImages;
+    List<BackgroundImage> mBackgroundImages;
     /**A map of the asteroids in the level and the number of each */
     Map<AsteroidType, Integer> mLevelAsteroids;
 
     public Level() {
-        mBackgroundImages = new HashSet<>();
+        mBackgroundImages = new ArrayList<>();
         mLevelAsteroids = new HashMap<>();
     }
 
     public Level(int number, int width, int height,
                  String title, String hint, String music,
-                 Set<BackgroundImage> backgroundImages, Map<AsteroidType, Integer> levelAsteroids) {
+                 List<BackgroundImage> backgroundImages, Map<AsteroidType, Integer> levelAsteroids) {
         mNumber = number;
         mWidth = width;
         mHeight = height;
@@ -104,11 +106,11 @@ public class Level {
         mMusic = music;
     }
 
-    public Set<BackgroundImage> getBackgroundImages() {
+    public List<BackgroundImage> getBackgroundImages() {
         return mBackgroundImages;
     }
 
-    public void setBackgroundImages(Set<BackgroundImage> backgroundImages) {
+    public void setBackgroundImages(List<BackgroundImage> backgroundImages) {
         mBackgroundImages = backgroundImages;
     }
 

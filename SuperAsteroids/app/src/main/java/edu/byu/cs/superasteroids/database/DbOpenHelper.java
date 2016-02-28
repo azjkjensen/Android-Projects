@@ -185,4 +185,12 @@ public class DbOpenHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         return;
     }
+
+    public boolean dbIsEmpty(){
+        if(AsteroidTypeDAO.getInstance().getAll().isEmpty() &&
+                BackgroundImageDAO.getInstance().getAllImages().isEmpty()){
+            return true;
+        };
+        return false;
+    }
 }

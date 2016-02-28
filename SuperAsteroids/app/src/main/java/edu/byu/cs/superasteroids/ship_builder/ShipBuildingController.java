@@ -143,7 +143,7 @@ public class ShipBuildingController
 
     @Override
     public void loadContent(ContentManager content) {
-        //TODO: Load ALL content once so that we don't have to do it again.
+        //Load ALL content once so that we don't have to do it again.
         //Populate the model, then setPartViewImageList for each part
         AsteroidsGameModel.getInstance().populate();
         //Set the images to display for each part in the builder.

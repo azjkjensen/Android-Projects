@@ -41,8 +41,8 @@ public class MainActivity extends ActionBarActivityView implements IMainMenuView
 
         //TODO: Set this activity's controller to an instance of your MainMenuController
         //TODO: Pass the MainMenuController's constructor a reference to its IMainMenuView (this)
-        //IMainMenuController controller = new MainMenuController(this);
-        //setController(controller);
+        IMainMenuController controller = new MainMenuController(this);
+        setController(controller);
 
         db = DbOpenHelper.getInstance(this).getWritableDatabase();
         AsteroidTypeDAO.getInstance().setDatabase(db);

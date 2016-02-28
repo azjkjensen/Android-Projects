@@ -13,11 +13,13 @@ import edu.byu.cs.superasteroids.database.ExtraPartDAO;
 import edu.byu.cs.superasteroids.database.LevelDAO;
 import edu.byu.cs.superasteroids.database.MainBodyDAO;
 import edu.byu.cs.superasteroids.database.PowerCoreDAO;
+import edu.byu.cs.superasteroids.drawing.DrawingHelper;
 
 /**
  * Created by Jk on 2/19/2016.
  */
 public class AsteroidsGameModel {
+    ViewPort mViewPort;
     SpaceShip mSpaceShip;
     Level mCurrentLevel;
 
@@ -34,6 +36,8 @@ public class AsteroidsGameModel {
     private static AsteroidsGameModel instance = null;
 
     private AsteroidsGameModel(){
+        mViewPort = new ViewPort(DrawingHelper.getGameViewWidth(),
+                DrawingHelper.getGameViewHeight(), mCurrentLevel.getBackgroundImages(), this);
         mSpaceShip = new SpaceShip();
     }
 
@@ -191,5 +195,23 @@ public class AsteroidsGameModel {
 
     public boolean shipIsComplete() {
         return mSpaceShip.shipIsComplete();
+    }
+
+    public void assemblePresetShip(){
+        mSpaceShip.setPowerCore(AsteroidsGameModel.getInstance().getPowerCores().get(0));
+        mSpaceShip.setMainBody(AsteroidsGameModel.getInstance().getMainBodies().get(0));
+        mSpaceShip.setCannon(AsteroidsGameModel.getInstance().getCannons().get(0));
+        mSpaceShip.setExtraPart(AsteroidsGameModel.getInstance().getExtraParts().get(0));
+        mSpaceShip.setEngine(AsteroidsGameModel.getInstance().getEngines().get(0));
+    }
+
+    public void update(){
+        mSpaceShip.update();
+
+        mViewPort.update();
+    }
+
+    public void draw(){
+
     }
 }
