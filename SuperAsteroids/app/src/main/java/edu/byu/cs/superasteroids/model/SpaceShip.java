@@ -1,11 +1,11 @@
 package edu.byu.cs.superasteroids.model;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PointF;
+import android.graphics.RectF;
 import android.util.Log;
 
 import edu.byu.cs.superasteroids.content.ContentManager;
@@ -19,7 +19,7 @@ import edu.byu.cs.superasteroids.game.InputManager;
  */
 public class SpaceShip {
     /**The speed of the ship */
-    int mSpeed = 2;
+    int mSpeed = 18;
     /**The direction (in degrees ccw from 0) of the ship */
     int mDirection = 0;
     /**The cannon part for the ship */
@@ -34,8 +34,8 @@ public class SpaceShip {
     PowerCore mPowerCore;
     private float mXPosition = DrawingHelper.getGameViewWidth();
     private float mYPosition = DrawingHelper.getGameViewHeight();
-    private float shipWidth = 0;
-    private float shipHeight = 0;
+    private float mShipWidth = 0;
+    private float mShipHeight = 0;
     private float mScale = (float) .35;
 
     public SpaceShip() {
@@ -120,12 +120,12 @@ public class SpaceShip {
      */
     public void draw(){
         ContentManager cm = ContentManager.getInstance();
-        if(shipWidth == 0 || shipHeight == 0) {
-            shipWidth = mExtraPart.getViewableInfo().getImageWidth() * mScale +
+        if(mShipWidth == 0 || mShipHeight == 0) {
+            mShipWidth = mExtraPart.getViewableInfo().getImageWidth() * mScale +
                     mMainBody.getViewableInfo().getImageWidth() * mScale +
                     mCannon.getMainViewableInfo().getImageWidth() * mScale;
-            shipHeight = mEngine.getViewableInfo().getImageHeight() * mScale +
-                    mMainBody.getViewableInfo().getImageHeight();
+            mShipHeight = mEngine.getViewableInfo().getImageHeight() * mScale +
+                    mMainBody.getViewableInfo().getImageHeight() * mScale;
         }
 
         Coordinate viewPos = AsteroidsGameModel.getInstance().getViewPort().toViewCoordinates(
@@ -209,27 +209,62 @@ public class SpaceShip {
      * @param direction that the ship should rotate toward
      */
     public void rotate(int direction){
-        //TODO:Fix rotation (run to see functionality)
         if(InputManager.movePoint == null) return;
-        float xComponent = DrawingHelper.getGameViewWidth()/2 - InputManager.movePoint.x;
-        float yComponent = DrawingHelper.getGameViewHeight()/2 - InputManager.movePoint.y;
+        float xComponent;
+        float yComponent;
+        xComponent = InputManager.movePoint.x - DrawingHelper.getGameViewWidth() / 2;
+        yComponent = InputManager.movePoint.y - DrawingHelper.getGameViewHeight() / 2;
+
+
         double angle = Math.toDegrees(Math.atan(xComponent / yComponent));
-//        if(yComponent > DrawingHelper.getGameViewHeight()/2) {
+        if(yComponent > 0) {
+            mDirection = (int) -angle + 180;
+        } else{
             mDirection = (int) -angle;
-//        }
-//        else{
-//            mDirection = (int) -angle + 180;
-//        }
+        }
         Log.i("gameplay", Integer.toString(mDirection));
-        Log.i("gameplay", "X " + InputManager.movePoint.x + " Y " + (InputManager.movePoint.y));
+        Log.i("gameplay", "X " + xComponent + " Y " + yComponent);
     }
 
     /**
      * Updates the information associated with this object
      */
     public void update(){
+        ViewPort viewPort = AsteroidsGameModel.getInstance().getViewPort();
+        Level level = AsteroidsGameModel.getInstance().getCurrentLevel();
         rotate(mDirection);
 
+        //Update movement
+        if(InputManager.movePoint != null){
+
+            Coordinate viewPos = viewPort.toViewCoordinates(
+                    new Coordinate(getXPosition(), getYPosition()));
+            float shipXCenter = viewPos.getXPos();
+            float shipYCenter = viewPos.getYPos();
+            float shipTopLeftX = shipXCenter - mShipWidth/2;
+            float shipTopLeftY = shipYCenter - mShipHeight/2;
+            float shipBottomRightX = shipXCenter + mShipWidth/2;
+            float shipBottomRightY = shipYCenter + mShipHeight/2;
+
+            //TODO: Ask TA's about the last parameter of this function
+            GraphicsUtils.MoveObjectResult result = GraphicsUtils.moveObject(
+                    new PointF(mXPosition, mYPosition),
+                    new RectF(shipTopLeftX, shipTopLeftY, shipBottomRightX, shipBottomRightY),
+                    mSpeed, Math.toRadians(mDirection - 90), 1);
+            float newX = result.getNewObjPosition().x;
+            float newY = result.getNewObjPosition().y;
+
+            //If the ship is at the edge of the screen, don't update it.
+            if(newX - mShipWidth/2 >= 0 &&
+                    newX + mShipWidth/2 <= level.getWidth()) {
+                mXPosition = newX;
+            }
+            if(newY - mShipHeight/2 >= 0 &&
+                    newY + mShipHeight/2 <= level.getHeight()){
+                mYPosition = newY;
+            }
+
+        }
     }
 
     public boolean shipIsComplete() {
