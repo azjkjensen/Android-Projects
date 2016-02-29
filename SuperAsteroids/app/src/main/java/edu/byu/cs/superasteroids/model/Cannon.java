@@ -63,8 +63,30 @@ public class Cannon {
     /**
      * Draws the image associated with this object
      */
-    public void draw(){
+    public void draw(float bodyXAttach, float bodyYAttach,
+                     int shipDirection, float scale){
+        //The attach point becomes:
+        //   old_attach_point_x * * cos(ship_direction)
+        //   old_attach_point_y * sin(ship_direction)
 
+//        float newAttachX = (float)(partAttachPointX * Math.cos(shipDirection));
+//        float newAttachY = (float)(partAttachPointY * Math.sin(shipDirection));
+//        AsteroidsGameModel.getInstance().drawShipPart(mMainViewableInfo.getImageID(),
+//                bodyXAttach, bodyYAttach, mMainViewableInfo.getImageWidth(),
+//                mMainViewableInfo.getImageHeight(), mAttachPoint,
+//                bodyAttachPoint, scale, shipDirection
+//        );
+
+        float newBodyAttachX = (float)((mAttachPoint.getXPos()) *
+                Math.cos((Math.PI/180) * shipDirection));
+        float newBodyAttachY = (float)((mAttachPoint.getYPos()) *
+                Math.sin((Math.PI/180) * shipDirection));
+
+        AsteroidsGameModel.getInstance().drawShipPart(mMainViewableInfo.getImageID(),
+                bodyXAttach, bodyYAttach, mMainViewableInfo.getImageWidth(),
+                mMainViewableInfo.getImageHeight(),
+                new Coordinate(newBodyAttachX, newBodyAttachY),
+                       .15f, shipDirection);
     }
 
     /**

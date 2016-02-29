@@ -22,6 +22,9 @@ public class ViewPort {
     /**The background image for the level */
     private List<BackgroundImage> mBackgroundImages;
 
+    //For testing
+    int count = 0;
+
     public int getXDimension() {
         return mXDimension;
     }
@@ -70,18 +73,25 @@ public class ViewPort {
     }
 
     public void update(){
-        float proposedX = mGame.getSpaceShip().getXPosition() - (mXDimension / 2);
-        float proposedY = mGame.getSpaceShip().getYPosition() - (mYDimension / 2);
+        float proposedX = mGame.getSpaceShip().getXPosition() - (mXDimension / 2) + count;
+        float proposedY = mGame.getSpaceShip().getYPosition() - (mYDimension / 2) + count;
         if(proposedX > 0 && proposedX + mXDimension < mGame.getCurrentLevel().getWidth()){
             mXPosition = proposedX;
         }
-        if(proposedY + mYDimension > 0 && proposedY < mGame.getCurrentLevel().getHeight()) {
+        if(proposedY > 0 && proposedY + mYDimension < mGame.getCurrentLevel().getHeight()) {
             mYPosition = proposedY;
         }
+//        count++;
     }
 
     public void draw(){
+        //TODO: Fix this so that the bottom left is drawn right.
+        int newXPos = Math.round(mXPosition / mGame.getCurrentLevel().getWidth() * 2048);
+        int newYPos = Math.round(mYPosition / mGame.getCurrentLevel().getHeight() * 2048);
+        int newXDim = Math.round(newXPos + mXDimension);
+        int newYDim = Math.round(newYPos + mYDimension);
+
         DrawingHelper.drawImage(ContentManager.getInstance().getImageId("images/space.bmp"),
-                new Rect(Math.round(mXPosition),Math.round(mYPosition), mXDimension, mYDimension), null);
+                new Rect(newXPos, newYPos, newXDim, newYDim), null);
     }
 }

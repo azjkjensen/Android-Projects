@@ -20,6 +20,11 @@ public class Coordinate {
         mYPos = YPos;
     }
 
+    public Coordinate(float Xpos, float Ypos) {
+        mXPos = Math.round(Xpos);
+        mYPos = Math.round(Ypos);
+    }
+
     public Coordinate(String coordString) {
         String[] positions = coordString.split(",");
         if(positions.length != 2) Log.i("JsonDomParserExample", "Coordinate failed to create");

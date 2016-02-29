@@ -80,6 +80,8 @@ public class AsteroidsGameModel {
 
     public void setCurrentLevel(Level currentLevel) {
         mCurrentLevel = currentLevel;
+        mSpaceShip.setXPosition(mCurrentLevel.getWidth()/2);
+        mSpaceShip.setYPosition(mCurrentLevel.getHeight()/2);
     }
 
     public ArrayList<AsteroidType> getAsteroidTypes() {
@@ -223,9 +225,30 @@ public class AsteroidsGameModel {
     }
 
     public void draw(){
+//        mSpaceShip.compileShipImage();
         mViewPort.draw();
         for(BackgroundImage backgroundImage : mCurrentLevel.getBackgroundImages()){
             backgroundImage.draw();
         }
+        mSpaceShip.draw();
+    }
+
+    public void drawShipPart(int imageID, float bodyAttachX, float bodyAttachY, int partWidth,
+                              int partHeight, Coordinate partAttachPoint,
+                              float scale, int direction){
+//        float bodyAttachX = (bodyAttachPoint.getXPos() * scale) + bodyXOrigin;
+//        float bodyAttachY = (bodyAttachPoint.getYPos() * scale) + bodyYOrigin;
+
+        float partAttachX = partAttachPoint.getXPos() * scale;
+        float partAttachY = partAttachPoint.getYPos() * scale;
+        float partOriginX = bodyAttachX - partAttachX;
+        float partOriginY = bodyAttachY - partAttachY;
+
+        float scaledPartWidth = partWidth * scale;
+        float scaledPartHeight = partHeight * scale;
+        float partCenterX = partOriginX + scaledPartWidth/2;
+        float partCenterY = partOriginY + scaledPartHeight/2;
+
+        DrawingHelper.drawImage(imageID, partCenterX, partCenterY, 0, scale, scale, 255);
     }
 }
