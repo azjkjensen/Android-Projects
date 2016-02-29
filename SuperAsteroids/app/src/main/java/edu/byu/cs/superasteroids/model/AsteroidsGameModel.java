@@ -32,6 +32,7 @@ public class AsteroidsGameModel {
     ArrayList<Level> mLevels;
     ArrayList<MainBody> mMainBodies;
     ArrayList<PowerCore> mPowerCores;
+    ArrayList<Laser> mLasers;
 
     private static AsteroidsGameModel instance = null;
 
@@ -164,6 +165,14 @@ public class AsteroidsGameModel {
         mViewPort = viewPort;
     }
 
+    public ArrayList<Laser> getLasers() {
+        return mLasers;
+    }
+
+    public void setLasers(ArrayList<Laser> lasers) {
+        mLasers = lasers;
+    }
+
     public List<Integer> getMainBodyImageIDs(){
         List<Integer> result = new ArrayList<>();
         for(MainBody mainBody : mMainBodies){
@@ -196,9 +205,9 @@ public class AsteroidsGameModel {
         return result;
     }
 
-    public List<Integer>  getPowerCoreImageIDs(){
+    public List<Integer>  getPowerCoreImageIDs() {
         List<Integer> result = new ArrayList<>();
-        for(PowerCore powerCore : mPowerCores){
+        for (PowerCore powerCore : mPowerCores) {
             result.add(powerCore.getImageID());
         }
         return result;

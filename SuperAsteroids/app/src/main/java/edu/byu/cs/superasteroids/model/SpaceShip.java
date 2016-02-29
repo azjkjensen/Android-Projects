@@ -1,9 +1,6 @@
 package edu.byu.cs.superasteroids.model;
 
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Matrix;
-import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.util.Log;
@@ -32,6 +29,9 @@ public class SpaceShip {
     MainBody mMainBody;
     /**The power core part of the ship */
     PowerCore mPowerCore;
+    /** The emit point for the cannon on the ship */
+    PointF mEmitPoint;
+
     private float mXPosition = DrawingHelper.getGameViewWidth();
     private float mYPosition = DrawingHelper.getGameViewHeight();
     private float mShipWidth = 0;
@@ -112,7 +112,13 @@ public class SpaceShip {
      * Shoot a laser in the direction that the ship is facing.
      */
     public void shoot(){
-
+        if(InputManager.firePressed == false) return;
+        else{
+            //Create and draw a laser
+            Laser shot = new Laser();
+            //TODO: assign a location and such for laser and draw it!
+            AsteroidsGameModel.getInstance().getLasers().add(shot);
+        }
     }
 
     /**
@@ -154,6 +160,14 @@ public class SpaceShip {
                 (Math.PI / 180) * mDirection);
         float cannonXLocation = shipXCenter + rotatedOffset.x;
         float cannonYLocation = shipYCenter + rotatedOffset.y;
+
+        float emitOffsetX = (cannonOffsetX - mCannon.getMainViewableInfo().getImageWidth()/2 +
+                mCannon.getEmitPoint().getXPos());
+        float emitOffsetY = (cannonOffsetY - mCannon.getMainViewableInfo().getImageHeight()/2 +
+                mCannon.getEmitPoint().getYPos());
+        PointF mEmitPoint = GraphicsUtils.rotate(new PointF(emitOffsetX, emitOffsetY),
+                Math.toRadians(mDirection));
+
 
         DrawingHelper.drawImage(mCannon.getMainViewableInfo().getImageID(),
                 cannonXLocation, cannonYLocation, mDirection, mScale,
@@ -263,7 +277,6 @@ public class SpaceShip {
                     newY + mShipHeight/2 <= level.getHeight()){
                 mYPosition = newY;
             }
-
         }
     }
 
@@ -273,30 +286,5 @@ public class SpaceShip {
                 mExtraPart != null &&
                 mMainBody != null &&
                 mPowerCore != null;
-    }
-
-    public void compileShipImage(){
-        Coordinate viewPos = AsteroidsGameModel.getInstance().getViewPort().toViewCoordinates(
-                new Coordinate(getXPosition(), getYPosition()));
-        float shipX = viewPos.getXPos();
-        float shipY = viewPos.getYPos();
-
-        Bitmap pic1 = ContentManager.getInstance().getImage(mMainBody.getViewableInfo().getImageID());
-        Bitmap pic2 = ContentManager.getInstance().getImage(mCannon.getMainViewableInfo().getImageID());
-//        Bitmap bg= BitmapFactory.decodeResource(getResources(), R.drawable.background);
-        Bitmap out1 = pic1.copy(Bitmap.Config.ARGB_8888, true);
-        Canvas comboImage = new Canvas(out1);
-//        comboImage.drawBitmap(pic1, 10f, 20f, null);
-//        comboImage.drawBitmap(pic2, 30f, 40f, null);
-
-        Paint paint = new Paint();
-        paint.reset();
-        Matrix matrix = new Matrix();
-        matrix.setTranslate(-pic1.getWidth()/2f, -pic1.getHeight()/2f);
-        matrix.postRotate(0);
-        matrix.postTranslate(shipX, shipY);
-        matrix.postScale(mScale, mScale);
-        paint.setAlpha(255);
-        comboImage.drawBitmap(pic2, matrix, paint);
     }
 }

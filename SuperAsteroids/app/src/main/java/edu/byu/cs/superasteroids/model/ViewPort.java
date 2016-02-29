@@ -91,7 +91,7 @@ public class ViewPort {
     }
 
     public void draw(){
-        //TODO: Fix this so that the bottom left is drawn right.
+        //TODO: Fix this so that the bottom left is drawn right. **NEEDS TO SCALE X & Y DIFFERENCE
         int newXPos = Math.round((mXPosition / mGame.getCurrentLevel().getWidth()) * 2048);
         int newYPos = Math.round((mYPosition / mGame.getCurrentLevel().getHeight()) * 2048);
         int newXDim = Math.round(newXPos + (mXDimension/ mGame.getCurrentLevel().getWidth()) * 2048);
