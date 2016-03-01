@@ -5,6 +5,8 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 import edu.byu.cs.superasteroids.content.ContentManager;
 import edu.byu.cs.superasteroids.core.GraphicsUtils;
 import edu.byu.cs.superasteroids.drawing.DrawingHelper;
@@ -31,14 +33,19 @@ public class SpaceShip {
     PowerCore mPowerCore;
     /** The emit point for the cannon on the ship */
     PointF mEmitPoint;
+    /** Lasers from this ship */
+    ArrayList<Laser> lasers;
 
-    private float mXPosition = DrawingHelper.getGameViewWidth();
-    private float mYPosition = DrawingHelper.getGameViewHeight();
+    private float mXPosition = 0;
+    private float mYPosition = 0;
     private float mShipWidth = 0;
     private float mShipHeight = 0;
     private float mScale = (float) .35;
 
     public SpaceShip() {
+        mXPosition = DrawingHelper.getGameViewWidth();
+        mYPosition = DrawingHelper.getGameViewHeight();
+        lasers = new ArrayList<>();
     }
 
     public SpaceShip(int speed, int direction, Cannon cannon, Engine engine, ExtraPart extraPart, MainBody mainBody, PowerCore powerCore, MovingObject movingObjectInfo) {
@@ -49,6 +56,9 @@ public class SpaceShip {
         mExtraPart = extraPart;
         mMainBody = mainBody;
         mPowerCore = powerCore;
+        mXPosition = DrawingHelper.getGameViewWidth();
+        mYPosition = DrawingHelper.getGameViewHeight();
+        lasers = new ArrayList<>();
 //        mMovingObjectInfo = movingObjectInfo;
     }
 
@@ -108,16 +118,27 @@ public class SpaceShip {
         mYPosition = YPosition;
     }
 
+    public PointF getEmitPoint() {
+        return mEmitPoint;
+    }
+
+    public void setEmitPoint(PointF emitPoint) {
+        mEmitPoint = emitPoint;
+    }
+
     /**
      * Shoot a laser in the direction that the ship is facing.
      */
     public void shoot(){
         if(InputManager.firePressed == false) return;
         else{
-            //Create and draw a laser
-            Laser shot = new Laser();
+//            Create and draw a laser
+            Laser shot = new Laser(mCannon.getLaserShot());
+            shot.mPosition.setXPos(Math.round(mCannon.getVPEmitPoint().x));
+            shot.mPosition.setYPos(Math.round(mCannon.getVPEmitPoint().y));
+            lasers.add(shot);
             //TODO: assign a location and such for laser and draw it!
-            AsteroidsGameModel.getInstance().getLasers().add(shot);
+            shot.draw(mDirection, mScale);
         }
     }
 
@@ -135,7 +156,7 @@ public class SpaceShip {
         }
 
         Coordinate viewPos = AsteroidsGameModel.getInstance().getViewPort().toViewCoordinates(
-                new Coordinate(getXPosition(), getYPosition()));
+                new Coordinate(mXPosition, mYPosition));
         float shipXCenter = viewPos.getXPos();
         float shipYCenter = viewPos.getYPos();
 
@@ -161,12 +182,23 @@ public class SpaceShip {
         float cannonXLocation = shipXCenter + rotatedOffset.x;
         float cannonYLocation = shipYCenter + rotatedOffset.y;
 
-        float emitOffsetX = (cannonOffsetX - mCannon.getMainViewableInfo().getImageWidth()/2 +
-                mCannon.getEmitPoint().getXPos());
-        float emitOffsetY = (cannonOffsetY - mCannon.getMainViewableInfo().getImageHeight()/2 +
-                mCannon.getEmitPoint().getYPos());
-        PointF mEmitPoint = GraphicsUtils.rotate(new PointF(emitOffsetX, emitOffsetY),
+
+        float emitOffsetX = ((cannonOffsetX + (mCannon.getAttachPoint().getXPos() * mScale)));
+        float emitOffsetY = ((cannonOffsetY + mCannon.getAttachPoint().getYPos() * mScale));
+
+        mEmitPoint = GraphicsUtils.rotate(new PointF(emitOffsetX, emitOffsetY),
                 Math.toRadians(mDirection));
+
+        mCannon.setVPEmitPoint(shipXCenter + mEmitPoint.x, shipYCenter + mEmitPoint.y);
+        for(Laser laser : lasers){
+            laser.draw(mDirection, mScale);
+        }
+
+//        mCannon.getLaserShot().draw(mDirection, mScale);
+//        DrawingHelper.drawImage(mCannon.getLaserShot().mAttackViewableInfo.getImageID(),
+//                shipXCenter + mEmitPoint.x,
+//                shipYCenter + mEmitPoint.y,
+//                mDirection, mScale, mScale, 255);
 
 
         DrawingHelper.drawImage(mCannon.getMainViewableInfo().getImageID(),
@@ -210,9 +242,13 @@ public class SpaceShip {
         DrawingHelper.drawImage(mEngine.getViewableInfo().getImageID(),
                 engineXLocation, engineYLocation, mDirection, mScale,
                 mScale, 255);
+
+        if(InputManager.firePressed){
+            shoot();
+        }
     }
 
-    private void drawMainBody(float shipX, float shipY){
+    private void drawMainBody(float shipX, float shipY) {
         DrawingHelper.drawImage(mMainBody.getViewableInfo().getImageID(),
                 shipX, shipY, mDirection, mScale, mScale, 255);
 //        mDirection++;
@@ -247,6 +283,9 @@ public class SpaceShip {
         ViewPort viewPort = AsteroidsGameModel.getInstance().getViewPort();
         Level level = AsteroidsGameModel.getInstance().getCurrentLevel();
         rotate(mDirection);
+        for(Laser laser : lasers){
+            laser.update();
+        }
 
         //Update movement
         if(InputManager.movePoint != null){

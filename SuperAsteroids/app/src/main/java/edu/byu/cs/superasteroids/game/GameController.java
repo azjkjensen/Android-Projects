@@ -21,9 +21,9 @@ public class GameController implements IGameDelegate {
             //Rotate the spaceship in the direction of the move point.
 //            game.getSpaceShip().rotate(InputManager.movePoint);
         }
-        if(InputManager.firePressed){
-            game.getSpaceShip().shoot();
-        }
+//        if(InputManager.firePressed){
+//            game.getSpaceShip().shoot();
+//        }
         game.update();
     }
 

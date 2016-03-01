@@ -91,11 +91,10 @@ public class ViewPort {
     }
 
     public void draw(){
-        //TODO: Fix this so that the bottom left is drawn right. **NEEDS TO SCALE X & Y DIFFERENCE
-        int newXPos = Math.round((mXPosition / mGame.getCurrentLevel().getWidth()) * 2048);
-        int newYPos = Math.round((mYPosition / mGame.getCurrentLevel().getHeight()) * 2048);
-        int newXDim = Math.round(newXPos + (mXDimension/ mGame.getCurrentLevel().getWidth()) * 2048);
-        int newYDim = Math.round(newYPos + (mYDimension/ mGame.getCurrentLevel().getWidth()) * 2048);
+        int newXPos = Math.round((mXPosition / mGame.getCurrentLevel().getWidth()) * 1300);
+        int newYPos = Math.round((mYPosition / mGame.getCurrentLevel().getHeight()) * 1500);
+        int newXDim = Math.round(newXPos + (mXDimension));// * mGame.getCurrentLevel().getWidth()) / 2048);
+        int newYDim = Math.round(newYPos + (mYDimension));// * mGame.getCurrentLevel().getWidth()) / 2048);
 
         DrawingHelper.drawImage(ContentManager.getInstance().getImageId("images/space.bmp"),
                 new Rect(newXPos, newYPos, newXDim, newYDim), null);

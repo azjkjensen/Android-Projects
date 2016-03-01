@@ -1,5 +1,7 @@
 package edu.byu.cs.superasteroids.model;
 
+import android.graphics.PointF;
+
 /**
  * Created by Jordan on 2/12/2016.
  * This class stores all information for a cannon to attach to the ship.
@@ -13,6 +15,7 @@ public class Cannon {
     ViewableObject mMainViewableInfo;
     /**The laser that shoots from this cannon */
     Laser mLaserShot;
+    private PointF mVPEmitPoint;
 //    /**The id associated with this item in the database */
 //    int mID;
 
@@ -60,6 +63,10 @@ public class Cannon {
         mLaserShot = laserShot;
     }
 
+    public PointF getVPEmitPoint() {
+        return mVPEmitPoint;
+    }
+
     /**
      * Draws the image associated with this object
      */
@@ -94,5 +101,9 @@ public class Cannon {
      */
     public void update(){
 
+    }
+
+    public void setVPEmitPoint(float emitPointX, float emitPointY) {
+        mVPEmitPoint = new PointF(emitPointX, emitPointY);
     }
 }
