@@ -5,7 +5,9 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 import android.util.Log;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Timer;
 
 import edu.byu.cs.superasteroids.content.ContentManager;
 import edu.byu.cs.superasteroids.core.GraphicsUtils;
@@ -45,6 +47,9 @@ public class SpaceShip {
     private float mCannonOffsetY;
     private int mShipXCenter;
     private int mShipYCenter;
+    private boolean mSafeMode = false;
+    private int hitPoints = 5;
+    private long mSafeModeStartTime;
 
     public SpaceShip() {
         mXPosition = DrawingHelper.getGameViewWidth();
@@ -130,6 +135,24 @@ public class SpaceShip {
 
     public void setEmitPoint(PointF emitPoint) {
         mEmitPoint = emitPoint;
+    }
+
+    public void touch(Object o){
+        if(o.getClass() == AsteroidType.class){
+            if(!this.inSafeMode())
+                this.takeHit();
+        }
+    }
+
+    private void takeHit() {
+        this.hitPoints--;
+        this.mSafeMode = true;
+        //TODO: finish this timer to function as a 5-second countdown, and when 5s is up set safemode to false
+        this.mSafeModeStartTime = System.currentTimeMillis();
+    }
+
+    private boolean inSafeMode() {
+        return mSafeMode;
     }
 
     /**

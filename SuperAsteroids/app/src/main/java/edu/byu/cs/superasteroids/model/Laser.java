@@ -22,7 +22,7 @@ public class Laser {
     int mAttackSoundID;
     /** The position of the laser */
     Coordinate mPosition;
-    private int mSpeed = 40;
+    private int mSpeed = 48;
     private float mDirection = -1;
 
     public Laser() {
@@ -107,7 +107,7 @@ public class Laser {
         DrawingHelper.drawImage(mAttackViewableInfo.getImageID(),
                 viewPos.getXPos(),
                 viewPos.getYPos(),
-                mDirection, scale/2, scale/2, 255);
+                mDirection, scale/3, scale/3, 255);
     }
 
     /**

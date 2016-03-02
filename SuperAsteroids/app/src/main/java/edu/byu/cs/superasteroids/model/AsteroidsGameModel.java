@@ -273,11 +273,11 @@ public class AsteroidsGameModel {
         for(BackgroundImage backgroundImage : mCurrentLevel.getBackgroundImages()){
             backgroundImage.draw();
         }
-        mSpaceShip.draw();
 
         for(AsteroidType asteroid : mAsteroidTypes){
             asteroid.draw(ASTEROID_SCALE);
         }
+        mSpaceShip.draw();
     }
 
     public static void resetGame() {

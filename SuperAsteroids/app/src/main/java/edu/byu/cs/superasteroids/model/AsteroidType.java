@@ -138,8 +138,8 @@ public class AsteroidType {
     /**
      * Accounts for when the asteroid takes a hit.
      */
-    public void takeHit(){
-        mHitPoints--;
+    public void takeHit(int damage){
+        mHitPoints = mHitPoints - damage;
     }
 
     /**
@@ -165,6 +165,19 @@ public class AsteroidType {
         mPosition.y = pos.getYPos();
     }
 
+    public void touch(Object o){
+        if(o.getClass() == Laser.class){
+            Laser l = (Laser) o;
+            takeHit(l.getDamage());
+        }
+        else if(o.getClass() == SpaceShip.class){
+            //Do nothing when ship collides with asteroid
+        }
+        else if(o.getClass() == AsteroidType.class){
+            mDirection = -mDirection;
+        }
+    }
+
     /**
      * Draws the image associated with this object
      */
@@ -175,7 +188,7 @@ public class AsteroidType {
         DrawingHelper.drawImage(mViewableInfo.getImageID(),
                 vc.getXPos(),
                 vc.getYPos(),
-                mDirection, scale, scale, 255);
+                mDirection, scale/2, scale/2, 255);
     }
 
     /**
@@ -186,29 +199,32 @@ public class AsteroidType {
         //TODO: Make the asteroids have random starting positions.
         //TODO: Make the asteroids bounce off of the wall, instead of stopping (See spec/notes, I think there's a collide function)
         ViewPort vp = AsteroidsGameModel.getInstance().getViewPort();
+        Level level = AsteroidsGameModel.getInstance().getCurrentLevel();
+        Coordinate viewCoord = vp.toViewCoordinates(new Coordinate(mPosition.x, mPosition.y));
+
         int topLeftX = Math.round(mPosition.x - mViewableInfo.getImageWidth()/2);
         int topLeftY = Math.round(mPosition.y - mViewableInfo.getImageHeight()/2);
         int bottomRightX = Math.round(mPosition.x + mViewableInfo.getImageWidth()/2);
-        int bottomRightY = Math.round(mPosition.y + mViewableInfo.getImageHeight()/2);
+        int bottomRightY = Math.round(mPosition.y + mViewableInfo.getImageHeight() / 2);
 
         GraphicsUtils.MoveObjectResult result = GraphicsUtils.moveObject(
-                new PointF(mPosition.x, mPosition.x),
+                new PointF(mPosition.x, mPosition.y),
                 new RectF(topLeftX, topLeftY, bottomRightX, bottomRightY),
                 mSpeed, Math.toRadians(mDirection - 90), 1);
 
-        float newX = result.getNewObjPosition().x;
-        float newY = result.getNewObjPosition().y;
+        GraphicsUtils.RicochetObjectResult ricResult = GraphicsUtils.ricochetObject(
+                result.getNewObjPosition(), result.getNewObjBounds(),
+                Math.toRadians(mDirection - 90), level.getWidth(), level.getHeight());
+
+        float newX = ricResult.getNewObjPosition().x;
+        float newY = ricResult.getNewObjPosition().y;
         Coordinate newVP = vp.toViewCoordinates(new Coordinate(newX, newY));
 
-        Level level = AsteroidsGameModel.getInstance().getCurrentLevel();
-        //If the ship is at the edge of the screen, don't update it.
-        if(newX - mViewableInfo.getImageWidth()/2 >= 0 &&
-                newX + mViewableInfo.getImageWidth()/2 <= level.getWidth()) {
-            mPosition.x = newX;
-        }
-        if(newY - mViewableInfo.getImageHeight()/2 >= 0 &&
-                newY + mViewableInfo.getImageHeight()/2 <= level.getHeight()){
-            mPosition.y = newY;
+        mPosition.x = newX;
+        mPosition.y = newY;
+
+        if(newX != result.getNewObjPosition().x || newY != result.getNewObjPosition().y){
+            mDirection = (int)Math.toDegrees(ricResult.getNewAngleRadians()) + 90;
         }
     }
 }
