@@ -7,6 +7,7 @@ import java.util.Random;
 
 import edu.byu.cs.superasteroids.core.GraphicsUtils;
 import edu.byu.cs.superasteroids.drawing.DrawingHelper;
+import edu.byu.cs.superasteroids.game.InputManager;
 
 /**
  * Created by Jk on 2/12/2016.
@@ -33,6 +34,7 @@ public class AsteroidType {
     PointF mPosition;
 
     Random rng = new Random();
+    private float mAsteroidSize = .5f;
 
     /**
     * Default Constructor
@@ -146,7 +148,7 @@ public class AsteroidType {
      * @return Whether the asteroid is ready to split or not.
      */
     public boolean shouldSplit(){
-        return false;
+        return mHitPoints <= 0;
     }
 
     /**
@@ -154,7 +156,7 @@ public class AsteroidType {
      * @return whether the asteroid has been shot enough to explode.
      */
     public boolean shouldExplode(){
-        if(mHitPoints == 0) {
+        if(mHitPoints == 0 && mAsteroidSize == .25f) {
             return true;
         }
         else return false;
@@ -188,16 +190,13 @@ public class AsteroidType {
         DrawingHelper.drawImage(mViewableInfo.getImageID(),
                 vc.getXPos(),
                 vc.getYPos(),
-                mDirection, scale/2, scale/2, 255);
+                mDirection, scale * mAsteroidSize, scale * mAsteroidSize, 255);
     }
 
     /**
      * Updates the information associated with this object
      */
     public void update(){
-        //TODO: Make the asteroids go in random directions
-        //TODO: Make the asteroids have random starting positions.
-        //TODO: Make the asteroids bounce off of the wall, instead of stopping (See spec/notes, I think there's a collide function)
         ViewPort vp = AsteroidsGameModel.getInstance().getViewPort();
         Level level = AsteroidsGameModel.getInstance().getCurrentLevel();
         Coordinate viewCoord = vp.toViewCoordinates(new Coordinate(mPosition.x, mPosition.y));

@@ -1,6 +1,8 @@
 package edu.byu.cs.superasteroids.model;
 
 import android.graphics.PointF;
+import android.graphics.Rect;
+import android.graphics.RectF;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -264,6 +266,30 @@ public class AsteroidsGameModel {
 
         for(AsteroidType asteroid : mAsteroidTypes){
             asteroid.update();
+
+            float asteroidTop = asteroid.mPosition.y - asteroid.getViewableInfo().getImageHeight()/2;
+            float asteroidLeft = asteroid.mPosition.x - asteroid.getViewableInfo().getImageWidth()/2;
+            float asteroidBottom = asteroid.mPosition.y +
+                    asteroid.getViewableInfo().getImageHeight()/2;
+            float asteroidRight = asteroid.mPosition.x +
+                    asteroid.getViewableInfo().getImageWidth()/2;
+            RectF aBounds = new RectF(asteroidLeft, asteroidTop, asteroidRight, asteroidBottom);
+
+            for(Laser l : mSpaceShip.getLasers()){
+                float lTop = l.getPosition().getYPos() -
+                        l.getAttackViewableInfo().getImageHeight()/2;
+                float lLeft = l.getPosition().getXPos() -
+                        l.getAttackViewableInfo().getImageWidth()/2;
+                float lBottom = l.getPosition().getYPos() +
+                        l.getAttackViewableInfo().getImageHeight()/2;
+                float lRight = l.getPosition().getXPos() +
+                        l.getAttackViewableInfo().getImageWidth()/2;
+                RectF lBounds = new RectF(lLeft, lTop, lRight, lBottom);
+                if(RectF.intersects(aBounds, lBounds)){
+                    asteroid.touch(l);
+//                    l.touch(asteroid);
+                }
+            }
         }
     }
 

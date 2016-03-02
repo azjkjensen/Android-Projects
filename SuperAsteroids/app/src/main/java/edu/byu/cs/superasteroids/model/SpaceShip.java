@@ -1,13 +1,10 @@
 package edu.byu.cs.superasteroids.model;
 
-import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.util.Log;
 
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Timer;
 
 import edu.byu.cs.superasteroids.content.ContentManager;
 import edu.byu.cs.superasteroids.core.GraphicsUtils;
@@ -36,7 +33,7 @@ public class SpaceShip {
     /** The emit point for the cannon on the ship */
     PointF mEmitPoint;
     /** Lasers from this ship */
-    ArrayList<Laser> lasers;
+    ArrayList<Laser> mLasers;
 
     private float mXPosition = 0;
     private float mYPosition = 0;
@@ -54,7 +51,7 @@ public class SpaceShip {
     public SpaceShip() {
         mXPosition = DrawingHelper.getGameViewWidth();
         mYPosition = DrawingHelper.getGameViewHeight();
-        lasers = new ArrayList<>();
+        mLasers = new ArrayList<>();
         mEmitPoint = new PointF(0,0);
     }
 
@@ -68,7 +65,7 @@ public class SpaceShip {
         mPowerCore = powerCore;
         mXPosition = DrawingHelper.getGameViewWidth();
         mYPosition = DrawingHelper.getGameViewHeight();
-        lasers = new ArrayList<>();
+        mLasers = new ArrayList<>();
         mEmitPoint = new PointF(0,0);
 //        mMovingObjectInfo = movingObjectInfo;
     }
@@ -171,7 +168,7 @@ public class SpaceShip {
             shot.setDirection(mDirection);
             shot.mPosition.setXPos(laserWorld.getXPos());
             shot.mPosition.setYPos(laserWorld.getYPos());
-            lasers.add(shot);
+            mLasers.add(shot);
         }
     }
 
@@ -215,8 +212,8 @@ public class SpaceShip {
         float cannonXLocation = mShipXCenter + rotatedOffset.x;
         float cannonYLocation = mShipYCenter + rotatedOffset.y;
 
-        //Draw all updated lasers
-        for(Laser laser : lasers){
+        //Draw all updated Lasers
+        for(Laser laser : mLasers){
             laser.draw(mScale);
         }
 
@@ -315,7 +312,7 @@ public class SpaceShip {
         mCannon.setVPEmitPoint(mShipXCenter + mEmitPoint.x, mShipYCenter + mEmitPoint.y);
 
         //TODO: Make it so that when the laser leaves the world, it is destroyed(removed from the list)
-        for(Laser laser : lasers){
+        for(Laser laser : mLasers){
             laser.update();
         }
 
@@ -331,7 +328,6 @@ public class SpaceShip {
             float shipBottomRightX = shipXCenter + mShipWidth/2;
             float shipBottomRightY = shipYCenter + mShipHeight/2;
 
-            //TODO: Ask TA's about the last parameter of this function
             GraphicsUtils.MoveObjectResult result = GraphicsUtils.moveObject(
                     new PointF(mXPosition, mYPosition),
                     new RectF(shipTopLeftX, shipTopLeftY, shipBottomRightX, shipBottomRightY),
@@ -361,5 +357,9 @@ public class SpaceShip {
                 mExtraPart != null &&
                 mMainBody != null &&
                 mPowerCore != null;
+    }
+
+    public ArrayList<Laser> getLasers() {
+        return mLasers;
     }
 }
