@@ -256,9 +256,8 @@ public class SpaceShip {
 
     /**
      * Rotates the ship toward the direction parameter.
-     * @param direction that the ship should rotate toward
      */
-    public void rotate(int direction){
+    public void rotate(){
         if(InputManager.movePoint == null) return;
         float xComponent;
         float yComponent;
@@ -282,7 +281,7 @@ public class SpaceShip {
     public void update(){
         ViewPort viewPort = AsteroidsGameModel.getInstance().getViewPort();
         Level level = AsteroidsGameModel.getInstance().getCurrentLevel();
-        rotate(mDirection);
+        rotate();
 
         float emitOffsetX = ((mCannonOffsetX + (mCannon.getAttachPoint().getXPos() * mScale)));
         float emitOffsetY = ((mCannonOffsetY + (mCannon.getAttachPoint().getYPos() -
@@ -292,6 +291,7 @@ public class SpaceShip {
                 Math.toRadians(mDirection));
         mCannon.setVPEmitPoint(mShipXCenter + mEmitPoint.x, mShipYCenter + mEmitPoint.y);
 
+        //TODO: Make it so that when the laser leaves the world, it is destroyed(removed from the list)
         for(Laser laser : lasers){
             laser.update();
         }

@@ -1,8 +1,11 @@
 package edu.byu.cs.superasteroids.model;
 
+import android.graphics.PointF;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 import edu.byu.cs.superasteroids.database.AsteroidTypeDAO;
@@ -19,6 +22,8 @@ import edu.byu.cs.superasteroids.drawing.DrawingHelper;
  * Created by Jk on 2/19/2016.
  */
 public class AsteroidsGameModel {
+    private static final float ASTEROID_SCALE = 3f;
+    private static Random rng = new Random();
     ViewPort mViewPort;
     SpaceShip mSpaceShip;
     Level mCurrentLevel;
@@ -81,8 +86,21 @@ public class AsteroidsGameModel {
 
     public void setCurrentLevel(Level currentLevel) {
         mCurrentLevel = currentLevel;
-        mSpaceShip.setXPosition(mCurrentLevel.getWidth()/2);
-        mSpaceShip.setYPosition(mCurrentLevel.getHeight()/2);
+        mSpaceShip.setXPosition(mCurrentLevel.getWidth() / 2);
+        mSpaceShip.setYPosition(mCurrentLevel.getHeight() / 2);
+        Map<AsteroidType, Integer> levelAsteroids = mCurrentLevel.getLevelAsteroids();
+        for(AsteroidType asteroid : levelAsteroids.keySet()){
+            for(int i = 0; i < levelAsteroids.get(asteroid); i++){
+                AsteroidType newA = new AsteroidType(asteroid);
+                Coordinate randPos = new Coordinate(
+                        rng.nextInt(mCurrentLevel.getWidth()),
+                        rng.nextInt(mCurrentLevel.getHeight())
+                );
+                Coordinate worldPos = mViewPort.toWorldCoordinates(randPos);
+                newA.setPosition(worldPos);
+                mAsteroidTypes.add(newA);
+            }
+        }
     }
 
     public ArrayList<AsteroidType> getAsteroidTypes() {
@@ -165,14 +183,6 @@ public class AsteroidsGameModel {
         mViewPort = viewPort;
     }
 
-//    public ArrayList<Laser> getLasers() {
-//        return mLasers;
-//    }
-//
-//    public void setLasers(ArrayList<Laser> lasers) {
-//        mLasers = lasers;
-//    }
-
     public List<Integer> getMainBodyImageIDs(){
         List<Integer> result = new ArrayList<>();
         for(MainBody mainBody : mMainBodies){
@@ -225,26 +235,9 @@ public class AsteroidsGameModel {
         mSpaceShip.setEngine(AsteroidsGameModel.getInstance().getEngines().get(0));
     }
 
-    public void update(){
-        mViewPort.setXDimension(DrawingHelper.getGameViewWidth());
-        mViewPort.setYDimension(DrawingHelper.getGameViewHeight());
-        mSpaceShip.update();
-
-        mViewPort.update();
-    }
-
-    public void draw(){
-//        mSpaceShip.compileShipImage();
-        mViewPort.draw();
-        for(BackgroundImage backgroundImage : mCurrentLevel.getBackgroundImages()){
-            backgroundImage.draw();
-        }
-        mSpaceShip.draw();
-    }
-
     public void drawShipPart(int imageID, float bodyAttachX, float bodyAttachY, int partWidth,
-                              int partHeight, Coordinate partAttachPoint,
-                              float scale, int direction){
+                             int partHeight, Coordinate partAttachPoint,
+                             float scale, int direction){
 //        float bodyAttachX = (bodyAttachPoint.getXPos() * scale) + bodyXOrigin;
 //        float bodyAttachY = (bodyAttachPoint.getYPos() * scale) + bodyYOrigin;
 
@@ -259,6 +252,32 @@ public class AsteroidsGameModel {
         float partCenterY = partOriginY + scaledPartHeight/2;
 
         DrawingHelper.drawImage(imageID, partCenterX, partCenterY, 0, scale, scale, 255);
+    }
+
+
+    public void update(){
+        mViewPort.setXDimension(DrawingHelper.getGameViewWidth());
+        mViewPort.setYDimension(DrawingHelper.getGameViewHeight());
+        mSpaceShip.update();
+
+        mViewPort.update();
+
+        for(AsteroidType asteroid : mAsteroidTypes){
+            asteroid.update();
+        }
+    }
+
+    public void draw(){
+//        mSpaceShip.compileShipImage();
+        mViewPort.draw();
+        for(BackgroundImage backgroundImage : mCurrentLevel.getBackgroundImages()){
+            backgroundImage.draw();
+        }
+        mSpaceShip.draw();
+
+        for(AsteroidType asteroid : mAsteroidTypes){
+            asteroid.draw(ASTEROID_SCALE);
+        }
     }
 
     public static void resetGame() {

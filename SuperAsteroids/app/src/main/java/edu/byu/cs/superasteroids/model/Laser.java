@@ -22,7 +22,7 @@ public class Laser {
     int mAttackSoundID;
     /** The position of the laser */
     Coordinate mPosition;
-    private int mSpeed = 25;
+    private int mSpeed = 40;
     private float mDirection = -1;
 
     public Laser() {
@@ -102,21 +102,20 @@ public class Laser {
     public void draw(float scale){
         ViewPort vp = AsteroidsGameModel.getInstance().getViewPort();
 //        AsteroidsGameModel game = AsteroidsGameModel.getInstance();
-        Log.i("laser", "drawing " + mAttackViewableInfo.getImage());
+//        Log.i("laser", "drawing " + mAttackViewableInfo.getImage());
         Coordinate viewPos = vp.toViewCoordinates(mPosition);
         DrawingHelper.drawImage(mAttackViewableInfo.getImageID(),
                 viewPos.getXPos(),
                 viewPos.getYPos(),
-                mDirection, scale, scale, 255);
+                mDirection, scale/2, scale/2, 255);
     }
 
     /**
      * Updates the information associated with this object
      */
     public void update(){
-        //TODO: Make it so the lasers are in world coordinates, and not view coordinates
 
-        Log.i("laser", "Updating " + mAttackViewableInfo.getImage());
+//        Log.i("laser", "Updating " + mAttackViewableInfo.getImage());
 
         int topLeftX = mPosition.getXPos() - mAttackViewableInfo.getImageWidth()/2;
         int topLeftY = mPosition.getYPos() - mAttackViewableInfo.getImageHeight()/2;
