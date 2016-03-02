@@ -22,14 +22,14 @@ public class Laser {
     int mAttackSoundID;
     /** The position of the laser */
     Coordinate mPosition;
-    private int mSpeed = 1;
-    private float mDirection;
+    private int mSpeed = 25;
+    private float mDirection = -1;
 
     public Laser() {
     }
 
     public Laser(ViewableObject attackViewableInfo, String attackSound, int attackSoundID, int damage) {
-        mAttackViewableInfo = attackViewableInfo;
+        mAttackViewableInfo = new ViewableObject(attackViewableInfo);
         mAttackSound = attackSound;
         mAttackSoundID = attackSoundID;
         mDamage = damage;
@@ -88,17 +88,26 @@ public class Laser {
         mPosition = position;
     }
 
+    public float getDirection() {
+        return mDirection;
+    }
+
+    public void setDirection(float direction) {
+        mDirection = direction;
+    }
+
     /**
      * Draws the image associated with this object
      */
-    public void draw(float direction, float scale){
-        mDirection = direction;
-        AsteroidsGameModel game = AsteroidsGameModel.getInstance();
+    public void draw(float scale){
+        ViewPort vp = AsteroidsGameModel.getInstance().getViewPort();
+//        AsteroidsGameModel game = AsteroidsGameModel.getInstance();
         Log.i("laser", "drawing " + mAttackViewableInfo.getImage());
+        Coordinate viewPos = vp.toViewCoordinates(mPosition);
         DrawingHelper.drawImage(mAttackViewableInfo.getImageID(),
-                mPosition.getXPos(),
-                mPosition.getYPos(),
-                direction, scale, scale, 255);
+                viewPos.getXPos(),
+                viewPos.getYPos(),
+                mDirection, scale, scale, 255);
     }
 
     /**
@@ -108,10 +117,6 @@ public class Laser {
         //TODO: Make it so the lasers are in world coordinates, and not view coordinates
 
         Log.i("laser", "Updating " + mAttackViewableInfo.getImage());
-//        float yComp = mPosition.getYPos() + (float)(Math.asin(mDirection) * mSpeed);
-//        float xComp = mPosition.getXPos() + (float)(Math.acos(mDirection) * mSpeed);
-//        mPosition.setXPos(Math.round(xComp));
-//        mPosition.setYPos(Math.round(yComp));
 
         int topLeftX = mPosition.getXPos() - mAttackViewableInfo.getImageWidth()/2;
         int topLeftY = mPosition.getYPos() - mAttackViewableInfo.getImageHeight()/2;

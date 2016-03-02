@@ -25,6 +25,13 @@ public class ViewableObject {
         mImageHeight = imageHeight;
     }
 
+    public ViewableObject(ViewableObject viewableInfo) {
+        mImageID = viewableInfo.getImageID();
+        mImage = viewableInfo.getImage();
+        mImageHeight = viewableInfo.getImageHeight();
+        mImageWidth = viewableInfo.getImageWidth();
+    }
+
     public String getImage() {
         return mImage;
     }

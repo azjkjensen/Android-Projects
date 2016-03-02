@@ -22,7 +22,6 @@ public class MainMenuController implements IMainMenuController {
     @Override
     public void onQuickPlayPressed() {
         //TODO: Make sure that if the db is empty, quick play does not work.
-        //TODO: Load ALL content once so we don't have to unload it later.
         try {
             if (DbOpenHelper.getInstance(null).dbIsEmpty())
                 throw new Exception("Quick Play Failure");

@@ -260,4 +260,8 @@ public class AsteroidsGameModel {
 
         DrawingHelper.drawImage(imageID, partCenterX, partCenterY, 0, scale, scale, 255);
     }
+
+    public static void resetGame() {
+        instance = new AsteroidsGameModel();
+    }
 }

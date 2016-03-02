@@ -75,7 +75,7 @@ public class ViewPort {
     public Coordinate toWorldCoordinates(Coordinate viewCoord){
         float xWPos = viewCoord.getXPos() + mXPosition;
         float yWPos = viewCoord.getYPos() + mYPosition;
-        return new Coordinate(Math.round(yWPos), Math.round(yWPos));
+        return new Coordinate(Math.round(xWPos), Math.round(yWPos));
     }
 
     public void update(){

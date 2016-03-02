@@ -45,6 +45,8 @@ public class ShipBuildingController
         mExtraPartImageIDs= new ArrayList<>();
         mCannonImageIDs = new ArrayList<>();
         mPowerCoreImageIDs = new ArrayList<>();
+        AsteroidsGameModel.resetGame();
+
     }
 
     @Override
@@ -59,7 +61,8 @@ public class ShipBuildingController
 
     @Override
     public void update(double elapsedTime) {
-        //Empty
+        mShipComplete = AsteroidsGameModel.getInstance().shipIsComplete();
+        if(mShipComplete) mShipBuildingActivity.setStartGameButton(true);
     }
 
     @Override
@@ -222,8 +225,6 @@ public class ShipBuildingController
 
         //Attach part to the image
         //If the ship is complete, shipBuildingActivity.setStartGameButton(true);
-        mShipComplete = AsteroidsGameModel.getInstance().shipIsComplete();
-        if(mShipComplete) mShipBuildingActivity.setStartGameButton(true);
 
     }
 

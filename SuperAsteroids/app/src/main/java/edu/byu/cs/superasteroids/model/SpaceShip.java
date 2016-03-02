@@ -41,11 +41,16 @@ public class SpaceShip {
     private float mShipWidth = 0;
     private float mShipHeight = 0;
     private float mScale = (float) .35;
+    private float mCannonOffsetX;
+    private float mCannonOffsetY;
+    private int mShipXCenter;
+    private int mShipYCenter;
 
     public SpaceShip() {
         mXPosition = DrawingHelper.getGameViewWidth();
         mYPosition = DrawingHelper.getGameViewHeight();
         lasers = new ArrayList<>();
+        mEmitPoint = new PointF(0,0);
     }
 
     public SpaceShip(int speed, int direction, Cannon cannon, Engine engine, ExtraPart extraPart, MainBody mainBody, PowerCore powerCore, MovingObject movingObjectInfo) {
@@ -59,6 +64,7 @@ public class SpaceShip {
         mXPosition = DrawingHelper.getGameViewWidth();
         mYPosition = DrawingHelper.getGameViewHeight();
         lasers = new ArrayList<>();
+        mEmitPoint = new PointF(0,0);
 //        mMovingObjectInfo = movingObjectInfo;
     }
 
@@ -132,13 +138,17 @@ public class SpaceShip {
     public void shoot(){
         if(InputManager.firePressed == false) return;
         else{
+            ViewPort vp = AsteroidsGameModel.getInstance().getViewPort();
 //            Create and draw a laser
             Laser shot = new Laser(mCannon.getLaserShot());
-            shot.mPosition.setXPos(Math.round(mCannon.getVPEmitPoint().x));
-            shot.mPosition.setYPos(Math.round(mCannon.getVPEmitPoint().y));
+
+            Coordinate laserWorld = vp.toWorldCoordinates(
+                    new Coordinate(mCannon.getVPEmitPoint().x , mCannon.getVPEmitPoint().y)
+            );
+            shot.setDirection(mDirection);
+            shot.mPosition.setXPos(laserWorld.getXPos());
+            shot.mPosition.setYPos(laserWorld.getYPos());
             lasers.add(shot);
-            //TODO: assign a location and such for laser and draw it!
-            shot.draw(mDirection, mScale);
         }
     }
 
@@ -157,47 +167,40 @@ public class SpaceShip {
 
         Coordinate viewPos = AsteroidsGameModel.getInstance().getViewPort().toViewCoordinates(
                 new Coordinate(mXPosition, mYPosition));
-        float shipXCenter = viewPos.getXPos();
-        float shipYCenter = viewPos.getYPos();
+        mShipXCenter = viewPos.getXPos();
+        mShipYCenter = viewPos.getYPos();
 
         float bodyHeight = mMainBody.getViewableInfo().getImageHeight() * mScale;
         float bodyWidth = mMainBody.getViewableInfo().getImageWidth() * mScale;
-        float bodyTopLeftX = (shipXCenter - bodyWidth/2f);
-        float bodyTopLeftY = (shipYCenter - bodyHeight/2f);
+        float bodyTopLeftX = (mShipXCenter - bodyWidth/2f);
+        float bodyTopLeftY = (mShipYCenter - bodyHeight/2f);
         //Draw Main Body
-        drawMainBody(shipXCenter, shipYCenter);
+        drawMainBody(mShipXCenter, mShipYCenter);
 
         //Draw Cannon
-        float cannonOffsetX = (mMainBody.getCannonAttach().getXPos()  -
+        mCannonOffsetX = (mMainBody.getCannonAttach().getXPos()  -
                 mMainBody.getViewableInfo().getImageWidth()/2 +
                 mCannon.getMainViewableInfo().getImageWidth()/2  -
                 mCannon.getAttachPoint().getXPos()) * mScale;
-        float cannonOffsetY = (mMainBody.getCannonAttach().getYPos() -
+        mCannonOffsetY = (mMainBody.getCannonAttach().getYPos() -
                 mMainBody.getViewableInfo().getImageHeight()/2 +
                 mCannon.getMainViewableInfo().getImageHeight()/2 -
                 mCannon.getAttachPoint().getYPos()) * mScale;
 
-        PointF rotatedOffset = GraphicsUtils.rotate(new PointF(cannonOffsetX, cannonOffsetY),
+        PointF rotatedOffset = GraphicsUtils.rotate(new PointF(mCannonOffsetX, mCannonOffsetY),
                 (Math.PI / 180) * mDirection);
-        float cannonXLocation = shipXCenter + rotatedOffset.x;
-        float cannonYLocation = shipYCenter + rotatedOffset.y;
+        float cannonXLocation = mShipXCenter + rotatedOffset.x;
+        float cannonYLocation = mShipYCenter + rotatedOffset.y;
 
-
-        float emitOffsetX = ((cannonOffsetX + (mCannon.getAttachPoint().getXPos() * mScale)));
-        float emitOffsetY = ((cannonOffsetY + mCannon.getAttachPoint().getYPos() * mScale));
-
-        mEmitPoint = GraphicsUtils.rotate(new PointF(emitOffsetX, emitOffsetY),
-                Math.toRadians(mDirection));
-
-        mCannon.setVPEmitPoint(shipXCenter + mEmitPoint.x, shipYCenter + mEmitPoint.y);
+        //Draw all updated lasers
         for(Laser laser : lasers){
-            laser.draw(mDirection, mScale);
+            laser.draw(mScale);
         }
 
 //        mCannon.getLaserShot().draw(mDirection, mScale);
 //        DrawingHelper.drawImage(mCannon.getLaserShot().mAttackViewableInfo.getImageID(),
-//                shipXCenter + mEmitPoint.x,
-//                shipYCenter + mEmitPoint.y,
+//                mShipXCenter + mEmitPoint.x,
+//                mShipYCenter + mEmitPoint.y,
 //                mDirection, mScale, mScale, 255);
 
 
@@ -217,8 +220,8 @@ public class SpaceShip {
 
         rotatedOffset = GraphicsUtils.rotate(new PointF(extraPartOffsetX, extraPartOffsetY),
                 (Math.PI / 180) * mDirection);
-        float extraPartXLocation = shipXCenter + rotatedOffset.x;
-        float extraPartYLocation = shipYCenter + rotatedOffset.y;
+        float extraPartXLocation = mShipXCenter + rotatedOffset.x;
+        float extraPartYLocation = mShipYCenter + rotatedOffset.y;
 
         DrawingHelper.drawImage(mExtraPart.getViewableInfo().getImageID(),
                 extraPartXLocation, extraPartYLocation, mDirection, mScale,
@@ -236,16 +239,13 @@ public class SpaceShip {
 
         rotatedOffset = GraphicsUtils.rotate(new PointF(engineOffsetX, engineOffsetY),
                 (Math.PI / 180) * mDirection);
-        float engineXLocation = shipXCenter + rotatedOffset.x;
-        float engineYLocation = shipYCenter + rotatedOffset.y;
+        float engineXLocation = mShipXCenter + rotatedOffset.x;
+        float engineYLocation = mShipYCenter + rotatedOffset.y;
 
         DrawingHelper.drawImage(mEngine.getViewableInfo().getImageID(),
                 engineXLocation, engineYLocation, mDirection, mScale,
                 mScale, 255);
 
-        if(InputManager.firePressed){
-            shoot();
-        }
     }
 
     private void drawMainBody(float shipX, float shipY) {
@@ -283,6 +283,15 @@ public class SpaceShip {
         ViewPort viewPort = AsteroidsGameModel.getInstance().getViewPort();
         Level level = AsteroidsGameModel.getInstance().getCurrentLevel();
         rotate(mDirection);
+
+        float emitOffsetX = ((mCannonOffsetX + (mCannon.getAttachPoint().getXPos() * mScale)));
+        float emitOffsetY = ((mCannonOffsetY + (mCannon.getAttachPoint().getYPos() -
+                mCannon.getLaserShot().getAttackViewableInfo().getImageHeight()) * mScale));
+
+        mEmitPoint = GraphicsUtils.rotate(new PointF(emitOffsetX, emitOffsetY),
+                Math.toRadians(mDirection));
+        mCannon.setVPEmitPoint(mShipXCenter + mEmitPoint.x, mShipYCenter + mEmitPoint.y);
+
         for(Laser laser : lasers){
             laser.update();
         }
@@ -315,6 +324,10 @@ public class SpaceShip {
             if(newY - mShipHeight/2 >= 0 &&
                     newY + mShipHeight/2 <= level.getHeight()){
                 mYPosition = newY;
+            }
+
+            if(InputManager.firePressed){
+                shoot();
             }
         }
     }

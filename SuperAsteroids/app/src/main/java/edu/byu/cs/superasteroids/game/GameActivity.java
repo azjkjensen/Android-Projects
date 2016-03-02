@@ -12,6 +12,7 @@ import edu.byu.cs.superasteroids.base.GameView;
 import edu.byu.cs.superasteroids.base.IGameDelegate;
 import edu.byu.cs.superasteroids.content.AudioManagement;
 import edu.byu.cs.superasteroids.content.ContentManager;
+import edu.byu.cs.superasteroids.model.AsteroidsGameModel;
 
 public class GameActivity extends ActivityView {
 
@@ -32,7 +33,7 @@ public class GameActivity extends ActivityView {
         FrameLayout frame = (FrameLayout)this.findViewById(R.id.game_frame);
         frame.addView(gameView);
 
-        //TODO: Set the gameDelegate to an instance of your game controller.
+        //Set the gameDelegate to an instance of your game controller.
         gameDelegate = new GameController();
 
         
