@@ -12,6 +12,7 @@ import edu.byu.cs.superasteroids.content.ContentManager;
 import edu.byu.cs.superasteroids.core.GraphicsUtils;
 import edu.byu.cs.superasteroids.drawing.DrawingHelper;
 import edu.byu.cs.superasteroids.game.InputManager;
+import edu.byu.cs.superasteroids.main_menu.IMainMenuController;
 
 /**
  * Created by Jk on 2/12/2016.
@@ -302,8 +303,11 @@ public class SpaceShip {
 //                xComponent = InputManager.movePoint.x - vpShipPosition.getXPos();
 //                yComponent = InputManager.movePoint.y - vpShipPosition.getYPos();
 
-        xComponent = InputManager.movePoint.x - DrawingHelper.getGameViewWidth()/2;
-        yComponent = InputManager.movePoint.y - DrawingHelper.getGameViewHeight()/2;
+        Coordinate movePointWorld = vp.toWorldCoordinates(
+                new Coordinate(InputManager.movePoint.x, InputManager.movePoint.y));
+
+        xComponent = movePointWorld.getXPos() - this.mXPosition;
+        yComponent = movePointWorld.getYPos() - this.mYPosition;
 
 
         double angle = Math.toDegrees(Math.atan(xComponent / yComponent));
@@ -312,8 +316,8 @@ public class SpaceShip {
         } else{
             mDirection = (int) -angle;
         }
-//        Log.i("gameplay", Integer.toString(mDirection));
-//        Log.i("gameplay", "X " + xComponent + " Y " + yComponent);
+        Log.i("gameplay", Integer.toString(mDirection));
+        Log.i("gameplay", "X " + xComponent + " Y " + yComponent);
     }
 
     /**
