@@ -9,6 +9,7 @@ import edu.byu.cs.superasteroids.model.AsteroidsGameModel;
  */
 public class GameController implements IGameDelegate {
     AsteroidsGameModel game = AsteroidsGameModel.getInstance();
+    int currentLevelNumber = 0;
 
     /**
      * Updates the game delegate. The game engine will call this function 60 times a second
@@ -25,6 +26,8 @@ public class GameController implements IGameDelegate {
 //            game.getSpaceShip().shoot();
 //        }
         game.update();
+        if(game.getAsteroidTypes().size() == 0)
+            game.setCurrentLevel(game.getLevels().get(currentLevelNumber++));
     }
 
     /**
@@ -36,7 +39,7 @@ public class GameController implements IGameDelegate {
      */
     public void loadContent(ContentManager content){
         AsteroidsGameModel.getInstance().setCurrentLevel(
-                AsteroidsGameModel.getInstance().getLevels().get(0)
+                AsteroidsGameModel.getInstance().getLevels().get(currentLevelNumber)
         );
     }
 

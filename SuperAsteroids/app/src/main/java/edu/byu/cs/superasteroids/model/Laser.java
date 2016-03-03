@@ -17,7 +17,7 @@ public class Laser {
     /**The filepath for the sound associated with the laser */
     String mAttackSound;
     /**The number of damage that the laser does when it hits an object. */
-    int mDamage;
+    int mDamage = 3;
     /**The id associated with this item in the content manager */
     int mAttackSoundID;
     /** The position of the laser */
@@ -128,5 +128,15 @@ public class Laser {
                 mSpeed, Math.toRadians(mDirection - 90), 1);
         mPosition.setXPos(Math.round(result.getNewObjPosition().x));
         mPosition.setYPos(Math.round(result.getNewObjPosition().y));
+    }
+
+    public boolean touch(Object o) {
+        if(o.getClass() == AsteroidType.class){
+            return true;
+        }
+        else if(o.getClass() == Laser.class){
+            //Nothing
+        }
+        return false;
     }
 }

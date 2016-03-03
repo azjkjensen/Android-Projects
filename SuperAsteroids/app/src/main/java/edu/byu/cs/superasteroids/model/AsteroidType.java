@@ -3,6 +3,7 @@ package edu.byu.cs.superasteroids.model;
 import android.graphics.PointF;
 import android.graphics.RectF;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import edu.byu.cs.superasteroids.core.GraphicsUtils;
@@ -25,7 +26,7 @@ public class AsteroidType {
     /**The speed of the Asteroid, in pixels/second */
     int mSpeed = 5;
     /**The number of hitpoints remaining on the Asteroid */
-    int mHitPoints;
+    int mHitPoints = 5;
     /**The id associated with this item in the database */
     int mID;
     /**The number of this type of asteroid (for level asteroids) */
@@ -147,8 +148,51 @@ public class AsteroidType {
     /**
      * @return Whether the asteroid is ready to split or not.
      */
-    public boolean shouldSplit(){
-        return mHitPoints <= 0;
+    public ArrayList<AsteroidType> split(){
+        ArrayList<AsteroidType> result = new ArrayList<>();
+        if(mHitPoints <= 0){
+            if(mAsteroidSize == .5f){
+                AsteroidType add1 = new AsteroidType();
+                AsteroidType add2 = new AsteroidType();
+
+                ViewableObject v = new ViewableObject();
+                v.setImageID(this.mViewableInfo.mImageID);
+                v.setImage(this.mViewableInfo.mImage);
+                v.setImageHeight((int)(this.mViewableInfo.mImageHeight * .5f));
+                v.setImageWidth((int)(this.mViewableInfo.mImageWidth * .5f));
+
+                add1.setViewableInfo(v);
+                add2.setViewableInfo(v);
+
+                add1.setType(this.mType);
+                add2.setType(this.mType);
+
+                add1.setName(this.mName);
+                add2.setName(this.mName);
+
+                add1.setDirection(this.mDirection + 90);
+                add2.setDirection(this.mDirection - 90);
+
+                add1.setHitPoints(1);
+                add2.setHitPoints(1);
+
+                add1.setID(this.mID);
+                add2.setID(this.mID);
+
+                add1.setPosition(this.mPosition);
+                add2.setPosition(this.mPosition);
+
+                add1.setSpeed(this.mSpeed);
+                add2.setSpeed(this.mSpeed);
+
+                add1.mAsteroidSize = this.mAsteroidSize * .5f;
+                add2.mAsteroidSize = this.mAsteroidSize* .5f;
+
+                result.add(add1);
+                result.add(add2);
+            }
+        }
+        return result;
     }
 
     /**
@@ -165,6 +209,11 @@ public class AsteroidType {
     public void setPosition(Coordinate pos) {
         mPosition.x = pos.getXPos();
         mPosition.y = pos.getYPos();
+    }
+
+    public void setPosition(PointF pos) {
+        mPosition.x = pos.x;
+        mPosition.y = pos.y;
     }
 
     public void touch(Object o){

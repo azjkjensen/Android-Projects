@@ -1,10 +1,12 @@
 package edu.byu.cs.superasteroids.model;
 
+import android.graphics.Color;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import edu.byu.cs.superasteroids.content.ContentManager;
 import edu.byu.cs.superasteroids.core.GraphicsUtils;
@@ -134,6 +136,22 @@ public class SpaceShip {
         mEmitPoint = emitPoint;
     }
 
+    public float getShipWidth() {
+        return mShipWidth;
+    }
+
+    public void setShipWidth(float shipWidth) {
+        mShipWidth = shipWidth;
+    }
+
+    public float getShipHeight() {
+        return mShipHeight;
+    }
+
+    public void setShipHeight(float shipHeight) {
+        mShipHeight = shipHeight;
+    }
+
     public void touch(Object o){
         if(o.getClass() == AsteroidType.class){
             if(!this.inSafeMode())
@@ -217,13 +235,6 @@ public class SpaceShip {
             laser.draw(mScale);
         }
 
-//        mCannon.getLaserShot().draw(mDirection, mScale);
-//        DrawingHelper.drawImage(mCannon.getLaserShot().mAttackViewableInfo.getImageID(),
-//                mShipXCenter + mEmitPoint.x,
-//                mShipYCenter + mEmitPoint.y,
-//                mDirection, mScale, mScale, 255);
-
-
         DrawingHelper.drawImage(mCannon.getMainViewableInfo().getImageID(),
                 cannonXLocation, cannonYLocation, mDirection, mScale,
                 mScale, 255);
@@ -266,6 +277,11 @@ public class SpaceShip {
                 engineXLocation, engineYLocation, mDirection, mScale,
                 mScale, 255);
 
+        if(mSafeMode) {
+            DrawingHelper.drawFilledCircle(new PointF(mShipXCenter, mShipYCenter),
+                    mShipHeight * mScale, Color.GREEN, 70);
+        }
+
     }
 
     private void drawMainBody(float shipX, float shipY) {
@@ -279,10 +295,15 @@ public class SpaceShip {
      */
     public void rotate(){
         if(InputManager.movePoint == null) return;
+        ViewPort vp = AsteroidsGameModel.getInstance().getViewPort();
         float xComponent;
         float yComponent;
-        xComponent = InputManager.movePoint.x - DrawingHelper.getGameViewWidth() / 2;
-        yComponent = InputManager.movePoint.y - DrawingHelper.getGameViewHeight() / 2;
+//        Coordinate vpShipPosition = new Coordinate(mXPosition, mYPosition);
+//                xComponent = InputManager.movePoint.x - vpShipPosition.getXPos();
+//                yComponent = InputManager.movePoint.y - vpShipPosition.getYPos();
+
+        xComponent = InputManager.movePoint.x - DrawingHelper.getGameViewWidth()/2;
+        yComponent = InputManager.movePoint.y - DrawingHelper.getGameViewHeight()/2;
 
 
         double angle = Math.toDegrees(Math.atan(xComponent / yComponent));
@@ -291,8 +312,8 @@ public class SpaceShip {
         } else{
             mDirection = (int) -angle;
         }
-        Log.i("gameplay", Integer.toString(mDirection));
-        Log.i("gameplay", "X " + xComponent + " Y " + yComponent);
+//        Log.i("gameplay", Integer.toString(mDirection));
+//        Log.i("gameplay", "X " + xComponent + " Y " + yComponent);
     }
 
     /**
@@ -301,6 +322,10 @@ public class SpaceShip {
     public void update(){
         ViewPort viewPort = AsteroidsGameModel.getInstance().getViewPort();
         Level level = AsteroidsGameModel.getInstance().getCurrentLevel();
+
+        if(System.currentTimeMillis() - mSafeModeStartTime >= 5000 && mSafeMode == true)
+            mSafeMode = false;
+
         rotate();
 
         float emitOffsetX = ((mCannonOffsetX + (mCannon.getAttachPoint().getXPos() * mScale)));
@@ -311,7 +336,6 @@ public class SpaceShip {
                 Math.toRadians(mDirection));
         mCannon.setVPEmitPoint(mShipXCenter + mEmitPoint.x, mShipYCenter + mEmitPoint.y);
 
-        //TODO: Make it so that when the laser leaves the world, it is destroyed(removed from the list)
         for(Laser laser : mLasers){
             laser.update();
         }

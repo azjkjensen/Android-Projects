@@ -5,6 +5,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -87,6 +88,7 @@ public class AsteroidsGameModel {
     }
 
     public void setCurrentLevel(Level currentLevel) {
+
         mCurrentLevel = currentLevel;
         mSpaceShip.setXPosition(mCurrentLevel.getWidth() / 2);
         mSpaceShip.setYPosition(mCurrentLevel.getHeight() / 2);
@@ -260,22 +262,63 @@ public class AsteroidsGameModel {
     public void update(){
         mViewPort.setXDimension(DrawingHelper.getGameViewWidth());
         mViewPort.setYDimension(DrawingHelper.getGameViewHeight());
+
+        ArrayList<AsteroidType> asteroidsToRemove = new ArrayList<>();
+        ArrayList<AsteroidType> asteroidsToAdd = new ArrayList<>();
+
         mSpaceShip.update();
+
+        //Set ship bounds to check for collisions
+        float shipTop = mSpaceShip.getYPosition() - mSpaceShip.getShipHeight()/2;
+        float shipLeft = mSpaceShip.getXPosition() - mSpaceShip.getShipWidth()/2;
+        float shipBottom = mSpaceShip.getYPosition() + mSpaceShip.getShipHeight()/2;
+        float shipRight = mSpaceShip.getXPosition() + mSpaceShip.getShipWidth()/2;
+        RectF shipBounds = new RectF(shipLeft, shipTop, shipRight, shipBottom);
 
         mViewPort.update();
 
         for(AsteroidType asteroid : mAsteroidTypes){
+
             asteroid.update();
 
+            //Set asteroid bounds to check for collisions
             float asteroidTop = asteroid.mPosition.y - asteroid.getViewableInfo().getImageHeight()/2;
             float asteroidLeft = asteroid.mPosition.x - asteroid.getViewableInfo().getImageWidth()/2;
             float asteroidBottom = asteroid.mPosition.y +
                     asteroid.getViewableInfo().getImageHeight()/2;
             float asteroidRight = asteroid.mPosition.x +
                     asteroid.getViewableInfo().getImageWidth()/2;
+
             RectF aBounds = new RectF(asteroidLeft, asteroidTop, asteroidRight, asteroidBottom);
 
-            for(Laser l : mSpaceShip.getLasers()){
+            //Check for asteroid/ship collisions
+            if(RectF.intersects(aBounds, shipBounds)){
+                asteroid.touch(mSpaceShip);
+                mSpaceShip.touch(asteroid);
+            }
+
+            //Split asteroid if necessary
+            ArrayList<AsteroidType> newAsteroids = asteroid.split();
+            if(!newAsteroids.isEmpty()){
+                for(AsteroidType a : newAsteroids){
+                    asteroidsToAdd.add(a);
+                }
+                asteroidsToRemove.add(asteroid);
+                continue;
+            }
+
+            //Get rid of destroyed asteroids
+            if(asteroid.getHitPoints() <= 0){
+                asteroidsToRemove.add(asteroid);
+                continue;
+            }
+
+            //Check all lasers in level to update
+            Iterator<Laser> laserIterator = mSpaceShip.getLasers().iterator();
+            while(laserIterator.hasNext()){
+                Laser l = laserIterator.next();
+
+                //Check for collisions and lasers exiting the level
                 float lTop = l.getPosition().getYPos() -
                         l.getAttackViewableInfo().getImageHeight()/2;
                 float lLeft = l.getPosition().getXPos() -
@@ -287,10 +330,19 @@ public class AsteroidsGameModel {
                 RectF lBounds = new RectF(lLeft, lTop, lRight, lBottom);
                 if(RectF.intersects(aBounds, lBounds)){
                     asteroid.touch(l);
-//                    l.touch(asteroid);
+                    l.touch(asteroid);
+                    laserIterator.remove();
+                }
+                else if(l.mPosition.getXPos() < 0 || l.mPosition.getXPos() > mCurrentLevel.getWidth() ||
+                        l.mPosition.getYPos() < 0 || l.mPosition.getYPos() > mCurrentLevel.getHeight()){
+                    laserIterator.remove();
                 }
             }
         }
+
+        //Finalize all removals of asteroids
+        mAsteroidTypes.removeAll(asteroidsToRemove);
+        mAsteroidTypes.addAll(asteroidsToAdd);
     }
 
     public void draw(){
@@ -308,5 +360,9 @@ public class AsteroidsGameModel {
 
     public static void resetGame() {
         instance = new AsteroidsGameModel();
+    }
+
+    public void addAsteroid(AsteroidType a) {
+        mAsteroidTypes.add(a);
     }
 }
