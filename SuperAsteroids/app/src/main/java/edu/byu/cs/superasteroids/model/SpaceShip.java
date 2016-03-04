@@ -287,7 +287,7 @@ public class SpaceShip {
 
         if(mSafeMode) {
             DrawingHelper.drawFilledCircle(new PointF(mShipXCenter, mShipYCenter),
-                    mShipHeight * mScale, Color.GREEN, 70);
+                    mShipHeight /2 - 5, Color.GREEN, 70);
         }
 
     }
