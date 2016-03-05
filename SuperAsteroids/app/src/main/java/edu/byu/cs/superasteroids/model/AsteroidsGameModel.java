@@ -357,8 +357,8 @@ public class AsteroidsGameModel {
         for(AsteroidType asteroid : mAsteroidTypes){
             asteroid.draw(ASTEROID_SCALE);
         }
-        mViewPort.getMiniMap().draw();
         mSpaceShip.draw();
+        mViewPort.getMiniMap().draw();
     }
 
     public static void resetGame() {

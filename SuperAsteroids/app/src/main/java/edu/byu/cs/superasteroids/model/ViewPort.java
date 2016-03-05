@@ -1,9 +1,11 @@
 package edu.byu.cs.superasteroids.model;
 
 import android.graphics.Color;
+import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.byu.cs.superasteroids.content.ContentManager;
@@ -125,16 +127,49 @@ public class ViewPort {
                     new Rect((int)(DrawingHelper.getGameViewWidth() * .8f) - 6, 0,
                             DrawingHelper.getGameViewWidth(), (int)(DrawingHelper.getGameViewHeight() * .2f) + 6),
                     Color.BLUE,
-                    200
+                    100
             );
 
             //Draw inner rectangle
             DrawingHelper.drawFilledRectangle(
-                    new Rect((int)(DrawingHelper.getGameViewWidth() * .8f), 3,
-                            DrawingHelper.getGameViewWidth() - 3, (int)(DrawingHelper.getGameViewHeight() * .2f)),
+                    new Rect((int) (DrawingHelper.getGameViewWidth() * .8f), 3,
+                            DrawingHelper.getGameViewWidth() - 3, (int) (DrawingHelper.getGameViewHeight() * .2f)),
                     Color.BLACK,
                     100
             );
+
+            ArrayList<AsteroidType> gameAsteroids =
+                    AsteroidsGameModel.getInstance().getAsteroidTypes();
+            SpaceShip ship = AsteroidsGameModel.getInstance().getSpaceShip();
+
+            //Calculate and draw position for the ship
+
+            float xScaledAndShifted = (ship.getXPosition() * .2f) *
+                    mXDimension / mGame.getCurrentLevel().getWidth() +
+//                    mXPosition +
+                    (DrawingHelper.getGameViewWidth() * .8f);
+            float yScaledAndShifted = (ship.getYPosition() * .2f) *
+                    mYDimension / mGame.getCurrentLevel().getHeight(); /*+
+                    mYPosition;*/
+            DrawingHelper.drawPoint(
+                    new PointF(xScaledAndShifted, yScaledAndShifted),
+                    3, Color.GREEN, 255
+            );
+
+            //Calculate position for the asteroids
+
+            for(AsteroidType a : gameAsteroids){
+                float xScaleShift = (a.getPosition().x * .2f) *
+                        mXDimension / mGame.getCurrentLevel().getWidth() +
+//                    mXPosition +
+                        (DrawingHelper.getGameViewWidth() * .8f);
+                float yScaleShift = (a.getPosition().y * .2f) *
+                        mYDimension / mGame.getCurrentLevel().getHeight(); /*+
+                    mYPosition;*/
+                DrawingHelper.drawPoint(
+                        new PointF(xScaleShift, yScaleShift), 4, Color.RED, 255
+                );
+            }
         }
 
         public void update(){
