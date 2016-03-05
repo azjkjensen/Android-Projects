@@ -173,7 +173,8 @@ public class ViewPort {
         }
 
         public void update(){
-
+            //Updating is based on the current position of asteroids and the ship, which have
+            //their own update methods
         }
     }
 }

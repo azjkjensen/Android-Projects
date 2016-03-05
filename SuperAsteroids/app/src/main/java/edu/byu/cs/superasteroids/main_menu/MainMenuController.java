@@ -21,15 +21,20 @@ public class MainMenuController implements IMainMenuController {
 
     @Override
     public void onQuickPlayPressed() {
-        //TODO: Make sure that if the db is empty, quick play does not work.
         try {
             if (DbOpenHelper.getInstance(null).dbIsEmpty())
                 throw new Exception("Quick Play Failure");
             Log.i("quickPlay", "Successfully pressed quickplay");
+
+            //Reset the game
+            AsteroidsGameModel.resetGame();
+
             //Load Content
             AsteroidsGameModel.getInstance().populate();
+
             //Build a preset ship.
             AsteroidsGameModel.getInstance().assemblePresetShip();
+
             //Start the game
             mMainMenuActivity.startGame();
         } catch (Exception e){

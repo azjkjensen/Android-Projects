@@ -49,6 +49,7 @@ public class AsteroidsGameModel {
         mViewPort = new ViewPort(DrawingHelper.getGameViewWidth(),
                 DrawingHelper.getGameViewHeight(), mCurrentLevel.getBackgroundImages(), this);
         mSpaceShip = new SpaceShip();
+        mAsteroidTypes = new ArrayList<>();
     }
 
     public static AsteroidsGameModel getInstance() {
@@ -62,7 +63,9 @@ public class AsteroidsGameModel {
      * Populates the model with all information from the database.
      */
     public void populate(){
-        mAsteroidTypes = AsteroidTypeDAO.getInstance().getAll();
+
+        ArrayList<AsteroidType> mAsteroidTypePossibles;
+        mAsteroidTypePossibles = AsteroidTypeDAO.getInstance().getAll();
 
         /*getAllImages() does NOT get the information for an object associated with a specific
         level. This will be done as we create the levels.*/
@@ -70,7 +73,7 @@ public class AsteroidsGameModel {
         mCannons = CannonDAO.getInstance().getAll();
         mEngines = EngineDAO.getInstance().getAll();
         mExtraParts = ExtraPartDAO.getInstance().getAll();
-        mLevels = LevelDAO.getInstance().getAll(mAsteroidTypes, mBackgroundImages);
+        mLevels = LevelDAO.getInstance().getAll(mAsteroidTypePossibles, mBackgroundImages);
         mMainBodies = MainBodyDAO.getInstance().getAll();
         mPowerCores = PowerCoreDAO.getInstance().getAll();
     }
