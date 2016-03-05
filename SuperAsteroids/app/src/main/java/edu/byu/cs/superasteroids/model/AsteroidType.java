@@ -138,6 +138,10 @@ public class AsteroidType {
         this.numberOfAsteroids = numberOfAsteroids;
     }
 
+    public PointF getPosition() {
+        return mPosition;
+    }
+
     /**
      * Accounts for when the asteroid takes a hit.
      */

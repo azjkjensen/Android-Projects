@@ -277,6 +277,8 @@ public class AsteroidsGameModel {
 
         mViewPort.update();
 
+        mViewPort.getMiniMap().update();
+
         for(AsteroidType asteroid : mAsteroidTypes){
 
             asteroid.update();
@@ -346,8 +348,8 @@ public class AsteroidsGameModel {
     }
 
     public void draw(){
-//        mSpaceShip.compileShipImage();
         mViewPort.draw();
+
         for(BackgroundImage backgroundImage : mCurrentLevel.getBackgroundImages()){
             backgroundImage.draw();
         }
@@ -356,6 +358,7 @@ public class AsteroidsGameModel {
             asteroid.draw(ASTEROID_SCALE);
         }
         mSpaceShip.draw();
+        mViewPort.getMiniMap().draw();
     }
 
     public static void resetGame() {

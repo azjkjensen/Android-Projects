@@ -38,6 +38,12 @@ public class GameController implements IGameDelegate {
      *                files.
      */
     public void loadContent(ContentManager content){
+        try {
+            int id = ContentManager.getInstance().loadSound("sounds/wtt.mp3");
+            ContentManager.getInstance().playSound(id, .3f, 1);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
         AsteroidsGameModel.getInstance().setCurrentLevel(
                 AsteroidsGameModel.getInstance().getLevels().get(currentLevelNumber)
         );

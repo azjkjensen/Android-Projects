@@ -177,6 +177,13 @@ public class SpaceShip {
     public void shoot(){
         if(InputManager.firePressed == false) return;
         else{
+            try{
+                int laserSoundID = ContentManager.getInstance().loadSound(mCannon.getLaserShot()
+                        .getAttackSound());
+                ContentManager.getInstance().playSound(laserSoundID, .2f, 1);
+            } catch (Exception e){
+                Log.i("gameplay", e.getMessage());
+            }
             ViewPort vp = AsteroidsGameModel.getInstance().getViewPort();
 //            Create and draw a laser
             Laser shot = new Laser(mCannon.getLaserShot());
@@ -280,7 +287,7 @@ public class SpaceShip {
 
         if(mSafeMode) {
             DrawingHelper.drawFilledCircle(new PointF(mShipXCenter, mShipYCenter),
-                    mShipHeight * mScale, Color.GREEN, 70);
+                    mShipHeight /2 - 5, Color.GREEN, 70);
         }
 
     }
@@ -299,9 +306,6 @@ public class SpaceShip {
         ViewPort vp = AsteroidsGameModel.getInstance().getViewPort();
         float xComponent;
         float yComponent;
-//        Coordinate vpShipPosition = new Coordinate(mXPosition, mYPosition);
-//                xComponent = InputManager.movePoint.x - vpShipPosition.getXPos();
-//                yComponent = InputManager.movePoint.y - vpShipPosition.getYPos();
 
         Coordinate movePointWorld = vp.toWorldCoordinates(
                 new Coordinate(InputManager.movePoint.x, InputManager.movePoint.y));
@@ -316,8 +320,8 @@ public class SpaceShip {
         } else{
             mDirection = (int) -angle;
         }
-        Log.i("gameplay", Integer.toString(mDirection));
-        Log.i("gameplay", "X " + xComponent + " Y " + yComponent);
+//        Log.i("gameplay", Integer.toString(mDirection));
+//        Log.i("gameplay", "X " + xComponent + " Y " + yComponent);
     }
 
     /**
