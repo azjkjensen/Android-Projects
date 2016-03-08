@@ -16,8 +16,6 @@ public class Cannon {
     /**The laser that shoots from this cannon */
     Laser mLaserShot;
     private PointF mVPEmitPoint;
-//    /**The id associated with this item in the database */
-//    int mID;
 
     public Cannon() {
     }
@@ -72,18 +70,6 @@ public class Cannon {
      */
     public void draw(float bodyXAttach, float bodyYAttach,
                      int shipDirection, float scale){
-        //The attach point becomes:
-        //   old_attach_point_x * * cos(ship_direction)
-        //   old_attach_point_y * sin(ship_direction)
-
-//        float newAttachX = (float)(partAttachPointX * Math.cos(shipDirection));
-//        float newAttachY = (float)(partAttachPointY * Math.sin(shipDirection));
-//        AsteroidsGameModel.getInstance().drawShipPart(mMainViewableInfo.getImageID(),
-//                bodyXAttach, bodyYAttach, mMainViewableInfo.getImageWidth(),
-//                mMainViewableInfo.getImageHeight(), mAttachPoint,
-//                bodyAttachPoint, scale, shipDirection
-//        );
-
         float newBodyAttachX = (float)((mAttachPoint.getXPos()) *
                 Math.cos((Math.PI/180) * shipDirection));
         float newBodyAttachY = (float)((mAttachPoint.getYPos()) *
@@ -100,7 +86,7 @@ public class Cannon {
      * Updates the information associated with this object
      */
     public void update(){
-
+        //Updates based on the main body
     }
 
     public void setVPEmitPoint(float emitPointX, float emitPointY) {

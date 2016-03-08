@@ -25,22 +25,33 @@ import edu.byu.cs.superasteroids.drawing.DrawingHelper;
  * Created by Jk on 2/19/2016.
  */
 public class AsteroidsGameModel {
+    /**The scale to draw asteroids at */
     private static final float ASTEROID_SCALE = 3f;
+    /**A random number generator for position and direction */
     private static Random rng = new Random();
+    /**The viewport of the current game */
     ViewPort mViewPort;
+    /**The spaceship of the current gamme */
     SpaceShip mSpaceShip;
+    /**The current level */
     Level mCurrentLevel;
 
+    /**All active asteroids associated with the current level */
     ArrayList<AsteroidType> mAsteroidTypes;
-    Map<Integer, AsteroidType> mLevelAsteroids;
+    /**All background images for the level */
     ArrayList<BackgroundImage> mBackgroundImages;
+    /**All cannons for the game */
     ArrayList<Cannon> mCannons;
+    /**All engines for the game */
     ArrayList<Engine> mEngines;
+    /**All extra parts for the game */
     ArrayList<ExtraPart> mExtraParts;
+    /** All levels loaded from the database */
     ArrayList<Level> mLevels;
+    /**All main bodies for the game */
     ArrayList<MainBody> mMainBodies;
+    /** All power cores for the game */
     ArrayList<PowerCore> mPowerCores;
-//    ArrayList<Laser> mLasers;
 
     private static AsteroidsGameModel instance = null;
 
@@ -118,14 +129,6 @@ public class AsteroidsGameModel {
         mAsteroidTypes = asteroidTypes;
     }
 
-    public Map<Integer, AsteroidType> getLevelAsteroids() {
-        return mLevelAsteroids;
-    }
-
-    public void setLevelAsteroids(Map<Integer, AsteroidType> levelAsteroids) {
-        mLevelAsteroids = levelAsteroids;
-    }
-
     public ArrayList<BackgroundImage> getBackgroundImages() {
         return mBackgroundImages;
     }
@@ -190,6 +193,9 @@ public class AsteroidsGameModel {
         mViewPort = viewPort;
     }
 
+    /**
+     * @return a list of the image id's for all of the main bodies
+     */
     public List<Integer> getMainBodyImageIDs(){
         List<Integer> result = new ArrayList<>();
         for(MainBody mainBody : mMainBodies){
@@ -198,6 +204,9 @@ public class AsteroidsGameModel {
         return result;
     }
 
+    /**
+     * @return a list of the image id's for all of thecannons
+     */
     public List<Integer>  getCannonImageIDs(){
         List<Integer> result = new ArrayList<>();
         for(Cannon cannon : mCannons){
@@ -206,6 +215,9 @@ public class AsteroidsGameModel {
         return result;
     }
 
+    /**
+     * @return a list of the image id's for all of the engines
+     */
     public List<Integer>  getEngineImageIDs(){
         List<Integer> result = new ArrayList<>();
         for(Engine engine : mEngines){
@@ -214,6 +226,9 @@ public class AsteroidsGameModel {
         return result;
     }
 
+    /**
+     * @return a list of the image id's for all of the extra parts
+     */
     public List<Integer>  getExtraPartImageIDs(){
         List<Integer> result = new ArrayList<>();
         for(ExtraPart extraPart : mExtraParts){
@@ -222,6 +237,9 @@ public class AsteroidsGameModel {
         return result;
     }
 
+    /**
+     * @return a list of the image id's for all of the power cores
+     */
     public List<Integer>  getPowerCoreImageIDs() {
         List<Integer> result = new ArrayList<>();
         for (PowerCore powerCore : mPowerCores) {
@@ -230,10 +248,16 @@ public class AsteroidsGameModel {
         return result;
     }
 
+    /**
+     * @return whether all parts of the ship are non null
+     */
     public boolean shipIsComplete() {
         return mSpaceShip.shipIsComplete();
     }
 
+    /**
+     * Assembles a ship from the parts available for quickplay
+     */
     public void assemblePresetShip(){
         mSpaceShip.setPowerCore(AsteroidsGameModel.getInstance().getPowerCores().get(0));
         mSpaceShip.setMainBody(AsteroidsGameModel.getInstance().getMainBodies().get(0));
@@ -242,11 +266,20 @@ public class AsteroidsGameModel {
         mSpaceShip.setEngine(AsteroidsGameModel.getInstance().getEngines().get(0));
     }
 
+    /**
+     * Draw a ship part
+     * @param imageID of the part
+     * @param bodyAttachX of the part
+     * @param bodyAttachY of the part
+     * @param partWidth
+     * @param partHeight
+     * @param partAttachPoint
+     * @param scale
+     * @param direction to draw
+     */
     public void drawShipPart(int imageID, float bodyAttachX, float bodyAttachY, int partWidth,
                              int partHeight, Coordinate partAttachPoint,
                              float scale, int direction){
-//        float bodyAttachX = (bodyAttachPoint.getXPos() * scale) + bodyXOrigin;
-//        float bodyAttachY = (bodyAttachPoint.getYPos() * scale) + bodyYOrigin;
 
         float partAttachX = partAttachPoint.getXPos() * scale;
         float partAttachY = partAttachPoint.getYPos() * scale;
@@ -364,10 +397,17 @@ public class AsteroidsGameModel {
         mViewPort.getMiniMap().draw();
     }
 
+    /**
+     * Reset the game
+     */
     public static void resetGame() {
         instance = new AsteroidsGameModel();
     }
 
+    /**
+     * Add an asteroid to the current game (for splitting)
+     * @param a the asteroid to be added
+     */
     public void addAsteroid(AsteroidType a) {
         mAsteroidTypes.add(a);
     }

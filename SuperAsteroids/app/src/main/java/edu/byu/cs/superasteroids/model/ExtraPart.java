@@ -33,18 +33,4 @@ public class ExtraPart {
     public void setViewableInfo(ViewableObject viewableInfo) {
         mViewableInfo = viewableInfo;
     }
-
-    /**
-     * Draws the image associated with this object
-     */
-    public void draw(){
-
-    }
-
-    /**
-     * Updates the information associated with this object
-     */
-    public void update(){
-
-    }
 }

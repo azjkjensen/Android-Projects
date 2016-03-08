@@ -61,7 +61,7 @@ public class GameController implements IGameDelegate {
     }
 
     /**
-     * Draws the game delegate. This function will be 60 times a second.
+     * Draws the game delegate. This function will be called 60 times a second.
      */
     public void draw(){
         AsteroidsGameModel.getInstance().draw();

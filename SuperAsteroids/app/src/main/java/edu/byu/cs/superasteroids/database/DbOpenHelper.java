@@ -186,6 +186,9 @@ public class DbOpenHelper extends SQLiteOpenHelper {
         return;
     }
 
+    /**
+     * @return whether the database is empty
+     */
     public boolean dbIsEmpty(){
         if(AsteroidTypeDAO.getInstance().getAll().isEmpty() &&
                 BackgroundImageDAO.getInstance().getAllImages().isEmpty()){

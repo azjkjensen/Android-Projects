@@ -78,12 +78,23 @@ public class ViewPort {
         ContentManager.getInstance().loadImage("images/space.bmp");
     }
 
+    /**
+     * Changes a set of coordinates to viewport coordinates
+     * @param worldCoord the coordinates to be changed
+     * @return the new coordinates
+     */
     public Coordinate toViewCoordinates(Coordinate worldCoord){
         float xVPPos = worldCoord.getXPos() - mXPosition;
         float yVPPos = worldCoord.getYPos() - mYPosition;
         return new Coordinate(Math.round(xVPPos), Math.round(yVPPos));
     }
 
+
+    /**
+     * Changes a set of viewport coordinates to world coordinates
+     * @param viewCoord the coordinates to be changed
+     * @return the new coordinates
+     */
     public Coordinate toWorldCoordinates(Coordinate viewCoord){
         float xWPos = viewCoord.getXPos() + mXPosition;
         float yWPos = viewCoord.getYPos() + mYPosition;
@@ -115,6 +126,9 @@ public class ViewPort {
         mMiniMap.draw();
     }
 
+    /**
+     * Inner class for handling the minimap
+     */
     public class MiniMap{
 
         public MiniMap(){

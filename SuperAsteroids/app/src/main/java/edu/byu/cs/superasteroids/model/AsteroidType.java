@@ -34,6 +34,7 @@ public class AsteroidType {
     /**The position (world coordinates) of this asteroid */
     PointF mPosition;
 
+    /** Random number generator for direction and position */
     Random rng = new Random();
     private float mAsteroidSize = .5f;
 
@@ -220,6 +221,10 @@ public class AsteroidType {
         mPosition.y = pos.y;
     }
 
+    /**
+     * Determines action based on what touched the asteroid
+     * @param o the object touched
+     */
     public void touch(Object o){
         if(o.getClass() == Laser.class){
             Laser l = (Laser) o;
