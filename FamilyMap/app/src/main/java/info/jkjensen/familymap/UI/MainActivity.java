@@ -1,11 +1,12 @@
-package info.jkjensen.familymap;
+package info.jkjensen.familymap.UI;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 
 import info.jkjensen.familymap.Model.FamilyMap;
+import info.jkjensen.familymap.R;
+import info.jkjensen.familymap.UI.Fragments.LoginFragment;
 
 public class MainActivity extends FragmentActivity {
 
