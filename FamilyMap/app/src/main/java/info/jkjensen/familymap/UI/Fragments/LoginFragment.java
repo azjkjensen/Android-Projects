@@ -98,19 +98,25 @@ public class LoginFragment extends Fragment {
         return mPort.getText().toString();
     }
 
-    private class LoginRequestTask extends AsyncTask<Void, Void, Void>{
+    private class LoginRequestTask extends AsyncTask<Void, Void, String>{
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected String doInBackground(Void... params) {
             try {
                 String result = new HttpClient()
                         .postUrl(mPostUrl, getUsername(), getPassword());
                 JSONObject response = new JSONObject(result);
                 Log.i("http", response.toString(2));
 
+                if(!response.has("Authorization")) {
+
+                    return response.getString("message");
+                }
+
                 mFamilyMap.setAuthToken(response.getString("Authorization"));
                 mFamilyMap.setUsername(response.getString("userName"));
                 mFamilyMap.setUserId(response.getString("personId"));
+                mFamilyMap.mIsUserLoggedIn = true;
 
 //                ((MainActivity) getActivity()).onLogin();
             } catch (JSONException jsone){
@@ -123,17 +129,22 @@ public class LoginFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            try {
-                mGetUserInfoURL = new URL("http://" + getHostIP() + ":" + getPort() +
-                        "/person/" + mFamilyMap.getUserId());
+        protected void onPostExecute(String message) {
+            super.onPostExecute(message);
+            if(mFamilyMap.mIsUserLoggedIn) {
+                try {
+                    mGetUserInfoURL = new URL("http://" + getHostIP() + ":" + getPort() +
+                            "/person/" + mFamilyMap.getUserId());
+                } catch (MalformedURLException m) {
+                    Log.e("http", m.getMessage());
+                }
+                RetrieveUserInfoTask task = new RetrieveUserInfoTask();
+                task.execute();
             }
-             catch(MalformedURLException m){
-                 Log.e("http", m.getMessage());
-             }
-            RetrieveUserInfoTask task = new RetrieveUserInfoTask();
-            task.execute();
+            else {
+                Toast.makeText(getActivity(),
+                        message, Toast.LENGTH_LONG).show();
+            }
         }
     }
 
@@ -150,7 +161,6 @@ public class LoginFragment extends Fragment {
                 mFamilyMap.setUserFirstName(response.getString("firstName"));
                 mFamilyMap.setUserLastName(response.getString("lastName"));
                 mFamilyMap.setUserGender(response.getString("gender"));
-                mFamilyMap.mIsUserLoggedIn = true;
 
 
             } catch (JSONException jsone){
