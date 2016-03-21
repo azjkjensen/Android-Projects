@@ -51,6 +51,7 @@
                 android:id="@+id/password_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPassword"
                 android:text="password"/>
         </LinearLayout>
         <LinearLayout
@@ -86,6 +87,7 @@
                 android:id="@+id/port_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 android:hint="4 digit server port number"
                 android:text="8080"/>
         </LinearLayout>
