@@ -7,11 +7,15 @@ import android.os.Bundle;
 import info.jkjensen.familymap.Model.FamilyMap;
 import info.jkjensen.familymap.R;
 import info.jkjensen.familymap.UI.Fragments.LoginFragment;
+import info.jkjensen.familymap.UI.Fragments.MapFragment;
 
 public class MainActivity extends FragmentActivity {
 
-    FamilyMap mFamilyMap;
+    private static final String MAP_FRAGMENT_TAG = "mapfragment";
+
+    private FamilyMap mFamilyMap;
     private LoginFragment mLoginFragment;
+    private MapFragment mMapFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,8 @@ public class MainActivity extends FragmentActivity {
                     .commit();
         }
 
+        mMapFragment = new MapFragment();
+
     }
 
     public void onLogin(){
@@ -38,5 +44,7 @@ public class MainActivity extends FragmentActivity {
                 .remove(mLoginFragment)
                 .commit();
         //add map fragment
+        fm.beginTransaction()
+                .add(R.id.fragment_container, mMapFragment, MAP_FRAGMENT_TAG).commit();
     }
 }
