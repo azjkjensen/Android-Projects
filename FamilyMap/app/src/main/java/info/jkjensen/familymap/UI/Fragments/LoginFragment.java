@@ -105,11 +105,13 @@ public class LoginFragment extends Fragment {
             try {
                 String result = new HttpClient()
                         .postUrl(mPostUrl, getUsername(), getPassword());
+                if(result == "error"){
+                    throw new Exception("Failed to connect, check your IP");
+                }
                 JSONObject response = new JSONObject(result);
                 Log.i("http", response.toString(2));
 
                 if(!response.has("Authorization")) {
-
                     return response.getString("message");
                 }
 
@@ -119,13 +121,11 @@ public class LoginFragment extends Fragment {
                 mFamilyMap.mIsUserLoggedIn = true;
 
 //                ((MainActivity) getActivity()).onLogin();
-            } catch (JSONException jsone){
-                Log.e("http", jsone.getMessage());
-                Toast failedToast = Toast.makeText(getActivity(),
-                        "Login Failed. Please try again.", Toast.LENGTH_LONG);
-                failedToast.show();
+            } catch (Exception e){
+                Log.e("http", e.getMessage());
+                return e.getMessage();
             }
-            return null;
+            return "ERROR";
         }
 
         @Override

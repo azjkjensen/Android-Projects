@@ -17,8 +17,6 @@ import java.net.URL;
 
 public class HttpClient {
 
-
-
     public String postUrl(URL url, String username, String password) {
 
         try {
@@ -55,8 +53,8 @@ public class HttpClient {
         }
         catch (Exception e) {
             Log.e("HttpClient", e.getMessage() + "*******************************", e);
+            return "error";
         }
-
         return null;
     }
 
