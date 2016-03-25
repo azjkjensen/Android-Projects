@@ -1,5 +1,6 @@
 package info.jkjensen.familymap.UI;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
@@ -42,15 +43,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_main, menu);
+
+        MenuItem filterItem = menu.findItem(R.id.menu_item_filter);
         return super.onCreateOptionsMenu(menu);
-//        getMenuInflater().inflate(R.menu.fragment_crime_list, menu);
-//
-//        MenuItem subtitleItem = menu.findItem(R.id.menu_item_show_subtitle);
-//        if(mSubtitleVisible){
-//            subtitleItem.setTitle(R.string.hide_subtitle);
-//        } else {
-//            subtitleItem.setTitle(R.string.show_subtitle);
-//        }
     }
 
     public void onLogin(){
