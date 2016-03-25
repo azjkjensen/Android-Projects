@@ -50,7 +50,16 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_main, menu);
 
-        MenuItem filterItem = menu.findItem(R.id.menu_item_filter);
+        mMenuItemFilter = menu.findItem(R.id.menu_item_filter);
+        mMenuItemSearch = menu.findItem(R.id.menu_item_search);
+        mMenuItemSettings = menu.findItem(R.id.menu_item_settings);
+
+        if(!FamilyMap.getInstance().mIsUserLoggedIn){
+            mMenuItemFilter.setVisible(false);
+            mMenuItemSearch.setVisible(false);
+            mMenuItemSettings.setVisible(false);
+        }
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -67,6 +76,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onLogin(){
+        //Add our toolbar options
+        mMenuItemFilter.setVisible(true);
+        mMenuItemSearch.setVisible(true);
+        mMenuItemSettings.setVisible(true);
         //remove login fragment
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction()
