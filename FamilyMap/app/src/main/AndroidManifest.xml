@@ -19,7 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".UI.FilterActivity">
+        <activity android:name=".UI.FilterActivity"
+            android:parentActivityName=".UI.MainActivity">
         </activity>
     </application>
 

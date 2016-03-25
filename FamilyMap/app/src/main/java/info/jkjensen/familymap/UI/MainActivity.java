@@ -1,5 +1,6 @@
 package info.jkjensen.familymap.UI;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -20,6 +21,10 @@ public class MainActivity extends AppCompatActivity {
     private FamilyMap mFamilyMap;
     private LoginFragment mLoginFragment;
     private MapFragment mMapFragment;
+
+    private MenuItem mMenuItemSearch;
+    private MenuItem mMenuItemFilter;
+    private MenuItem mMenuItemSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,18 @@ public class MainActivity extends AppCompatActivity {
 
         MenuItem filterItem = menu.findItem(R.id.menu_item_filter);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_item_filter:
+                Intent intent = new Intent(this, FilterActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void onLogin(){
