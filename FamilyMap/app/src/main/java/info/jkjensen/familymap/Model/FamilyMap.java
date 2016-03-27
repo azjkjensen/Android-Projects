@@ -4,7 +4,7 @@ package info.jkjensen.familymap.Model;
  * Created by Jk on 3/16/2016.
  */
 public class FamilyMap {
-    private static FamilyMap instance = new FamilyMap();
+    private static FamilyMap instance = null;
 
     public boolean mIsUserLoggedIn = false;
 
@@ -16,6 +16,9 @@ public class FamilyMap {
     private String mUserGender;
 
     public static FamilyMap getInstance() {
+        if(instance == null){
+            instance = new FamilyMap();
+        }
         return instance;
     }
 

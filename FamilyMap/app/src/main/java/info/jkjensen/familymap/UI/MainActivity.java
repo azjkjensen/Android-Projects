@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -34,20 +35,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         FragmentManager fm = getSupportFragmentManager();
-        mLoginFragment = (LoginFragment) fm.findFragmentById(R.id.fragment_container);
-        if (mLoginFragment == null) {
-            mLoginFragment = new LoginFragment();
-            fm.beginTransaction()
-                    .add(R.id.fragment_container, mLoginFragment)
-                    .commit();
+        if(mFamilyMap.mIsUserLoggedIn){
+            mMapFragment = (MapFragment) fm.findFragmentById(R.id.fragment_container);
+            if(mMapFragment == null){
+                mMapFragment = new MapFragment();
+                fm.beginTransaction()
+                        .add(R.id.fragment_container, mMapFragment)
+                        .commit();
+            }
+        } else {
+            mLoginFragment = (LoginFragment) fm.findFragmentById(R.id.fragment_container);
+            if (mLoginFragment == null) {
+                mLoginFragment = new LoginFragment();
+                fm.beginTransaction()
+                        .add(R.id.fragment_container, mLoginFragment)
+                        .commit();
+            }
         }
-
-        mMapFragment = new MapFragment();
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        Log.i("toolbar", Boolean.toString(mFamilyMap.mIsUserLoggedIn));
         getMenuInflater().inflate(R.menu.activity_main, menu);
 
         mMenuItemFilter = menu.findItem(R.id.menu_item_filter);
@@ -65,9 +75,18 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
         switch (item.getItemId()){
             case R.id.menu_item_filter:
-                Intent intent = new Intent(this, FilterActivity.class);
+                intent = new Intent(this, FilterActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.menu_item_search:
+                intent = new Intent(this, SearchActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.menu_item_settings:
+                intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 return true;
             default:
@@ -86,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 .remove(mLoginFragment)
                 .commit();
         //add map fragment
+        mMapFragment = new MapFragment();
         fm.beginTransaction()
                 .add(R.id.fragment_container, mMapFragment, MAP_FRAGMENT_TAG).commit();
     }
