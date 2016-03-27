@@ -35,7 +35,7 @@
                 android:id="@+id/person_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="name"
+                android:hint="name"
                 android:textSize="30sp"/>
             <TextView
                 android:id="@+id/person_information"
