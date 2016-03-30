@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.amazon.geo.mapsv2.AmazonMap;
 import com.amazon.geo.mapsv2.OnMapReadyCallback;
 import com.amazon.geo.mapsv2.model.LatLng;
+import com.amazon.geo.mapsv2.model.Marker;
 import com.amazon.geo.mapsv2.model.MarkerOptions;
 
 import org.json.JSONArray;
@@ -104,7 +105,8 @@ public class MapFragment extends Fragment {
                         .position(point)
                         .title("Test")
                         .snippet(point.toString());
-                mMapFragment
+                Marker m = mAmazonMap.addMarker(opt);
+                //mMarkers.add(m);
             }
 
 //            if(mFamilyMap.mIsUserLoggedIn) {
