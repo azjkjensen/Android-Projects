@@ -1,5 +1,7 @@
 package info.jkjensen.familymap.Model;
 
+import java.util.ArrayList;
+
 /**
  * Created by Jk on 3/16/2016.
  */
@@ -7,6 +9,8 @@ public class FamilyMap {
     private static FamilyMap instance = null;
 
     public boolean mIsUserLoggedIn = false;
+
+    private ArrayList<Event> mUserEvents;
 
     private String mAuthToken;
     private String mUsername;
@@ -63,5 +67,13 @@ public class FamilyMap {
 
     public String getFullName(){
         return mUserFirstName + " " + mUserLastName;
+    }
+
+    public ArrayList<Event> getUserEvents() {
+        return mUserEvents;
+    }
+
+    public void setUserEvents(ArrayList<Event> userEvents) {
+        mUserEvents = userEvents;
     }
 }

@@ -24,22 +24,8 @@ public class MapFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_map, container, false);
-
-
-//        DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
-//        float dpHeight = displayMetrics.heightPixels / displayMetrics.density;
-//        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-//
-//        mMapLayout = v.findViewById(R.id.map);
-//        ViewGroup.LayoutParams mapParams =  mMapLayout.getLayoutParams();
-////        mapParams.height = (int)((7f/8f) * dpHeight);
-////        mMapLayout.setLayoutParams(mapParams);
-//
-//        mPersonLayout = v.findViewById(R.id.layout_person);
-//        ViewGroup.LayoutParams personParams =  mPersonLayout.getLayoutParams();
-////        personParams.height = (int)((1f/8f) * dpHeight);
-////        mPersonLayout.setLayoutParams(personParams);
-
+        //Call an asyncTask to get events/people asssociated with user
+        //Populate the Map with given events
         return v;
     }
 }

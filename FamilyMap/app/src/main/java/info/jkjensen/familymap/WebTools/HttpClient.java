@@ -17,7 +17,7 @@ import java.net.URL;
 
 public class HttpClient {
 
-    public String postUrl(URL url, String username, String password) {
+    public String userLogin(URL url, String username, String password) {
 
         try {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -58,7 +58,7 @@ public class HttpClient {
         return null;
     }
 
-    public String getUserInfo(URL url, String userID, String authToken){
+    public String get(URL url, String authToken){
         try {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
@@ -66,6 +66,45 @@ public class HttpClient {
 
             // Set HTTP request headers, if necessary
              connection.addRequestProperty("Authorization", authToken);
+
+            connection.connect();
+
+            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                // Get HTTP response headers, if necessary
+                // Map<String, List<String>> headers = connection.getHeaderFields();
+
+                // Get response body input stream
+                InputStream responseBody = connection.getInputStream();
+
+                // Read response body bytes
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                byte[] buffer = new byte[1024];
+                int length = 0;
+                while ((length = responseBody.read(buffer)) != -1) {
+                    baos.write(buffer, 0, length);
+                }
+
+                // Convert response body bytes to a string
+                String responseBodyData = baos.toString();
+                Log.i("http", responseBodyData + " was the response.");
+                return responseBodyData;
+            } else {
+                Log.e("http", "Server error " + connection.getResponseCode());// SERVER RETURNED AN HTTP ERROR
+            }
+        }catch (IOException ioe){
+            Log.e("http", ioe.getMessage());
+        }
+        return null;
+    }
+
+    public String getPersonEvents(URL url, String authToken){
+        try {
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+            connection.setRequestMethod("GET");
+
+            // Set HTTP request headers, if necessary
+            connection.addRequestProperty("Authorization", authToken);
 
             connection.connect();
 

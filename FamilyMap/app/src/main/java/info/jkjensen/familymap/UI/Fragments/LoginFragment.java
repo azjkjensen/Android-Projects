@@ -21,7 +21,6 @@ import java.net.URL;
 import info.jkjensen.familymap.UI.MainActivity;
 import info.jkjensen.familymap.Model.FamilyMap;
 import info.jkjensen.familymap.R;
-import info.jkjensen.familymap.UI.MainActivity;
 import info.jkjensen.familymap.WebTools.HttpClient;
 
 /**
@@ -104,7 +103,7 @@ public class LoginFragment extends Fragment {
         protected String doInBackground(Void... params) {
             try {
                 String result = new HttpClient()
-                        .postUrl(mPostUrl, getUsername(), getPassword());
+                        .userLogin(mPostUrl, getUsername(), getPassword());
                 if(result == "error"){
                     throw new Exception("Failed to connect, check your IP");
                 }
@@ -154,7 +153,7 @@ public class LoginFragment extends Fragment {
         protected Void doInBackground(Void... params) {
             try {
                 String result = new HttpClient()
-                        .getUserInfo(mGetUserInfoURL, mFamilyMap.getUserId(), mFamilyMap.getAuthToken());
+                        .get(mGetUserInfoURL, mFamilyMap.getAuthToken());
                 JSONObject response = new JSONObject(result);
                 Log.i("http", response.toString(2));
 
