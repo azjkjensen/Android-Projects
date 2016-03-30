@@ -75,8 +75,10 @@ public class LoginFragment extends Fragment {
         mPassword = (EditText) v.findViewById(R.id.password_et);
 
         mHostIP = (EditText) v.findViewById(R.id.host_et);
+        mFamilyMap.setHostIP(mHostIP.getText().toString());
 
         mPort= (EditText) v.findViewById(R.id.port_et);
+        mFamilyMap.setPort(mPort.getText().toString());
 
         return v;
     }

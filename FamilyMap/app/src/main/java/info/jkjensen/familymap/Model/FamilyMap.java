@@ -10,7 +10,7 @@ public class FamilyMap {
 
     public boolean mIsUserLoggedIn = false;
 
-    private ArrayList<Event> mUserEvents;
+    private ArrayList<FamilyMapEvent> mUserEvents;
 
     private String mAuthToken;
     private String mUsername;
@@ -18,6 +18,8 @@ public class FamilyMap {
     private String mUserFirstName;
     private String mUserLastName;
     private String mUserGender;
+    private String mHostIP;
+    private String mPort;
 
     public static FamilyMap getInstance() {
         if(instance == null){
@@ -69,11 +71,27 @@ public class FamilyMap {
         return mUserFirstName + " " + mUserLastName;
     }
 
-    public ArrayList<Event> getUserEvents() {
+    public ArrayList<FamilyMapEvent> getUserEvents() {
         return mUserEvents;
     }
 
-    public void setUserEvents(ArrayList<Event> userEvents) {
+    public void setUserEvents(ArrayList<FamilyMapEvent> userEvents) {
         mUserEvents = userEvents;
+    }
+
+    public void setHostIP(String hostIP) {
+        mHostIP = hostIP;
+    }
+
+    public String getHostIP(){
+        return mHostIP;
+    }
+
+    public void setPort(String port) {
+        mPort = port;
+    }
+
+    public String getPort(){
+        return mPort;
     }
 }
