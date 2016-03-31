@@ -3,6 +3,7 @@ package info.jkjensen.familymap.UI.Fragments;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,8 +55,12 @@ public class MapFragment extends Fragment {
         } catch(MalformedURLException me){
             Log.e("http", me.getMessage());
         }
-        mMapFragment = (com.amazon.geo.mapsv2.SupportMapFragment) getFragmentManager().findFragmentById(
-                R.id.map);
+        FragmentManager fm = getChildFragmentManager();
+
+        mMapFragment =
+                (com.amazon.geo.mapsv2.SupportMapFragment)
+                        getChildFragmentManager().findFragmentById(
+                                R.id.map);
         mMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(AmazonMap amazonMap) {
@@ -63,6 +68,8 @@ public class MapFragment extends Fragment {
             }
         });
         //Call an asyncTask to get events/people associated with user
+        EventRequestTask task = new EventRequestTask();
+        task.execute();
         //Populate the Map with given events
         return v;
     }
