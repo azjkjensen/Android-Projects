@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,6 +77,13 @@ public class LoginFragment extends Fragment {
 
         mHostIP = (EditText) v.findViewById(R.id.host_et);
         mFamilyMap.setHostIP(mHostIP.getText().toString());
+        mHostIP.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                mFamilyMap.setHostIP(mHostIP.getText().toString());
+                return true;
+            }
+        });
 
         mPort= (EditText) v.findViewById(R.id.port_et);
         mFamilyMap.setPort(mPort.getText().toString());
@@ -139,6 +147,9 @@ public class LoginFragment extends Fragment {
                 } catch (MalformedURLException m) {
                     Log.e("http", m.getMessage());
                 }
+
+                mFamilyMap.setHostIP(mHostIP.getText().toString());
+
                 RetrieveUserInfoTask task = new RetrieveUserInfoTask();
                 task.execute();
             }

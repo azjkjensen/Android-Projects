@@ -51,9 +51,9 @@ public class MapFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_map, container, false);
         try {
             mEventUrl = new URL(
-                    "http://" + mFamilyMap.getHostIP() + ":" + mFamilyMap.getPort() + "/event");
+                    "http://" + mFamilyMap.getHostIP() + ":" + mFamilyMap.getPort() + "/event/");
         } catch(MalformedURLException me){
-            Log.e("http", me.getMessage());
+            Log.e("jk_http", me.getMessage());
         }
         FragmentManager fm = getChildFragmentManager();
 
@@ -85,11 +85,11 @@ public class MapFragment extends Fragment {
                     throw new Exception("Failed to connect, check your IP");
                 }
                 JSONObject response = new JSONObject(result);
-                Log.i("http", response.toString(2));
+                Log.i("jk_http", response.toString(2));
 
                 return result;
             } catch (Exception e){
-                Log.e("http", e.getMessage());
+                Log.e("jk_http", e.getMessage());
                 return e.getMessage();
             }
         }
@@ -115,21 +115,6 @@ public class MapFragment extends Fragment {
                 Marker m = mAmazonMap.addMarker(opt);
                 //mMarkers.add(m);
             }
-
-//            if(mFamilyMap.mIsUserLoggedIn) {
-//                try {
-//                    mGetUserInfoURL = new URL("http://" + getHostIP() + ":" + getPort() +
-//                            "/person/" + mFamilyMap.getUserId());
-//                } catch (MalformedURLException m) {
-//                    Log.e("http", m.getMessage());
-//                }
-//                RetrieveUserInfoTask task = new RetrieveUserInfoTask();
-//                task.execute();
-//            }
-//            else {
-//                Toast.makeText(getActivity(),
-//                        message, Toast.LENGTH_LONG).show();
-//            }
         }
 
         protected ArrayList<FamilyMapEvent> parseJSONIntoEventArray(JSONArray eventArray){

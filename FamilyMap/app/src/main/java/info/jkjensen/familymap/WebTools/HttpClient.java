@@ -86,13 +86,13 @@ public class HttpClient {
 
                 // Convert response body bytes to a string
                 String responseBodyData = baos.toString();
-                Log.i("http", responseBodyData + " was the response.");
+                Log.i("jk_http", responseBodyData + " was the response.");
                 return responseBodyData;
             } else {
-                Log.e("http", "Server error " + connection.getResponseCode());// SERVER RETURNED AN HTTP ERROR
+                Log.e("jk_http", "Server error " + connection.getResponseCode());// SERVER RETURNED AN HTTP ERROR
             }
         }catch (IOException ioe){
-            Log.e("http", ioe.getMessage());
+            Log.e("jk_http", ioe.getMessage());
         }
         return null;
     }
