@@ -23,11 +23,17 @@
             android:name=".UI.FilterActivity"
             android:parentActivityName=".UI.MainActivity">
         </activity>
-        <activity android:name=".UI.SettingsActivity"
-                  android:parentActivityName=".UI.MainActivity">
+        <activity
+            android:name=".UI.SettingsActivity"
+            android:parentActivityName=".UI.MainActivity">
         </activity>
-        <activity android:name=".UI.SearchActivity"
-                  android:parentActivityName=".UI.MainActivity">
+        <activity
+            android:name=".UI.SearchActivity"
+            android:parentActivityName=".UI.MainActivity">
+        </activity>
+        <activity
+            android:name=".UI.PersonActivity"
+            android:parentActivityName=".UI.MainActivity">
         </activity>
     </application>
 
