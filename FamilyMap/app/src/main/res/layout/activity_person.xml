@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
+    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,6 +9,67 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="info.jkjensen.familymap.UI.SearchActivity">
+    tools:context="info.jkjensen.familymap.UI.PersonActivity">
 
-</RelativeLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/first_name_hint"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/first_name"
+        android:textSize="15sp"
+        android:textColor="#333333"
+        android:background="@drawable/borderbottom"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/last_name_hint"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/last_name"
+        android:textSize="15sp"
+        android:textColor="#333333"
+        android:background="@drawable/borderbottom"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/gender_hint"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/gender"
+        android:textSize="15sp"
+        android:textColor="#333333"
+        android:background="@drawable/borderbottom"
+        android:layout_marginBottom="8dp"/>
+
+    <ExpandableListView
+        android:id="@+id/life_events_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        </ExpandableListView>
+
+    <ExpandableListView
+        android:id="@+id/family_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+
+
+    </ExpandableListView>
+</LinearLayout>

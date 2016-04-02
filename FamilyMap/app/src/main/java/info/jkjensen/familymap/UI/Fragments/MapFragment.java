@@ -70,7 +70,9 @@ public class MapFragment extends Fragment {
         //Call an asyncTask to get events/people associated with user
         EventRequestTask task = new EventRequestTask();
         task.execute();
-        //Populate the Map with given events
+
+        //TODO: add a listener for the person layout
+
         return v;
     }
 

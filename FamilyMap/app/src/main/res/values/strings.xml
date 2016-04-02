@@ -5,4 +5,12 @@
         <item>Red</item>
     </string-array>
     <string name="title_activity_person">PersonActivity</string>
+    <string name="last_name">Last Name</string>
+    <string name="first_name">First Name</string>
+    <string name="gender">gender</string>
+    <string name="gender_hint">Male/Female</string>
+    <string name="first_name_hint">First Name</string>
+    <string name="last_name_hint">Last Name</string>
+    <string name="location_hint">Location</string>
+    <string name="name_hint">Name</string>
 </resources>
