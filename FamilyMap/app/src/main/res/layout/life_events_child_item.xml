@@ -8,6 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="fitCenter"
+        android:layout_gravity="center"
         android:minHeight="80dp"
         android:adjustViewBounds="true"
         android:layout_weight="1"
@@ -19,15 +20,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="19"
-        android:paddingLeft="8dp">
+        android:layout_gravity="center"
+        android:padding="8dp">
 
         <TextView
+            android:id="@+id/life_event_title_loc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/location_hint"
             android:textSize="24sp"/>
 
         <TextView
+            android:id="@+id/life_event_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/name_hint"

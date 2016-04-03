@@ -1,6 +1,8 @@
 package info.jkjensen.familymap.Model;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Jk on 3/16/2016.
@@ -11,6 +13,7 @@ public class FamilyMap {
     public boolean mIsUserLoggedIn = false;
 
     private ArrayList<FamilyMapEvent> mUserEvents;
+    private ArrayList<Person> mUserPersons;
 
     private String mAuthToken;
     private String mUsername;
@@ -93,5 +96,30 @@ public class FamilyMap {
 
     public String getPort(){
         return mPort;
+    }
+
+    /**
+     * Gets a list of immediate family members of the given person p
+     * @param p the person to retrieve family information for
+     * @return a list of person objects for the family
+     */
+    public ArrayList<Person> getImmediateFamily(Person p){
+        ArrayList<Person> result = new ArrayList<>();
+
+//        for()
+
+        return result;
+    }
+
+    public ArrayList<FamilyMapEvent> getLifeEvents(String userID){
+        ArrayList<FamilyMapEvent> result = new ArrayList<>();
+
+        for(FamilyMapEvent e : mUserEvents){
+            if (e.getPersonId().equals(userID)){
+                result.add(e);
+            }
+        }
+
+        return result;
     }
 }

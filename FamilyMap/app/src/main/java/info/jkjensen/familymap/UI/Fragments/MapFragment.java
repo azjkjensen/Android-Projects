@@ -1,5 +1,6 @@
 package info.jkjensen.familymap.UI.Fragments;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.amazon.geo.mapsv2.AmazonMap;
 import com.amazon.geo.mapsv2.OnMapReadyCallback;
@@ -26,6 +28,7 @@ import java.util.ArrayList;
 import info.jkjensen.familymap.Model.FamilyMapEvent;
 import info.jkjensen.familymap.Model.FamilyMap;
 import info.jkjensen.familymap.R;
+import info.jkjensen.familymap.UI.PersonActivity;
 import info.jkjensen.familymap.WebTools.HttpClient;
 
 /**
@@ -36,7 +39,7 @@ public class MapFragment extends Fragment {
 
     com.amazon.geo.mapsv2.SupportMapFragment mMapFragment;
     AmazonMap mAmazonMap;
-    View mPersonLayout;
+    LinearLayout mPersonLayout;
 
     URL mEventUrl;
 
@@ -72,8 +75,29 @@ public class MapFragment extends Fragment {
         task.execute();
 
         //TODO: add a listener for the person layout
+        mPersonLayout = (LinearLayout) v.findViewById(R.id.layout_person);
+        mPersonLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PersonActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return v;
+    }
+
+    private void populateMarkers() {
+        if(mFamilyMap.getUserEvents() == null) return;
+        for(FamilyMapEvent current : mFamilyMap.getUserEvents()){
+            LatLng point = new LatLng(current.getLatitude(), current.getLongitude());
+            MarkerOptions opt = new MarkerOptions()
+                    .position(point)
+                    .title("Test")
+                    .snippet(point.toString());
+            Marker m = mAmazonMap.addMarker(opt);
+            //mMarkers.add(m);
+        }
     }
 
     private class EventRequestTask extends AsyncTask<Void, Void, String> {
@@ -108,15 +132,8 @@ public class MapFragment extends Fragment {
             }
 
             //Populate the map with pins for each event
-            for(FamilyMapEvent current : mFamilyMap.getUserEvents()){
-                LatLng point = new LatLng(current.getLatitude(), current.getLongitude());
-                MarkerOptions opt = new MarkerOptions()
-                        .position(point)
-                        .title("Test")
-                        .snippet(point.toString());
-                Marker m = mAmazonMap.addMarker(opt);
-                //mMarkers.add(m);
-            }
+            populateMarkers();
+
         }
 
         protected ArrayList<FamilyMapEvent> parseJSONIntoEventArray(JSONArray eventArray){

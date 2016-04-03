@@ -13,4 +13,5 @@
     <string name="last_name_hint">Last Name</string>
     <string name="location_hint">Location</string>
     <string name="name_hint">Name</string>
+    <string name="group_item_hint">GROUP ITEM</string>
 </resources>
