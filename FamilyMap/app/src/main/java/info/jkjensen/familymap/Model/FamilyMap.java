@@ -23,6 +23,7 @@ public class FamilyMap {
     private String mUserGender;
     private String mHostIP;
     private String mPort;
+    private Person mCurrentPerson;
 
     public static FamilyMap getInstance() {
         if(instance == null){
@@ -98,6 +99,14 @@ public class FamilyMap {
         return mPort;
     }
 
+    public ArrayList<Person> getUserPersons() {
+        return mUserPersons;
+    }
+
+    public void setUserPersons(ArrayList<Person> userPersons) {
+        mUserPersons = userPersons;
+    }
+
     /**
      * Gets a list of immediate family members of the given person p
      * @param p the person to retrieve family information for
@@ -119,7 +128,33 @@ public class FamilyMap {
                 result.add(e);
             }
         }
+        //TODO: Order events according to specification.
 
         return result;
+    }
+
+    public Person getCurrentPerson() {
+        if(mCurrentPerson == null){
+            mCurrentPerson = new Person();
+            mCurrentPerson.setPersonID(mUserId);
+            mCurrentPerson.setGender(mUserGender);
+            mCurrentPerson.setFirstName(mUserFirstName);
+            mCurrentPerson.setLastName(mUserLastName);
+            mCurrentPerson.setSpouseID(getSpouseID(mUserId));
+        }
+        return mCurrentPerson;
+    }
+
+    public void setCurrentPerson(Person currentPerson) {
+        mCurrentPerson = currentPerson;
+    }
+
+    private String getSpouseID(String userID) {
+        for(Person p : mUserPersons){
+            if(p.getSpouseID() == userID){
+                return p.getSpouseID();
+            }
+        }
+        return "error";
     }
 }

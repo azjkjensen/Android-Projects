@@ -20,22 +20,25 @@ import java.util.Map;
 
 import info.jkjensen.familymap.Model.FamilyMap;
 import info.jkjensen.familymap.Model.FamilyMapEvent;
+import info.jkjensen.familymap.Model.Person;
 import info.jkjensen.familymap.R;
 
 public class PersonActivity extends AppCompatActivity {
 
     FamilyMap mFamilyMap;
+    ExpandableListView mExpandableListView;
 
+    Person mMainPerson;
     List<String> mGroupList;
     List<FamilyMapEvent> mChildList;
     Map<String, List<FamilyMapEvent>> mEventCollection;
-    ExpandableListView mExpandableListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mFamilyMap = FamilyMap.getInstance();
+        mMainPerson = mFamilyMap.getCurrentPerson();
 
         setContentView(R.layout.activity_person);
         //TODO: populate PersonActivity according to current person
@@ -48,10 +51,16 @@ public class PersonActivity extends AppCompatActivity {
 
         /*To populate the life events view, search for events with personID == currentpersonID*/
 
+        TextView firstNameView = (TextView) findViewById(R.id.person_first_name);
+        firstNameView.setText(mMainPerson.getFirstName());
 
-//        createGroupList();
-//
-//        createCollection();
+        TextView lastNameView = (TextView) findViewById(R.id.person_last_name);
+        lastNameView.setText(mMainPerson.getLastName());
+
+        TextView genderView = (TextView) findViewById(R.id.person_gender);
+        genderView.setText(mMainPerson.getGender());
+
+
         mGroupList = new ArrayList<>();
         mGroupList.add("Life Events");
         mGroupList.add("Family Members");
@@ -68,14 +77,12 @@ public class PersonActivity extends AppCompatActivity {
                 this, mGroupList, mEventCollection);
         mExpandableListView.setAdapter(expListAdapter);
 
-        //setGroupIndicatorToRight();
-
         mExpandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
 
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
                 final String selected = (String) expListAdapter.getChild(
-                        groupPosition, childPosition);
+                        groupPosition, childPosition).toString();
                 Toast.makeText(getBaseContext(), selected, Toast.LENGTH_LONG)
                         .show();
 
@@ -123,7 +130,7 @@ public class PersonActivity extends AppCompatActivity {
                     event.getDescription() + ": " + event.getCity() + ", " + event.getCountry());
 
             TextView name = (TextView) eventView.findViewById(R.id.life_event_name);
-            name.setText(event.getPersonId()); //TODO: fix this to have the actual person's name
+            name.setText(mMainPerson.getFirstName() + " " + mMainPerson.getLastName()); //TODO: fix this to have the actual person's name
 
             eventView.setOnClickListener(new View.OnClickListener() {
 
@@ -159,9 +166,9 @@ public class PersonActivity extends AppCompatActivity {
                 convertView = infalInflater.inflate(R.layout.life_events_group_item,
                         null);
             }
-            TextView item = (TextView) convertView.findViewById(R.id.life_events_title);
-            item.setTypeface(null, Typeface.BOLD);
-            item.setText(groupName);
+            TextView lifeEventsTitle = (TextView) convertView.findViewById(R.id.life_events_title);
+            lifeEventsTitle.setTypeface(null, Typeface.BOLD);
+            lifeEventsTitle.setText(groupName);
             return convertView;
         }
 
