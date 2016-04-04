@@ -33,6 +33,8 @@ public class PersonActivity extends AppCompatActivity {
     List<FamilyMapEvent> mChildList;
     Map<String, List<FamilyMapEvent>> mEventCollection;
 
+    // TODO: Add "go to top" button to toolbar
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +43,8 @@ public class PersonActivity extends AppCompatActivity {
         mMainPerson = mFamilyMap.getCurrentPerson();
 
         setContentView(R.layout.activity_person);
-        //TODO: populate PersonActivity according to current person
-        //TODO: design PersonActivity UI
+        // TODO: populate PersonActivity according to current person
+        // TODO: design PersonActivity UI
         /*In order to populate the family view, find parents with mother/father information
         *
         * find spouse by searching for a person with spouse == currentpersonID
@@ -58,7 +60,11 @@ public class PersonActivity extends AppCompatActivity {
         lastNameView.setText(mMainPerson.getLastName());
 
         TextView genderView = (TextView) findViewById(R.id.person_gender);
-        genderView.setText(mMainPerson.getGender());
+        if(mMainPerson.getGender() == "f") {
+            genderView.setText("Female");
+        } else {
+            genderView.setText("Male");
+        }
 
 
         mGroupList = new ArrayList<>();
@@ -70,7 +76,7 @@ public class PersonActivity extends AppCompatActivity {
         mChildList = mFamilyMap.getLifeEvents(mFamilyMap.getUserId());
 
         mEventCollection.put("Life Events", mChildList);
-        mEventCollection.put("Family Members", mChildList);
+        mEventCollection.put("Family Members", mChildList); // TODO: This needs to be changed to a list of Person objects
 
         mExpandableListView = (ExpandableListView) findViewById(R.id.life_events_list);
         final ExpandableListAdapter expListAdapter = new ExpandableListAdapter(
@@ -115,6 +121,9 @@ public class PersonActivity extends AppCompatActivity {
 
         public View getChildView(final int groupPosition, final int childPosition,
                                  boolean isLastChild, View eventView, ViewGroup parent) {
+
+            // TODO:Alter this to work with both expandable lists
+
             final FamilyMapEvent event = (FamilyMapEvent) getChild(groupPosition, childPosition);
             LayoutInflater inflater = context.getLayoutInflater();
 
@@ -130,7 +139,7 @@ public class PersonActivity extends AppCompatActivity {
                     event.getDescription() + ": " + event.getCity() + ", " + event.getCountry());
 
             TextView name = (TextView) eventView.findViewById(R.id.life_event_name);
-            name.setText(mMainPerson.getFirstName() + " " + mMainPerson.getLastName()); //TODO: fix this to have the actual person's name
+            name.setText(mMainPerson.getFirstName() + " " + mMainPerson.getLastName());
 
             eventView.setOnClickListener(new View.OnClickListener() {
 

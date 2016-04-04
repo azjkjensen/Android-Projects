@@ -36,15 +36,20 @@ import info.jkjensen.familymap.WebTools.HttpClient;
  * Created by Jk on 3/21/2016.
  */
 public class MapFragment extends Fragment {
+
+    /**A reference to the model for the app*/
     private FamilyMap mFamilyMap;
 
+    //View layouts
     com.amazon.geo.mapsv2.SupportMapFragment mMapFragment;
     AmazonMap mAmazonMap;
     LinearLayout mPersonLayout;
-
+    /**List of markers on the map*/
     ArrayList<Marker> mMarkers;
 
+    /**URL for event GET*/
     URL mEventUrl;
+    /**URL for person GET*/
     URL mPersonUrl;
 
     @Override
@@ -77,13 +82,14 @@ public class MapFragment extends Fragment {
                 mAmazonMap = amazonMap;
             }
         });
-        //Call an asyncTask to get events/people associated with user
-        EventRequestTask task = new EventRequestTask();
-        task.execute();
-        PersonRequestTask ptask = new PersonRequestTask();
-        ptask.execute();
 
-        //TODO: add a listener for the person layout
+        //Call asyncTasks to get events/people associated with user
+        EventRequestTask eventRequestTask = new EventRequestTask();
+        eventRequestTask.execute();
+        PersonRequestTask personRequestTask = new PersonRequestTask();
+        personRequestTask.execute();
+
+        //TODO: link view to selected marker and set mFamilyMap.mCurrentPerson to the person selected
         mPersonLayout = (LinearLayout) v.findViewById(R.id.layout_person);
         mPersonLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +102,9 @@ public class MapFragment extends Fragment {
         return v;
     }
 
+    /**
+     * Populates the map with all events currently in the FamilyMap model
+     */
     private void populateMarkers() {
         if(mFamilyMap.getUserEvents() == null) return;
         for(FamilyMapEvent current : mFamilyMap.getUserEvents()){
@@ -109,6 +118,9 @@ public class MapFragment extends Fragment {
         }
     }
 
+    /**
+     * An AsyncTask to GET all events associated with the current user
+     */
     private class EventRequestTask extends AsyncTask<Void, Void, String> {
 
         @Override
@@ -145,6 +157,11 @@ public class MapFragment extends Fragment {
 
         }
 
+        /**
+         * Parses the JSON from the GET into an array of events that the model can use
+         * @param eventArray the JSONArray to parse
+         * @return an ArrayList of FamilyMapEvents
+         */
         protected ArrayList<FamilyMapEvent> parseJSONIntoEventArray(JSONArray eventArray){
             ArrayList<FamilyMapEvent> result = new ArrayList<>();
             try {
@@ -170,6 +187,9 @@ public class MapFragment extends Fragment {
         }
     }
 
+    /**
+     * An AsyncTask to GET all persons associated with the current user
+     */
     private class PersonRequestTask extends AsyncTask<Void, Void, String> {
 
         @Override
@@ -202,6 +222,11 @@ public class MapFragment extends Fragment {
             }
         }
 
+        /**
+         * Parses the JSON from the GET into an array of Persons that the model can use
+         * @param personArray the JSONArray to parse
+         * @return an ArrayList of Persons
+         */
         protected ArrayList<Person> parseJSONIntoPersonArray(JSONArray personArray){
             ArrayList<Person> result = new ArrayList<>();
             try {

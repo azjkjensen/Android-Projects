@@ -149,6 +149,7 @@ public class FamilyMap {
         mCurrentPerson = currentPerson;
     }
 
+    //TODO: Make sure this method is functioning properly
     private String getSpouseID(String userID) {
         for(Person p : mUserPersons){
             if(p.getSpouseID() == userID){

@@ -29,14 +29,17 @@ import info.jkjensen.familymap.WebTools.HttpClient;
  */
 public class LoginFragment extends Fragment {
 
+    /**A reference to the model for the app*/
     private FamilyMap mFamilyMap;
 
+    //View layouts
     private Button mSignInButton;
     private EditText mUsername;
     private EditText mPassword;
     private EditText mHostIP;
     private EditText mPort;
 
+    //URLS for POST Login and GET user info
     private URL mPostUrl;
     private URL mGetUserInfoURL;
 
@@ -107,6 +110,9 @@ public class LoginFragment extends Fragment {
         return mPort.getText().toString();
     }
 
+    /**
+     * An AsyncTask to POST user login information and request login permission
+     */
     private class LoginRequestTask extends AsyncTask<Void, Void, String>{
 
         @Override
@@ -160,6 +166,9 @@ public class LoginFragment extends Fragment {
         }
     }
 
+    /**
+     * An AsyncTask to GET the current user's information
+     */
     private class RetrieveUserInfoTask extends AsyncTask<Void, Void, Void>{
 
         @Override
