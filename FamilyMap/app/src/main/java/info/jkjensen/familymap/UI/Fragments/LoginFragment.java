@@ -133,7 +133,6 @@ public class LoginFragment extends Fragment {
                 mFamilyMap.setAuthToken(response.getString("Authorization"));
                 mFamilyMap.setUsername(response.getString("userName"));
                 mFamilyMap.setUserId(response.getString("personId"));
-                mFamilyMap.mIsUserLoggedIn = true;
 
 //                ((MainActivity) getActivity()).onLogin();
             } catch (Exception e){
@@ -146,6 +145,7 @@ public class LoginFragment extends Fragment {
         @Override
         protected void onPostExecute(String message) {
             super.onPostExecute(message);
+            mFamilyMap.mIsUserLoggedIn = true;
             if(mFamilyMap.mIsUserLoggedIn) {
                 try {
                     mGetUserInfoURL = new URL("http://" + getHostIP() + ":" + getPort() +

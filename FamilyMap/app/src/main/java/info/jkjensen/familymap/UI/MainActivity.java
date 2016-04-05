@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String MAP_FRAGMENT_TAG = "mapfragment";
 
+    /**A reference to the model for the app*/
     private FamilyMap mFamilyMap;
     private LoginFragment mLoginFragment;
     private MapFragment mMapFragment;
@@ -94,6 +95,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method called as the user logs in. Sets the toolbar options as viewable and
+     * starts the mapFragment
+     */
     public void onLogin(){
         //Add our toolbar options
         mMenuItemFilter.setVisible(true);

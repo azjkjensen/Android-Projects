@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/family_member_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="fitCenter"
+        android:layout_gravity="center"
+        android:minHeight="80dp"
+        android:adjustViewBounds="true"
+        android:layout_weight="1"
+        android:background="#AAAAAA"
+        android:src="@drawable/ic_gender_male_white_48dp"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="19"
+        android:layout_gravity="center"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/family_member_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/name_hint"
+            android:textSize="24sp"/>
+
+        <TextView
+            android:id="@+id/family_member_relationship"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/relationship_hint"
+            android:textSize="24sp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

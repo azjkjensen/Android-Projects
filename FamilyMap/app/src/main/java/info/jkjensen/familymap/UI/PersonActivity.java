@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,8 +31,9 @@ public class PersonActivity extends AppCompatActivity {
 
     Person mMainPerson;
     List<String> mGroupList;
-    List<FamilyMapEvent> mChildList;
-    Map<String, List<FamilyMapEvent>> mEventCollection;
+    List<Object> mEventChildList;
+    List<Object> mPersonChildList;
+    Map<String, List<Object>> mEventCollection;
 
     // TODO: Add "go to top" button to toolbar
 
@@ -73,10 +75,11 @@ public class PersonActivity extends AppCompatActivity {
 
         mEventCollection = new HashMap<>();
 
-        mChildList = mFamilyMap.getLifeEvents(mFamilyMap.getUserId());
+        mEventChildList = mFamilyMap.getLifeEvents(mFamilyMap.getCurrentPerson().getPersonID());
+        mPersonChildList = mFamilyMap.getImmediateFamily(mFamilyMap.getCurrentPerson());
 
-        mEventCollection.put("Life Events", mChildList);
-        mEventCollection.put("Family Members", mChildList); // TODO: This needs to be changed to a list of Person objects
+        mEventCollection.put("Life Events", mEventChildList);
+        mEventCollection.put("Family Members", mPersonChildList); // TODO: This needs to be changed to a list of Person objects
 
         mExpandableListView = (ExpandableListView) findViewById(R.id.life_events_list);
         final ExpandableListAdapter expListAdapter = new ExpandableListAdapter(
@@ -100,11 +103,11 @@ public class PersonActivity extends AppCompatActivity {
     public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         private Activity context;
-        private Map<String, List<FamilyMapEvent>> eventCollections;
+        private Map<String, List<Object>> eventCollections;
         private List<String> groupNames;
 
         public ExpandableListAdapter(Activity context, List<String> groupNames,
-                                     Map<String, List<FamilyMapEvent>> eventCollections) {
+                                     Map<String, List<Object>> eventCollections) {
             this.context = context;
             this.eventCollections = eventCollections;
             this.groupNames = groupNames;
@@ -120,34 +123,49 @@ public class PersonActivity extends AppCompatActivity {
 
 
         public View getChildView(final int groupPosition, final int childPosition,
-                                 boolean isLastChild, View eventView, ViewGroup parent) {
+                                 boolean isLastChild, View view, ViewGroup parent) {
 
             // TODO:Alter this to work with both expandable lists
-
-            final FamilyMapEvent event = (FamilyMapEvent) getChild(groupPosition, childPosition);
             LayoutInflater inflater = context.getLayoutInflater();
 
-            if (eventView == null) {
-                eventView = inflater.inflate(R.layout.life_events_child_item, null);
+            if(groupPosition == 0){ //If the view is Life Events
+                final FamilyMapEvent event = (FamilyMapEvent) getChild(groupPosition, childPosition);
+
+                view = inflater.inflate(R.layout.life_events_child_item, null);
+
+                TextView titleAndLocation = (TextView) view.findViewById(R.id.life_event_title_loc);
+                titleAndLocation.setText(
+                        event.getDescription() + ": " + event.getCity() + ", " + event.getCountry()
+                        + " (" + event.getYear() + ")");
+
+                TextView name = (TextView) view.findViewById(R.id.life_event_name);
+                name.setText(mMainPerson.getFirstName() + " " + mMainPerson.getLastName());
+
+
+            } else { //If the view is Family Members
+                final Person person = (Person) getChild(groupPosition, childPosition);
+
+                    view = inflater.inflate(R.layout.family_members_child_item, null);
+
+                TextView nameView = (TextView) view.findViewById(R.id.family_member_name);
+                nameView.setText(person.getFirstName() + " " + person.getLastName());
+
+                TextView relationshipView =
+                        (TextView) view.findViewById(R.id.family_member_relationship);
+                // TODO: Get the relationship and populate this textview
+
+                if(person.getGender() == "f") {
+                    ImageView icon = (ImageView) view.findViewById(R.id.family_member_icon);
+                    icon.setImageDrawable(getDrawable(R.drawable.ic_gender_female_white_48dp));
+                }
             }
-//
-//            TextView item = (TextView) eventView.findViewById(R.id.laptop);
-//
-//            ImageView delete = (ImageView) eventView.findViewById(R.id.delete);
-            TextView titleAndLocation = (TextView) eventView.findViewById(R.id.life_event_title_loc);
-            titleAndLocation.setText(
-                    event.getDescription() + ": " + event.getCity() + ", " + event.getCountry());
-
-            TextView name = (TextView) eventView.findViewById(R.id.life_event_name);
-            name.setText(mMainPerson.getFirstName() + " " + mMainPerson.getLastName());
-
-            eventView.setOnClickListener(new View.OnClickListener() {
+            view.setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(View v) {
                     //Start a new person activity
                 }
             });
-            return eventView;
+            return view;
         }
 
         public int getChildrenCount(int groupPosition) {

@@ -112,16 +112,19 @@ public class FamilyMap {
      * @param p the person to retrieve family information for
      * @return a list of person objects for the family
      */
-    public ArrayList<Person> getImmediateFamily(Person p){
-        ArrayList<Person> result = new ArrayList<>();
+    public ArrayList<Object> getImmediateFamily(Person p){
+        ArrayList<Object> result = new ArrayList<>();
 
-//        for()
+        //Temporary
+        for(Person person : mUserPersons){
+            result.add(person);
+        }
 
         return result;
     }
 
-    public ArrayList<FamilyMapEvent> getLifeEvents(String userID){
-        ArrayList<FamilyMapEvent> result = new ArrayList<>();
+    public ArrayList<Object> getLifeEvents(String userID){
+        ArrayList<Object> result = new ArrayList<>();
 
         for(FamilyMapEvent e : mUserEvents){
             if (e.getPersonId().equals(userID)){
@@ -149,7 +152,7 @@ public class FamilyMap {
         mCurrentPerson = currentPerson;
     }
 
-    //TODO: Make sure this method is functioning properly
+    // TODO: Make sure this method is functioning properly
     private String getSpouseID(String userID) {
         for(Person p : mUserPersons){
             if(p.getSpouseID() == userID){
