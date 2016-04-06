@@ -21,4 +21,6 @@
     <string name="show_story_lines_hint">Show/Hide Story Lines</string>
     <string name="famliy_tree_lines">Family Tree Lines</string>
     <string name="show_tree_lines_hint">Show/Hide Family Tree Lines</string>
+    <string name="spouse_lines">Spouse LInes</string>
+    <string name="show_spouse_lines_hint">Show Tree Lines</string>
 </resources>

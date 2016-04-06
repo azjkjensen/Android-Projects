@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="horizontal"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:paddingBottom="8dp">
@@ -16,31 +15,32 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:text="@string/life_story_lines"/>
+            android:text="@string/spouse_lines"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/show_story_lines_hint"/>
+            android:text="@string/show_spouse_lines_hint"/>
 
     </LinearLayout>
 
     <Switch
-        android:id="@+id/story_line_switch"
+        android:id="@+id/spouse_line_switch"
         android:layout_weight="1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:padding="8dp"
+        android:layout_gravity="center"
         android:layout_alignParentRight="true"/>
 
     <Spinner
-        android:id="@+id/story_line_color_spinner"
+        android:id="@+id/spouse_line_color_spinner"
         android:layout_width="20dp"
         android:layout_height="40dp"
-        android:layout_gravity="center"
         android:layout_weight="1"
         android:entries="@array/colors"
-        android:layout_toLeftOf="@id/story_line_switch"/>
+        android:layout_gravity="center"
+        android:layout_toLeftOf="@id/spouse_line_switch"/>
+
 
 </RelativeLayout>

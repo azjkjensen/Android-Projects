@@ -15,4 +15,6 @@
 
     <include layout="@layout/family_tree_lines"/>
 
+    <include layout="@layout/spouse_lines"/>
+
 </LinearLayout>
