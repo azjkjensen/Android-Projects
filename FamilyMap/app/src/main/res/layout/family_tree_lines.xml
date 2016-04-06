@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:text="@string/famliy_tree_lines"/>
+            android:text="@string/family_tree_lines"/>
 
         <TextView
             android:layout_width="wrap_content"

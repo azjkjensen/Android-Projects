@@ -105,4 +105,10 @@ public class FamilyMapEvent implements Comparable{
             } else return 0;
         }
     }
+
+    public String getFormattedDescription(){
+        return this.getDescription() +
+                ": " + this.getCity() + ", " +
+                this.getCountry() + " (" + this.getYear() + ")";
+    }
 }

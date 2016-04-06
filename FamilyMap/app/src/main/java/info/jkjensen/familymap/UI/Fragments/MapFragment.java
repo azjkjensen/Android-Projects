@@ -147,10 +147,7 @@ public class MapFragment extends Fragment {
     private void updateUI(Person person) {
         mNameView.setText(mFamilyMap.getCurrentPerson().getFirstName() + " " +
                 mFamilyMap.getCurrentPerson().getLastName());
-        mInfoView.setText(
-                mCurrentEvent.getDescription() +
-                ": " + mCurrentEvent.getCity() + ", " +
-                        mCurrentEvent.getCountry() + " (" + mCurrentEvent.getYear() + ")");
+        mInfoView.setText(mCurrentEvent.getFormattedDescription());
         if(person.getGender().equals("m")) {
             mGenderIcon
                     .setImageDrawable(ContextCompat.getDrawable(getActivity(),
