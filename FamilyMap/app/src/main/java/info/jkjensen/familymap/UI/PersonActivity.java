@@ -2,10 +2,13 @@ package info.jkjensen.familymap.UI;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
@@ -29,6 +32,8 @@ public class PersonActivity extends AppCompatActivity {
     FamilyMap mFamilyMap;
     ExpandableListView mExpandableListView;
 
+    MenuItem mMenuItemGoToTop;
+
     Person mMainPerson;
     List<String> mGroupList;
     List<Object> mEventChildList;
@@ -45,8 +50,6 @@ public class PersonActivity extends AppCompatActivity {
         mMainPerson = mFamilyMap.getCurrentPerson();
 
         setContentView(R.layout.activity_person);
-        // TODO: populate PersonActivity according to current person
-        // TODO: design PersonActivity UI
         /*In order to populate the family view, find parents with mother/father information
         *
         * find spouse by searching for a person with spouse == currentpersonID
@@ -79,7 +82,7 @@ public class PersonActivity extends AppCompatActivity {
         mPersonChildList = mFamilyMap.getImmediateFamily(mFamilyMap.getCurrentPerson());
 
         mEventCollection.put("Life Events", mEventChildList);
-        mEventCollection.put("Family Members", mPersonChildList); // TODO: This needs to be changed to a list of Person objects
+        mEventCollection.put("Family Members", mPersonChildList);
 
         mExpandableListView = (ExpandableListView) findViewById(R.id.life_events_list);
         final ExpandableListAdapter expListAdapter = new ExpandableListAdapter(
@@ -98,6 +101,29 @@ public class PersonActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_person, menu);
+
+        mMenuItemGoToTop = menu.findItem(R.id.menu_item_top);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()){
+            case R.id.menu_item_top:
+                // TODO: Pop back to running MainActivity
+                intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public class ExpandableListAdapter extends BaseExpandableListAdapter {

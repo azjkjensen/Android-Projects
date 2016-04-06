@@ -3,7 +3,7 @@ package info.jkjensen.familymap.Model;
 /**
  * Created by Jk on 3/30/2016.
  */
-public class FamilyMapEvent {
+public class FamilyMapEvent implements Comparable{
     private String mEventId;
     private String mPersonId;
     private float mLatitude;
@@ -84,5 +84,16 @@ public class FamilyMapEvent {
 
     public void setDescendant(String descendant) {
         mDescendant = descendant;
+    }
+
+    @Override
+    public int compareTo(Object another) {
+        FamilyMapEvent fme = (FamilyMapEvent) another;
+
+        if(Integer.parseInt(this.mYear) < Integer.parseInt(fme.getYear())){
+            return -1;
+        } else if(Integer.parseInt(this.mYear) > Integer.parseInt(fme.getYear())){
+            return 1;
+        } else return 0;
     }
 }

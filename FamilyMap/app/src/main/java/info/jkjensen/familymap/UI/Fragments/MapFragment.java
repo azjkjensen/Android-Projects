@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.amazon.geo.mapsv2.AmazonMap;
 import com.amazon.geo.mapsv2.OnMapReadyCallback;
@@ -24,6 +25,7 @@ import org.json.JSONObject;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import info.jkjensen.familymap.Model.FamilyMapEvent;
 import info.jkjensen.familymap.Model.FamilyMap;
@@ -44,7 +46,11 @@ public class MapFragment extends Fragment {
     com.amazon.geo.mapsv2.SupportMapFragment mMapFragment;
     AmazonMap mAmazonMap;
     LinearLayout mPersonLayout;
+    TextView mNameView;
+    TextView mInfoView;
+
     /**List of markers on the map*/
+    HashMap<Integer, FamilyMapEvent> mMarkerEvents;
     ArrayList<Marker> mMarkers;
 
     /**URL for event GET*/
@@ -52,16 +58,23 @@ public class MapFragment extends Fragment {
     /**URL for person GET*/
     URL mPersonUrl;
 
+    FamilyMapEvent mCurrentEvent;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         mFamilyMap = FamilyMap.getInstance();
         mMarkers = new ArrayList<>();
+        mMarkerEvents = new HashMap<>();
         super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_map, container, false);
+
+        mNameView = (TextView) v.findViewById(R.id.marker_person_name);
+        mInfoView = (TextView) v.findViewById(R.id.marker_information);
+
         try {
             mEventUrl = new URL(
                     "http://" + mFamilyMap.getHostIP() + ":" + mFamilyMap.getPort() + "/event/");
@@ -80,6 +93,25 @@ public class MapFragment extends Fragment {
             @Override
             public void onMapReady(AmazonMap amazonMap) {
                 mAmazonMap = amazonMap;
+                mAmazonMap.setOnMarkerClickListener(new AmazonMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(Marker marker) {
+                        try {
+                            FamilyMapEvent mCurrentEvent = mMarkerEvents.get(marker.hashCode());
+
+                            Person eventPerson = mFamilyMap.getPersonFromEvent(mCurrentEvent);
+                            if (eventPerson == null) throw new Exception("Failed to find person.");
+                            mFamilyMap.setCurrentPerson(eventPerson);
+
+                            updateUI();
+                        } catch(Exception e){
+                            Log.e("map", e.getMessage());
+                        }
+
+
+                        return false;
+                    }
+                });
             }
         });
 
@@ -89,7 +121,7 @@ public class MapFragment extends Fragment {
         PersonRequestTask personRequestTask = new PersonRequestTask();
         personRequestTask.execute();
 
-        //TODO: link view to selected marker and set mFamilyMap.mCurrentPerson to the person selected
+        mFamilyMap.resetCurrentPerson();
         mPersonLayout = (LinearLayout) v.findViewById(R.id.layout_person);
         mPersonLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +134,15 @@ public class MapFragment extends Fragment {
         return v;
     }
 
+    private void updateUI() {
+        mNameView.setText(mFamilyMap.getCurrentPerson().getFirstName() + " " +
+                mFamilyMap.getCurrentPerson().getLastName());
+        mInfoView.setText(
+                mCurrentEvent.getDescription() +
+                ": " + mCurrentEvent.getCity() + ", " +
+                        mCurrentEvent.getCountry() + " (" + mCurrentEvent.getYear() + ")");
+    }
+
     /**
      * Populates the map with all events currently in the FamilyMap model
      */
@@ -110,11 +151,11 @@ public class MapFragment extends Fragment {
         for(FamilyMapEvent current : mFamilyMap.getUserEvents()){
             LatLng point = new LatLng(current.getLatitude(), current.getLongitude());
             MarkerOptions opt = new MarkerOptions()
-                    .position(point)
-                    .title("Test")
-                    .snippet(point.toString());
+                    .position(point);
+//                    .color?
             Marker m = mAmazonMap.addMarker(opt);
             mMarkers.add(m);
+            mMarkerEvents.put(m.hashCode(), current);
         }
     }
 
@@ -176,6 +217,7 @@ public class MapFragment extends Fragment {
                     event.setCountry(current.getString("country"));
                     event.setCity(current.getString("city"));
                     event.setDescription(current.getString("description"));
+                    event.setYear(current.getString("year"));
                     event.setDescendant(current.getString("descendant"));
 
                     result.add(event);

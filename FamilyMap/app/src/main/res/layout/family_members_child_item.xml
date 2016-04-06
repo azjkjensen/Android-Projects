@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:scaleType="fitCenter"
         android:layout_gravity="center"
-        android:minHeight="80dp"
         android:adjustViewBounds="true"
         android:layout_weight="1"
         android:background="#AAAAAA"

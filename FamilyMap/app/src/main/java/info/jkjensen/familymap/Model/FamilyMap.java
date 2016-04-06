@@ -2,6 +2,7 @@ package info.jkjensen.familymap.Model;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -124,14 +125,33 @@ public class FamilyMap {
     }
 
     public ArrayList<Object> getLifeEvents(String userID){
+        ArrayList<FamilyMapEvent> intermediateResult = new ArrayList<>();
         ArrayList<Object> result = new ArrayList<>();
 
         for(FamilyMapEvent e : mUserEvents){
             if (e.getPersonId().equals(userID)){
-                result.add(e);
+                intermediateResult.add(e);
             }
         }
-        //TODO: Order events according to specification.
+        // TODO: Order events according to specification.
+        result = reorderEventsForPersonActivity(intermediateResult);
+        return result;
+    }
+
+    private ArrayList<Object> reorderEventsForPersonActivity(ArrayList<FamilyMapEvent> input) {
+        ArrayList<Object> result = new ArrayList<>();
+        ArrayList<FamilyMapEvent> inputCopy = new ArrayList<>(input.size() + 1);
+        inputCopy.addAll(input);
+
+        for(FamilyMapEvent e : input){
+            if(e.getDescription().toLowerCase().equals("birth")){
+                result.add(e);
+                inputCopy.remove(e);
+            }
+        }
+
+        Collections.sort(inputCopy);
+        result.addAll(inputCopy);
 
         return result;
     }
@@ -148,17 +168,35 @@ public class FamilyMap {
         return mCurrentPerson;
     }
 
+    public void resetCurrentPerson(){
+        mCurrentPerson = new Person();
+        mCurrentPerson.setPersonID(mUserId);
+        mCurrentPerson.setGender(mUserGender);
+        mCurrentPerson.setFirstName(mUserFirstName);
+        mCurrentPerson.setLastName(mUserLastName);
+    }
+
     public void setCurrentPerson(Person currentPerson) {
         mCurrentPerson = currentPerson;
     }
 
     // TODO: Make sure this method is functioning properly
     private String getSpouseID(String userID) {
+        if(mUserPersons == null) return "error";
         for(Person p : mUserPersons){
             if(p.getSpouseID() == userID){
                 return p.getSpouseID();
             }
         }
         return "error";
+    }
+
+    public Person getPersonFromEvent(FamilyMapEvent event){
+        for(Person p : mUserPersons){
+            if(p.getPersonID().equals(event.getPersonId())){
+                return p;
+            }
+        }
+        return null;
     }
 }
