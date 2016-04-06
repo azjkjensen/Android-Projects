@@ -97,6 +97,8 @@ public class MapFragment extends Fragment {
             @Override
             public void onMapReady(AmazonMap amazonMap) {
                 mAmazonMap = amazonMap;
+                // TODO: Set up autoZoom and center on the selected marker if it exists
+                //IE  amazonMap.animateCamera(CameraUpdateFactory.newLatLngZoom(COFFEE_LATLNG, COFFEE_ZOOM));
                 mAmazonMap.setOnMarkerClickListener(new AmazonMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {

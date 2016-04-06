@@ -70,7 +70,6 @@ public class PersonActivity extends AppCompatActivity {
             genderView.setText("Male");
         }
 
-
         mGroupList = new ArrayList<>();
         mGroupList.add("Life Events");
         mGroupList.add("Family Members");
@@ -92,7 +91,7 @@ public class PersonActivity extends AppCompatActivity {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
-                Log.e("jk_click", "Made it to being clicked!");
+                Log.e("jk_click", "clicked!");
                 if(groupPosition == 0){ // We are dealing with an event
                     FamilyMapEvent clicked = (FamilyMapEvent) expListAdapter.getChild(
                             groupPosition, childPosition);
@@ -105,8 +104,6 @@ public class PersonActivity extends AppCompatActivity {
                     Intent intent = new Intent(getBaseContext(), PersonActivity.class);
                     startActivity(intent);
                 }
-                //TODO: Set this to start a new person activity
-
                 return true;
             }
         });
