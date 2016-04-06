@@ -35,6 +35,10 @@
             android:name=".UI.PersonActivity"
             android:parentActivityName=".UI.MainActivity">
         </activity>
+        <activity
+            android:name=".UI.MapActivity"
+            android:parentActivityName=".UI.MainActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -93,11 +93,19 @@ public class PersonActivity extends AppCompatActivity {
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
                 Log.e("jk_click", "Made it to being clicked!");
-//                final Object selected = expListAdapter.getChild(
-//                        groupPosition, childPosition).toString();
+                if(groupPosition == 0){ // We are dealing with an event
+                    FamilyMapEvent clicked = (FamilyMapEvent) expListAdapter.getChild(
+                            groupPosition, childPosition);
+                    Intent intent = new Intent(getBaseContext(), MapActivity.class);
+                    startActivity(intent);
+                } else { // We are dealing with a Person
+                    Person clicked = (Person) expListAdapter.getChild(
+                            groupPosition, childPosition);
+                    mFamilyMap.setCurrentPerson(clicked);
+                    Intent intent = new Intent(getBaseContext(), PersonActivity.class);
+                    startActivity(intent);
+                }
                 //TODO: Set this to start a new person activity
-                Toast.makeText(getBaseContext(), "YO", Toast.LENGTH_LONG)
-                        .show();
 
                 return true;
             }
@@ -121,6 +129,9 @@ public class PersonActivity extends AppCompatActivity {
                 // TODO: Pop back to running MainActivity
                 intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
+                return true;
+            case android.R.id.home:
+                onBackPressed();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
