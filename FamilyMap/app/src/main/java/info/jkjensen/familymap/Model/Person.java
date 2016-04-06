@@ -9,7 +9,10 @@ public class Person {
     String mFirstName;
     String mLastName;
     String mGender;
-    String mSpouseID;
+    String mSpouseID = null;
+    private String mFatherID = null;
+    private String mMotherID = null;
+    private String mRelationship = null;
 
     public String getDescendant() {
         return mDescendant;
@@ -57,5 +60,29 @@ public class Person {
 
     public void setSpouseID(String spouseID) {
         mSpouseID = spouseID;
+    }
+
+    public void setFatherID(String fatherID) {
+        mFatherID = fatherID;
+    }
+
+    public String getFatherID() {
+        return mFatherID;
+    }
+
+    public void setMotherID(String motherID) {
+        mMotherID = motherID;
+    }
+
+    public String getMotherID() {
+        return mMotherID;
+    }
+
+    public String getRelationship() {
+        return mRelationship;
+    }
+
+    public void setRelationship(String relationship) {
+        mRelationship = relationship;
     }
 }

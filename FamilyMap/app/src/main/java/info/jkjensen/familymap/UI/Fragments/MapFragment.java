@@ -5,10 +5,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -48,6 +50,7 @@ public class MapFragment extends Fragment {
     LinearLayout mPersonLayout;
     TextView mNameView;
     TextView mInfoView;
+    private ImageView mGenderIcon;
 
     /**List of markers on the map*/
     HashMap<Integer, FamilyMapEvent> mMarkerEvents;
@@ -74,6 +77,7 @@ public class MapFragment extends Fragment {
 
         mNameView = (TextView) v.findViewById(R.id.marker_person_name);
         mInfoView = (TextView) v.findViewById(R.id.marker_information);
+        mGenderIcon = (ImageView) v.findViewById(R.id.selected_gender_icon);
 
         try {
             mEventUrl = new URL(
@@ -97,13 +101,13 @@ public class MapFragment extends Fragment {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
                         try {
-                            FamilyMapEvent mCurrentEvent = mMarkerEvents.get(marker.hashCode());
+                            mCurrentEvent = mMarkerEvents.get(marker.hashCode());
 
                             Person eventPerson = mFamilyMap.getPersonFromEvent(mCurrentEvent);
                             if (eventPerson == null) throw new Exception("Failed to find person.");
                             mFamilyMap.setCurrentPerson(eventPerson);
 
-                            updateUI();
+                            updateUI(eventPerson);
                         } catch(Exception e){
                             Log.e("map", e.getMessage());
                         }
@@ -134,13 +138,22 @@ public class MapFragment extends Fragment {
         return v;
     }
 
-    private void updateUI() {
+    private void updateUI(Person person) {
         mNameView.setText(mFamilyMap.getCurrentPerson().getFirstName() + " " +
                 mFamilyMap.getCurrentPerson().getLastName());
         mInfoView.setText(
                 mCurrentEvent.getDescription() +
                 ": " + mCurrentEvent.getCity() + ", " +
                         mCurrentEvent.getCountry() + " (" + mCurrentEvent.getYear() + ")");
+        if(person.getGender().equals("m")) {
+            mGenderIcon
+                    .setImageDrawable(ContextCompat.getDrawable(getActivity(),
+                            R.drawable.ic_gender_male_white_48dp));
+        } else{
+            mGenderIcon
+                    .setImageDrawable(ContextCompat.getDrawable(getActivity(),
+                            R.drawable.ic_gender_female_white_48dp));
+        }
     }
 
     /**
@@ -281,7 +294,15 @@ public class MapFragment extends Fragment {
                     person.setFirstName(current.getString("firstName"));
                     person.setLastName(current.getString("lastName"));
                     person.setGender(current.getString("gender"));
-                    person.setSpouseID(current.getString("spouse"));
+                    if(current.has("spouse")) {
+                        person.setSpouseID(current.getString("spouse"));
+                    }
+                    if(current.has("father")){
+                        person.setFatherID(current.getString("father"));
+                    }
+                    if(current.has("mother")){
+                        person.setMotherID(current.getString("mother"));
+                    }
 
                     result.add(person);
                 }

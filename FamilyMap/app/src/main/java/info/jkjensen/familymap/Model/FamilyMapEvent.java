@@ -89,11 +89,20 @@ public class FamilyMapEvent implements Comparable{
     @Override
     public int compareTo(Object another) {
         FamilyMapEvent fme = (FamilyMapEvent) another;
-
-        if(Integer.parseInt(this.mYear) < Integer.parseInt(fme.getYear())){
+        if(this.mYear == null && fme.getYear() != null){
             return -1;
-        } else if(Integer.parseInt(this.mYear) > Integer.parseInt(fme.getYear())){
+        } else if(fme.getYear() == null && this.mYear != null){
             return 1;
-        } else return 0;
+        } else if(fme.getYear() == null && this.mYear == null){
+            //Compare descriptions alphabetically
+            return this.mYear.toLowerCase().compareTo(fme.getYear().toLowerCase());
+        } else { //If neither year is null
+
+            if (Integer.parseInt(this.mYear) < Integer.parseInt(fme.getYear())) {
+                return -1;
+            } else if (Integer.parseInt(this.mYear) > Integer.parseInt(fme.getYear())) {
+                return 1;
+            } else return 0;
+        }
     }
 }

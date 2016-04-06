@@ -1,9 +1,7 @@
 package info.jkjensen.familymap.Model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 /**
  * Created by Jk on 3/16/2016.
@@ -116,12 +114,56 @@ public class FamilyMap {
     public ArrayList<Object> getImmediateFamily(Person p){
         ArrayList<Object> result = new ArrayList<>();
 
-        //Temporary
-        for(Person person : mUserPersons){
-            result.add(person);
+        // Parents
+        Person mother = getPersonByID(p.getMotherID());
+        if(mother != null){
+            mother.setRelationship("Mother");
+            result.add(mother);
         }
+        Person father = getPersonByID(p.getFatherID());
+        if(father != null){
+            father.setRelationship("Father");
+            result.add(father);
+        }
+        // Spouse
+        Person spouse = getPersonByID(p.getSpouseID());
+        if(spouse != null){
+            if(p.getGender().equals("m")){
+                spouse.setRelationship("Wife");
+            } else{
+                spouse.setRelationship("Husband");
+            }
+            result.add(spouse);
+        }
+        // Children
+        ArrayList<Object> children = getChildren(p.getPersonID());
+        if(children.size() != 0) result.addAll(children);
 
         return result;
+    }
+
+    private ArrayList<Object> getChildren(String parentID) {
+        ArrayList<Object> childrenResult = new ArrayList<>();
+
+        for(Person p : mUserPersons){
+            if(p.getFatherID() == null || p.getMotherID() == null) continue;
+            if(p.getFatherID().equals(parentID) ||
+                    p.getMotherID().equals(parentID)){
+                p.setRelationship("Child");
+                childrenResult.add(p);
+            }
+        }
+
+        return childrenResult;
+    }
+
+    private Person getPersonByID(String parentID) {
+        for(Person p : mUserPersons){
+            if(p.getPersonID().equals(parentID)){
+                return p;
+            }
+        }
+        return null;
     }
 
     public ArrayList<Object> getLifeEvents(String userID){
@@ -143,14 +185,30 @@ public class FamilyMap {
         ArrayList<FamilyMapEvent> inputCopy = new ArrayList<>(input.size() + 1);
         inputCopy.addAll(input);
 
+        //Add birth events first
         for(FamilyMapEvent e : input){
             if(e.getDescription().toLowerCase().equals("birth")){
                 result.add(e);
                 inputCopy.remove(e);
             }
         }
-
+        //Sort the remaining elements by year/description
         Collections.sort(inputCopy);
+
+        //Get the death event if it exists and move it to the end of the list
+        FamilyMapEvent deathEvent = null;
+
+        for(FamilyMapEvent e : inputCopy){
+            if(e.getDescription().toLowerCase().equals("death")){
+                deathEvent = e;
+            }
+        }
+        if(deathEvent != null){
+            inputCopy.remove(deathEvent);
+            inputCopy.add(deathEvent);
+        }
+
+        //Add all remaining elements (ordered) to the result/birth event
         result.addAll(inputCopy);
 
         return result;

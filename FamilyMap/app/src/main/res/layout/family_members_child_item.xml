@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="horizontal"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:focusable="false">
 
     <ImageView
         android:id="@+id/family_member_icon"
@@ -13,7 +14,8 @@
         android:adjustViewBounds="true"
         android:layout_weight="1"
         android:background="#AAAAAA"
-        android:src="@drawable/ic_gender_male_white_48dp"/>
+        android:src="@drawable/ic_gender_male_white_48dp"
+        android:focusable="false"/>
 
     <LinearLayout
         android:orientation="vertical"
@@ -21,21 +23,24 @@
         android:layout_height="wrap_content"
         android:layout_weight="19"
         android:layout_gravity="center"
-        android:padding="8dp">
+        android:padding="8dp"
+        android:focusable="false">
 
         <TextView
             android:id="@+id/family_member_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/name_hint"
-            android:textSize="24sp"/>
+            android:textSize="24sp"
+            android:focusable="false"/>
 
         <TextView
             android:id="@+id/family_member_relationship"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/relationship_hint"
-            android:textSize="24sp"/>
+            android:textSize="24sp"
+            android:focusable="false"/>
 
     </LinearLayout>
 

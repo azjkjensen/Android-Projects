@@ -22,11 +22,14 @@
         android:layout_weight="1"
         >
         <ImageView
+            android:id="@+id/selected_gender_icon"
+            android:background="#AAAAAA"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:adjustViewBounds="true"
-            android:src="@drawable/ic_female"/>
+            android:layout_marginRight="8dp"
+            android:src="@drawable/ic_gender_female_white_48dp"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
