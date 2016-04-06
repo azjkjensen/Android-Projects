@@ -17,4 +17,8 @@
     <string name="relationship_hint">Relationship</string>
     <string name="event_information_hint">event information</string>
     <string name="go_to_top">Go to Top</string>
+    <string name="life_story_lines">Life Story Lines</string>
+    <string name="show_story_lines_hint">Show/Hide Story Lines</string>
+    <string name="famliy_tree_lines">Family Tree Lines</string>
+    <string name="show_tree_lines_hint">Show/Hide Family Tree Lines</string>
 </resources>
