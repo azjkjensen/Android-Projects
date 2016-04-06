@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.amazon.geo.mapsv2.AmazonMap;
+import com.amazon.geo.mapsv2.CameraUpdateFactory;
 import com.amazon.geo.mapsv2.OnMapReadyCallback;
 import com.amazon.geo.mapsv2.model.LatLng;
 import com.amazon.geo.mapsv2.model.Marker;
@@ -54,7 +55,7 @@ public class MapFragment extends Fragment {
 
     /**List of markers on the map*/
     HashMap<Integer, FamilyMapEvent> mMarkerEvents;
-    ArrayList<Marker> mMarkers;
+    private Marker mSelectedMarker;
 
     /**URL for event GET*/
     URL mEventUrl;
@@ -66,7 +67,7 @@ public class MapFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         mFamilyMap = FamilyMap.getInstance();
-        mMarkers = new ArrayList<>();
+        mSelectedMarker = mFamilyMap.getSelectedMarker();
         mMarkerEvents = new HashMap<>();
         super.onCreate(savedInstanceState);
     }
@@ -98,12 +99,17 @@ public class MapFragment extends Fragment {
             public void onMapReady(AmazonMap amazonMap) {
                 mAmazonMap = amazonMap;
                 // TODO: Set up autoZoom and center on the selected marker if it exists
-                //IE  amazonMap.animateCamera(CameraUpdateFactory.newLatLngZoom(COFFEE_LATLNG, COFFEE_ZOOM));
+                if(mSelectedMarker != null) {
+                    amazonMap.animateCamera(
+                            CameraUpdateFactory.newLatLngZoom(mSelectedMarker.getPosition(),
+                                                                18.0f));
+                }
                 mAmazonMap.setOnMarkerClickListener(new AmazonMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
                         try {
                             mCurrentEvent = mMarkerEvents.get(marker.hashCode());
+                            mSelectedMarker = marker;
 
                             Person eventPerson = mFamilyMap.getPersonFromEvent(mCurrentEvent);
                             if (eventPerson == null) throw new Exception("Failed to find person.");
@@ -113,8 +119,6 @@ public class MapFragment extends Fragment {
                         } catch(Exception e){
                             Log.e("map", e.getMessage());
                         }
-
-
                         return false;
                     }
                 });
@@ -169,7 +173,6 @@ public class MapFragment extends Fragment {
                     .position(point);
 //                    .color?
             Marker m = mAmazonMap.addMarker(opt);
-            mMarkers.add(m);
             mMarkerEvents.put(m.hashCode(), current);
         }
     }

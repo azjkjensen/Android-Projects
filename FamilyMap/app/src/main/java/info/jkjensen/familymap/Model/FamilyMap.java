@@ -1,5 +1,7 @@
 package info.jkjensen.familymap.Model;
 
+import com.amazon.geo.mapsv2.model.Marker;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -8,6 +10,8 @@ import java.util.Collections;
  */
 public class FamilyMap {
     private static FamilyMap instance = null;
+
+    private Marker mSelectedMarker = null;
 
     public boolean mIsUserLoggedIn = false;
 
@@ -104,6 +108,14 @@ public class FamilyMap {
 
     public void setUserPersons(ArrayList<Person> userPersons) {
         mUserPersons = userPersons;
+    }
+
+    public Marker getSelectedMarker() {
+        return mSelectedMarker;
+    }
+
+    public void setSelectedMarker(Marker selectedMarker) {
+        mSelectedMarker = selectedMarker;
     }
 
     /**
