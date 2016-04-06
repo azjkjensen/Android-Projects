@@ -23,4 +23,10 @@
     <string name="show_tree_lines_hint">Show/Hide Family Tree Lines</string>
     <string name="spouse_lines">Spouse LInes</string>
     <string name="show_spouse_lines_hint">Show Tree Lines</string>
+    <string name="map_type">Map Type</string>
+    <string name="map_type_hint">Choose how the map is displayed</string>
+    <string name="sync_data">Sync Data</string>
+    <string name="sync_data_hint">from FamilyMap Server</string>
+    <string name="logout">Logout</string>
+    <string name="logout_hint">Return to Login Screen</string>
 </resources>

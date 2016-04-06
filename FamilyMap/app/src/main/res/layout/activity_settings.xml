@@ -17,4 +17,10 @@
 
     <include layout="@layout/spouse_lines"/>
 
+    <include layout="@layout/map_type"/>
+
+    <include layout="@layout/sync_data"/>
+
+    <include layout="@layout/logout"/>
+
 </LinearLayout>
