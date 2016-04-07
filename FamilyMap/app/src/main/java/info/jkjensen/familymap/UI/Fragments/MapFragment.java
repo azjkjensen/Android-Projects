@@ -202,6 +202,94 @@ public class MapFragment extends Fragment {
         }
     }
 
+    private void drawMapLines() {
+        for(Polyline pl : mPolyLines){
+            pl.remove();
+        }
+        mPolyLines.clear();
+
+        //Life Story Lines
+        if(mFamilyMap.showLifeStoryLines()){
+
+            Person currentPerson = mFamilyMap.getPersonFromEvent(mSelectedEvent);
+            ArrayList<FamilyMapEvent> lifeStory = new ArrayList<>();
+            ArrayList<Object> objectList = mFamilyMap.getLifeEvents(currentPerson.getPersonID());
+            ArrayList<LatLng> points = new ArrayList<>();
+            for(Object o : objectList){
+                FamilyMapEvent event = (FamilyMapEvent) o;
+                points.add(new LatLng(event.getLatitude(), event.getLongitude()));
+                PolylineOptions opt = new PolylineOptions()
+                        .addAll(points)
+                        .color(mFamilyMap.getLifeStoryColor())
+                        .width(5f);
+                Polyline polyline = mAmazonMap.addPolyline(opt);
+                mPolyLines.add(polyline);
+            }
+        }
+
+        //Family Tree Lines
+        // TODO: Make lines get progressively smaller
+        if(mFamilyMap.showFamilyTreeLines()){
+            Person currentPerson = mFamilyMap.getPersonFromEvent(mSelectedEvent);
+            if(currentPerson.hasFather()) {
+                ArrayList<FamilyMapEvent> paternalLine = new ArrayList<>();
+                paternalLine.add(mFamilyMap.getBirthEvent(currentPerson));
+                paternalLine.addAll(mFamilyMap.getAncestors(currentPerson.getFatherID()));
+
+                ArrayList<LatLng> points = new ArrayList<>();
+
+                for(FamilyMapEvent event : paternalLine){
+                    points.add(new LatLng(
+                            event.getLatitude(), event.getLongitude()));
+                }
+                PolylineOptions opt = new PolylineOptions()
+                        .addAll(points)
+                        .color(mFamilyMap.getFamilyTreeColor())
+                        .width(5f);
+                Polyline polyline = mAmazonMap.addPolyline(opt);
+                mPolyLines.add(polyline);
+            }
+            if(currentPerson.hasMother()){
+                ArrayList<FamilyMapEvent> maternalLine = new ArrayList<>();
+                maternalLine.add(mFamilyMap.getBirthEvent(currentPerson));
+                maternalLine.addAll(mFamilyMap.getAncestors(currentPerson.getMotherID()));
+
+                ArrayList<LatLng> points = new ArrayList<>();
+
+                for(FamilyMapEvent event : maternalLine){
+                    points.add(new LatLng(
+                            event.getLatitude(), event.getLongitude()));
+                }
+                PolylineOptions opt = new PolylineOptions()
+                        .addAll(points)
+                        .color(mFamilyMap.getFamilyTreeColor())
+                        .width(5f);
+                Polyline polyline = mAmazonMap.addPolyline(opt);
+                mPolyLines.add(polyline);
+            }
+        }
+
+        //Spouse Lines
+        if(mFamilyMap.showSpouseLines()){
+            ArrayList<LatLng> points = new ArrayList<>();
+            Person currentPerson = mFamilyMap.getPersonFromEvent(mSelectedEvent);
+            String spouseId = mFamilyMap.getSpouseID(currentPerson.getPersonID());
+
+            Person currentPersonsSpouse = mFamilyMap.getPersonByID(spouseId);
+            FamilyMapEvent earliestSpouseEvent = mFamilyMap.getEarliestEvent(currentPersonsSpouse);
+            points.add(new LatLng(
+                    earliestSpouseEvent.getLatitude(), earliestSpouseEvent.getLongitude()));
+            points.add(new LatLng(
+                    mSelectedEvent.getLatitude(), mSelectedEvent.getLongitude()));
+            PolylineOptions opt = new PolylineOptions()
+                    .addAll(points)
+                    .color(mFamilyMap.getSpouseStoryColor())
+                    .width(5f);
+            Polyline polyline = mAmazonMap.addPolyline(opt);
+            mPolyLines.add(polyline);
+        }
+    }
+
     /**
      * An AsyncTask to GET all events associated with the current user
      */
@@ -247,6 +335,7 @@ public class MapFragment extends Fragment {
                 Person eventPerson = mFamilyMap.getPersonFromEvent(mSelectedEvent);
                 mFamilyMap.setCurrentPerson(eventPerson);
                 updateUI(eventPerson);
+                drawMapLines();
             }
 
         }
@@ -280,61 +369,6 @@ public class MapFragment extends Fragment {
             }
             return result;
         }
-    }
-
-    private void drawMapLines() {
-        if(mFamilyMap.showLifeStoryLines()){
-            for(Polyline pl : mPolyLines){
-                pl.remove();
-            }
-            mPolyLines.clear();
-
-            Person currentPerson = mFamilyMap.getPersonFromEvent(mSelectedEvent);
-            ArrayList<FamilyMapEvent> lifeStory = new ArrayList<>();
-            ArrayList<Object> objectList = mFamilyMap.getLifeEvents(currentPerson.getPersonID());
-            ArrayList<LatLng> points = new ArrayList<>();
-            for(Object o : objectList){
-                FamilyMapEvent event = (FamilyMapEvent) o;
-                points.add(new LatLng(event.getLatitude(), event.getLongitude()));
-                PolylineOptions opt = new PolylineOptions()
-                        .addAll(points)
-                        .color(mFamilyMap.getLifeStoryColor())
-                        .width(5f);
-                Polyline polyline = mAmazonMap.addPolyline(opt);
-                mPolyLines.add(polyline);
-            }
-        }
-        if(mFamilyMap.showFamilyTreeLines()){
-            Person currentPerson = mFamilyMap.getPersonFromEvent(mSelectedEvent);
-        }
-        if(mFamilyMap.showSpouseLines()){
-            ArrayList<LatLng> points = new ArrayList<>();
-            Person currentPerson = mFamilyMap.getPersonFromEvent(mSelectedEvent);
-            String spouseId = mFamilyMap.getSpouseID(currentPerson.getPersonID());
-
-            Person currentPersonsSpouse = mFamilyMap.getPersonByID(spouseId);
-            FamilyMapEvent earliestSpouseEvent = mFamilyMap.getEarliestEvent(currentPersonsSpouse);
-            points.add(new LatLng(
-                    earliestSpouseEvent.getLatitude(), earliestSpouseEvent.getLongitude()));
-            points.add(new LatLng(
-                    mSelectedEvent.getLatitude(), mSelectedEvent.getLongitude()));
-            PolylineOptions opt = new PolylineOptions()
-                    .addAll(points)
-                    .color(mFamilyMap.getSpouseStoryColor())
-                    .width(5f);
-            Polyline polyline = mAmazonMap.addPolyline(opt);
-            mPolyLines.add(polyline);
-        }
-        // Create the PolylineOptions. This creates a red line
-        // between the specified points.
-//        PolylineOptions opt = new PolylineOptions()
-//                .addAll(points)//Add a list of points
-//                .color(Color.RED);
-//
-//        // Add the new line. Keep track of the added polylines
-//        // in a list.
-//        Polyline p = mAmazonMap.addPolyline(opt);
-//        mPolylines.add(p); //For tracking polylines
     }
 
     /**

@@ -357,4 +357,40 @@ public class FamilyMap {
         }
         return earliest;
     }
+
+    public ArrayList<FamilyMapEvent> getAncestors(String rootID) {
+        Person root = getPersonByID(rootID);
+        ArrayList<FamilyMapEvent> result = new ArrayList<>();
+
+        return getAncestors(root, result);
+    }
+
+    private ArrayList<FamilyMapEvent> getAncestors(Person currentPerson, ArrayList<FamilyMapEvent> result){
+        FamilyMapEvent birth = getBirthEvent(currentPerson);
+        if(birth != null) {
+            result.add(birth);
+        }
+
+        if(currentPerson.hasFather()){
+            Person personFather = getPersonByID(currentPerson.getFatherID());
+            getAncestors(personFather, result);
+        }
+
+        if(currentPerson.hasMother()){
+            Person personMother = getPersonByID(currentPerson.getMotherID());
+            getAncestors(personMother, result);
+        }
+
+        return result;
+    }
+
+    public FamilyMapEvent getBirthEvent(Person person) {
+        for(FamilyMapEvent event : mUserEvents){
+            if(event.getPersonId().equals(person.getPersonID()) &&
+                    event.getDescription().toLowerCase().equals("birth")){
+                return event;
+            }
+        }
+        return null;
+    }
 }

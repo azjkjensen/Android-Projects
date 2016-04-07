@@ -85,4 +85,12 @@ public class Person {
     public void setRelationship(String relationship) {
         mRelationship = relationship;
     }
+
+    public boolean hasFather() {
+        return mFatherID != null;
+    }
+
+    public boolean hasMother() {
+        return mMotherID != null;
+    }
 }
