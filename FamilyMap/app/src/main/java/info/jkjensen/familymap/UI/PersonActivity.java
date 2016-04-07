@@ -126,6 +126,7 @@ public class PersonActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.menu_item_top:
                 // TODO: Pop back to running MainActivity
+                onBackPressed();
                 intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 return true;

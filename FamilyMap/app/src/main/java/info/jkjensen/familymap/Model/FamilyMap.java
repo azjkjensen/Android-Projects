@@ -1,9 +1,10 @@
 package info.jkjensen.familymap.Model;
 
-import com.amazon.geo.mapsv2.model.Marker;
+import android.graphics.Color;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 /**
  * Created by Jk on 3/16/2016.
@@ -15,6 +16,8 @@ public class FamilyMap {
     public boolean mIsUserLoggedIn = false;
 
     private ArrayList<FamilyMapEvent> mUserEvents;
+    private HashMap<String, Float> mEventTypeColors;
+    private ArrayList<String> mEventTypes;
     private ArrayList<Person> mUserPersons;
 
     private String mAuthToken;
@@ -27,6 +30,13 @@ public class FamilyMap {
     private String mPort;
     private Person mCurrentPerson;
     private FamilyMapEvent mSelectedEvent = null;
+
+    private boolean showLifeStoryLines = true;
+    private boolean showFamilyTreeLines = true;
+    private boolean showSpouseLines = true;
+    private int mLifeStoryColor = Color.RED;
+    private int mSpouseStoryColor = Color.CYAN;
+    private int mFamilyTreeColor = Color.DKGRAY;
 
     public static FamilyMap getInstance() {
         if(instance == null){
@@ -84,6 +94,8 @@ public class FamilyMap {
 
     public void setUserEvents(ArrayList<FamilyMapEvent> userEvents) {
         mUserEvents = userEvents;
+        mEventTypeColors = new HashMap<>();
+        setEventTypes();
     }
 
     public void setHostIP(String hostIP) {
@@ -108,6 +120,27 @@ public class FamilyMap {
 
     public void setUserPersons(ArrayList<Person> userPersons) {
         mUserPersons = userPersons;
+    }
+
+    public HashMap<String, Float> getEventTypeColors() {
+        return mEventTypeColors;
+    }
+
+    private void setEventTypes() {
+        mEventTypes = new ArrayList<>();
+        mEventTypeColors = new HashMap<>();
+
+        for(int i = 0; i < mUserEvents.size(); i++){
+            FamilyMapEvent e = mUserEvents.get(i);
+            if(!mEventTypes.contains(e.getDescription())){
+                mEventTypes.add(e.getDescription());
+            }
+        }
+
+        for(int j = 0; j < mEventTypes.size(); j++){
+            float hue = j * (360f / mEventTypes.size());
+            mEventTypeColors.put(mEventTypes.get(j), hue);
+        }
     }
 
     public FamilyMapEvent getSelectedEvent() {
@@ -172,7 +205,7 @@ public class FamilyMap {
         return childrenResult;
     }
 
-    private Person getPersonByID(String parentID) {
+    public Person getPersonByID(String parentID) {
         for(Person p : mUserPersons){
             if(p.getPersonID().equals(parentID)){
                 return p;
@@ -254,14 +287,14 @@ public class FamilyMap {
     }
 
     // TODO: Make sure this method is functioning properly
-    private String getSpouseID(String userID) {
-        if(mUserPersons == null) return "error";
+    public String getSpouseID(String userID) {
+        if(mUserPersons == null) return null;
         for(Person p : mUserPersons){
-            if(p.getSpouseID() == userID){
-                return p.getSpouseID();
+            if(p.getSpouseID().equals(userID)){
+                return p.getPersonID();
             }
         }
-        return "error";
+        return null;
     }
 
     public Person getPersonFromEvent(FamilyMapEvent event){
@@ -271,5 +304,59 @@ public class FamilyMap {
             }
         }
         return null;
+    }
+
+    public float getEventColor(FamilyMapEvent event) {
+        return mEventTypeColors.get(event.getDescription());
+    }
+
+    public boolean showLifeStoryLines() {
+        return showLifeStoryLines;
+    }
+
+    public void setShowLifeStoryLines(boolean showLifeStoryLines) {
+        this.showLifeStoryLines = showLifeStoryLines;
+    }
+
+    public boolean showFamilyTreeLines() {
+        return showFamilyTreeLines;
+    }
+
+    public void setShowFamilyTreeLines(boolean showFamilyTreeLines) {
+        this.showFamilyTreeLines = showFamilyTreeLines;
+    }
+
+    public boolean showSpouseLines() {
+        return showSpouseLines;
+    }
+
+    public void setShowSpouseLines(boolean showSpouseLines) {
+        this.showSpouseLines = showSpouseLines;
+    }
+
+    public int getLifeStoryColor() {
+        return mLifeStoryColor;
+    }
+
+    public int getSpouseStoryColor() {
+        return mSpouseStoryColor;
+    }
+
+    public int getFamilyTreeColor(){
+        return mFamilyTreeColor;
+    }
+
+    public FamilyMapEvent getEarliestEvent(Person person) {
+        FamilyMapEvent earliest = null;
+        for(FamilyMapEvent e : mUserEvents){
+            if(e.getPersonId().equals(person.getPersonID())){
+                if(earliest == null) earliest = e;
+                if(Integer.parseInt(e.getYear()) < Integer.parseInt(earliest.getYear())
+                        || e.getDescription().toLowerCase().equals("birth")){
+                    earliest = e;
+                }
+            }
+        }
+        return earliest;
     }
 }
