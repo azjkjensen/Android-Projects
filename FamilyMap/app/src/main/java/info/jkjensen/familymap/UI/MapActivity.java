@@ -54,6 +54,7 @@ public class MapActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.menu_item_top:
                 // TODO: Pop back to running MainActivity
+                mFamilyMap.resetSelectedEvent();
                 intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 return true;

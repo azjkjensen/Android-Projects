@@ -11,7 +11,6 @@ import java.util.Collections;
 public class FamilyMap {
     private static FamilyMap instance = null;
 
-    private FamilyMapEvent mSelectedEvent = null;
 
     public boolean mIsUserLoggedIn = false;
 
@@ -27,6 +26,7 @@ public class FamilyMap {
     private String mHostIP;
     private String mPort;
     private Person mCurrentPerson;
+    private FamilyMapEvent mSelectedEvent = null;
 
     public static FamilyMap getInstance() {
         if(instance == null){
@@ -118,6 +118,9 @@ public class FamilyMap {
         mSelectedEvent = selectedEvent;
     }
 
+    public void resetSelectedEvent(){
+        mSelectedEvent = null;
+    }
     /**
      * Gets a list of immediate family members of the given person p
      * @param p the person to retrieve family information for
