@@ -233,7 +233,7 @@ public class MapFragment extends Fragment {
             Person currentPerson = mFamilyMap.getPersonFromEvent(mSelectedEvent);
             if(currentPerson.hasFather()) {
                 ArrayList<FamilyMapEvent> paternalLine = new ArrayList<>();
-                paternalLine.add(mFamilyMap.getBirthEvent(currentPerson));
+                paternalLine.add(mSelectedEvent);
                 paternalLine.addAll(mFamilyMap.getAncestors(currentPerson.getFatherID()));
 
                 ArrayList<LatLng> points = new ArrayList<>();
