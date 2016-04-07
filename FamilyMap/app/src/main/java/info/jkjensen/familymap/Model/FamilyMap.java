@@ -223,7 +223,6 @@ public class FamilyMap {
                 intermediateResult.add(e);
             }
         }
-        // TODO: Order events according to specification.
         result = reorderEventsForPersonActivity(intermediateResult);
         return result;
     }
@@ -286,7 +285,6 @@ public class FamilyMap {
         mCurrentPerson = currentPerson;
     }
 
-    // TODO: Make sure this method is functioning properly
     public String getSpouseID(String userID) {
         if(mUserPersons == null) return null;
         for(Person p : mUserPersons){

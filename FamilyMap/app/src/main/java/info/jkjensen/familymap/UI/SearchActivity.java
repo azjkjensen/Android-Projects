@@ -28,7 +28,7 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        //TODO; set up SearchActivity UI and model
+        //TODO; set up SearchActivity model
         mCrimeRecyclerView = (RecyclerView) findViewById(R.id.search_recycler);
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 

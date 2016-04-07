@@ -298,7 +298,8 @@ public class MapFragment extends Fragment {
                 points.add(new LatLng(event.getLatitude(), event.getLongitude()));
                 PolylineOptions opt = new PolylineOptions()
                         .addAll(points)
-                        .color(mFamilyMap.getLifeStoryColor());
+                        .color(mFamilyMap.getLifeStoryColor())
+                        .width(5f);
                 Polyline polyline = mAmazonMap.addPolyline(opt);
                 mPolyLines.add(polyline);
             }
@@ -319,7 +320,8 @@ public class MapFragment extends Fragment {
                     mSelectedEvent.getLatitude(), mSelectedEvent.getLongitude()));
             PolylineOptions opt = new PolylineOptions()
                     .addAll(points)
-                    .color(mFamilyMap.getSpouseStoryColor());
+                    .color(mFamilyMap.getSpouseStoryColor())
+                    .width(5f);
             Polyline polyline = mAmazonMap.addPolyline(opt);
             mPolyLines.add(polyline);
         }
