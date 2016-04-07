@@ -111,4 +111,20 @@ public class FamilyMapEvent implements Comparable{
                 ": " + this.getCity() + ", " +
                 this.getCountry() + " (" + this.getYear() + ")";
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        FamilyMapEvent that = (FamilyMapEvent) o;
+
+        return mEventId.equals(that.mEventId);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return mEventId.hashCode();
+    }
 }

@@ -54,21 +54,22 @@ public class MapFragment extends Fragment {
     private ImageView mGenderIcon;
 
     /**List of markers on the map*/
+    ArrayList<Marker> mMarkers;
     HashMap<Integer, FamilyMapEvent> mMarkerEvents;
     private Marker mSelectedMarker;
+    private FamilyMapEvent mSelectedEvent;
 
     /**URL for event GET*/
     URL mEventUrl;
+
     /**URL for person GET*/
     URL mPersonUrl;
-
-    FamilyMapEvent mCurrentEvent;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         mFamilyMap = FamilyMap.getInstance();
-        mSelectedMarker = mFamilyMap.getSelectedMarker();
         mMarkerEvents = new HashMap<>();
+        mMarkers = new ArrayList<>();
         super.onCreate(savedInstanceState);
     }
 
@@ -98,25 +99,20 @@ public class MapFragment extends Fragment {
             @Override
             public void onMapReady(AmazonMap amazonMap) {
                 mAmazonMap = amazonMap;
-                // TODO: Set up autoZoom and center on the selected marker if it exists
-                if(mSelectedMarker != null) {
-                    amazonMap.animateCamera(
-                            CameraUpdateFactory.newLatLngZoom(mSelectedMarker.getPosition(),
-                                                                18.0f));
-                }
+
                 mAmazonMap.setOnMarkerClickListener(new AmazonMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
                         try {
-                            mCurrentEvent = mMarkerEvents.get(marker.hashCode());
+                            mSelectedEvent = mMarkerEvents.get(marker.hashCode());
                             mSelectedMarker = marker;
 
-                            Person eventPerson = mFamilyMap.getPersonFromEvent(mCurrentEvent);
+                            Person eventPerson = mFamilyMap.getPersonFromEvent(mSelectedEvent);
                             if (eventPerson == null) throw new Exception("Failed to find person.");
                             mFamilyMap.setCurrentPerson(eventPerson);
 
                             updateUI(eventPerson);
-                        } catch(Exception e){
+                        } catch (Exception e) {
                             Log.e("map", e.getMessage());
                         }
                         return false;
@@ -147,7 +143,7 @@ public class MapFragment extends Fragment {
     private void updateUI(Person person) {
         mNameView.setText(mFamilyMap.getCurrentPerson().getFirstName() + " " +
                 mFamilyMap.getCurrentPerson().getLastName());
-        mInfoView.setText(mCurrentEvent.getFormattedDescription());
+        mInfoView.setText(mSelectedEvent.getFormattedDescription());
         if(person.getGender().equals("m")) {
             mGenderIcon
                     .setImageDrawable(ContextCompat.getDrawable(getActivity(),
@@ -157,6 +153,24 @@ public class MapFragment extends Fragment {
                     .setImageDrawable(ContextCompat.getDrawable(getActivity(),
                             R.drawable.ic_gender_female_white_48dp));
         }
+    }
+    private Marker getMarkerFromEvent(){
+        int markerID = 0;
+        for(int i : mMarkerEvents.keySet()){
+            FamilyMapEvent e = mMarkerEvents.get(i);
+
+            if(mSelectedEvent.equals(e)){
+                markerID = i;
+                break;
+            }
+        }
+
+        for(Marker m : mMarkers){
+            if(m.hashCode() == markerID){
+                return m;
+            }
+        }
+        return null;
     }
 
     /**
@@ -171,6 +185,7 @@ public class MapFragment extends Fragment {
 //                    .color?
             Marker m = mAmazonMap.addMarker(opt);
             mMarkerEvents.put(m.hashCode(), current);
+            mMarkers.add(m);
         }
     }
 
@@ -210,6 +225,16 @@ public class MapFragment extends Fragment {
 
             //Populate the map with pins for each event
             populateMarkers();
+            mSelectedEvent = mFamilyMap.getSelectedEvent();
+            if (mSelectedEvent != null) {
+                mSelectedMarker = getMarkerFromEvent();
+                mAmazonMap.animateCamera(
+                        CameraUpdateFactory.newLatLngZoom(mSelectedMarker.getPosition(),
+                                6.0f));
+                Person eventPerson = mFamilyMap.getPersonFromEvent(mSelectedEvent);
+                mFamilyMap.setCurrentPerson(eventPerson);
+                updateUI(eventPerson);
+            }
 
         }
 

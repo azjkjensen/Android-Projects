@@ -11,7 +11,7 @@ import java.util.Collections;
 public class FamilyMap {
     private static FamilyMap instance = null;
 
-    private Marker mSelectedMarker = null;
+    private FamilyMapEvent mSelectedEvent = null;
 
     public boolean mIsUserLoggedIn = false;
 
@@ -110,12 +110,12 @@ public class FamilyMap {
         mUserPersons = userPersons;
     }
 
-    public Marker getSelectedMarker() {
-        return mSelectedMarker;
+    public FamilyMapEvent getSelectedEvent() {
+        return mSelectedEvent;
     }
 
-    public void setSelectedMarker(Marker selectedMarker) {
-        mSelectedMarker = selectedMarker;
+    public void setSelectedEvent(FamilyMapEvent selectedEvent) {
+        mSelectedEvent = selectedEvent;
     }
 
     /**

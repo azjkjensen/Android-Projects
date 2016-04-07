@@ -95,6 +95,8 @@ public class PersonActivity extends AppCompatActivity {
                 if(groupPosition == 0){ // We are dealing with an event
                     FamilyMapEvent clicked = (FamilyMapEvent) expListAdapter.getChild(
                             groupPosition, childPosition);
+                    mFamilyMap.setSelectedEvent(clicked);
+//                    mFamilyMap.setCurrentPerson(mFamilyMap.getPersonFromEvent(clicked));
                     Intent intent = new Intent(getBaseContext(), MapActivity.class);
                     startActivity(intent);
                 } else { // We are dealing with a Person

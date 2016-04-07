@@ -1,5 +1,6 @@
 package info.jkjensen.familymap.UI;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -60,10 +61,10 @@ public class SearchActivity extends AppCompatActivity {
 
                 if(p.getGender().equals("f")) {
                     mIconView.setImageDrawable(
-                            getBaseContext().getDrawable(R.drawable.ic_gender_female_white_48dp));
+                            ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_gender_female_white_48dp));
                 } else{ //If the person is male
                     mIconView.setImageDrawable(
-                            getBaseContext().getDrawable(R.drawable.ic_gender_male_white_48dp));
+                            ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_gender_male_white_48dp));
                 }
             } else{ //If the item is an event
                 FamilyMapEvent event = (FamilyMapEvent) resultItem;
@@ -86,13 +87,13 @@ public class SearchActivity extends AppCompatActivity {
 
         private List<Object> mObjectList;
 
-        public ResultAdapter(List<Crime> objectList) {
+        public ResultAdapter(List<Object> objectList) {
             mObjectList = objectList;
         }
 
         @Override
         public ResultHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+            LayoutInflater layoutInflater = LayoutInflater.from(getBaseContext());
             View view = layoutInflater.inflate(R.layout.result_item, parent, false);
 
             return new ResultHolder(view);
@@ -100,8 +101,8 @@ public class SearchActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(ResultHolder holder, int position) {
-            Crime crime = mObjectList.get(position);
-            holder.bindCrime(crime);
+            Object resultItem = mObjectList.get(position);
+            holder.bindResultItem(resultItem);
         }
 
         @Override
