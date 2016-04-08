@@ -364,7 +364,9 @@ public class MapFragment extends Fragment {
                     event.setCountry(current.getString("country"));
                     event.setCity(current.getString("city"));
                     event.setDescription(current.getString("description"));
-                    event.setYear(current.getString("year"));
+                    if(current.has("year")) {
+                        event.setYear(current.getString("year"));
+                    }
                     event.setDescendant(current.getString("descendant"));
 
                     result.add(event);
