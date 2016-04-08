@@ -2,9 +2,16 @@
     <string name="app_name">FamilyMap</string>
     <string name="filter">Filter</string>
     <string-array name="colors"> <!--example-->
+        <item>Choose a Color</item>
         <item>Red</item>
         <item>Green</item>
         <item>Blue</item>
+    </string-array>
+    <string-array name="map_types">
+        <item>Hybrid</item>
+        <item>Normal</item>
+        <item>Satellite</item>
+        <item>Terrain</item>
     </string-array>
     <string name="title_activity_person">PersonActivity</string>
     <string name="last_name">Last Name</string>

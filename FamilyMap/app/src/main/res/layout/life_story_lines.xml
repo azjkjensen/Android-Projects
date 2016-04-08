@@ -6,6 +6,7 @@
               android:paddingBottom="8dp">
 
     <LinearLayout
+        android:id="@+id/story_text_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -36,11 +37,13 @@
 
     <Spinner
         android:id="@+id/story_line_color_spinner"
-        android:layout_width="20dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
         android:entries="@array/colors"
+        android:layout_toRightOf="@id/story_text_layout"
+        android:paddingLeft="32dp"
         android:layout_toLeftOf="@id/story_line_switch"/>
 
 </RelativeLayout>

@@ -46,6 +46,7 @@ import info.jkjensen.familymap.WebTools.HttpClient;
  * Created by Jk on 3/21/2016.
  */
 public class MapFragment extends Fragment {
+    private boolean firstVisit = true;
 
     /**A reference to the model for the app*/
     private FamilyMap mFamilyMap;
@@ -108,6 +109,7 @@ public class MapFragment extends Fragment {
             @Override
             public void onMapReady(AmazonMap amazonMap) {
                 mAmazonMap = amazonMap;
+                mFamilyMap.setAmazonMap(mAmazonMap);
 
                 mAmazonMap.setOnMarkerClickListener(new AmazonMap.OnMarkerClickListener() {
                     @Override
@@ -143,12 +145,15 @@ public class MapFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), PersonActivity.class);
+                firstVisit = false;
                 startActivity(intent);
             }
         });
 
         return v;
     }
+
+
 
     private void updateUI(Person person) {
         mNameView.setText(mFamilyMap.getCurrentPerson().getFirstName() + " " +
@@ -251,7 +256,7 @@ public class MapFragment extends Fragment {
             }
             if(currentPerson.hasMother()){
                 ArrayList<FamilyMapEvent> maternalLine = new ArrayList<>();
-                maternalLine.add(mFamilyMap.getBirthEvent(currentPerson));
+                maternalLine.add(mSelectedEvent);
                 maternalLine.addAll(mFamilyMap.getAncestors(currentPerson.getMotherID()));
 
                 ArrayList<LatLng> points = new ArrayList<>();

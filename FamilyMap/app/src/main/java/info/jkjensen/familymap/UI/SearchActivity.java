@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -31,8 +32,17 @@ public class SearchActivity extends AppCompatActivity {
         //TODO; set up SearchActivity model
         mCrimeRecyclerView = (RecyclerView) findViewById(R.id.search_recycler);
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
 
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private class ResultHolder extends RecyclerView.ViewHolder

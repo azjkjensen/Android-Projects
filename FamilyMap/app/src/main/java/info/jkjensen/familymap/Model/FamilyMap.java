@@ -2,6 +2,8 @@ package info.jkjensen.familymap.Model;
 
 import android.graphics.Color;
 
+import com.amazon.geo.mapsv2.AmazonMap;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -34,9 +36,11 @@ public class FamilyMap {
     private boolean showLifeStoryLines = true;
     private boolean showFamilyTreeLines = true;
     private boolean showSpouseLines = true;
+
     private int mLifeStoryColor = Color.RED;
     private int mSpouseStoryColor = Color.CYAN;
     private int mFamilyTreeColor = Color.DKGRAY;
+    private AmazonMap mAmazonMap;
 
     public static FamilyMap getInstance() {
         if(instance == null){
@@ -336,12 +340,48 @@ public class FamilyMap {
         return mLifeStoryColor;
     }
 
+    public void setLifeStoryColor(String lifeStoryColor) {
+        if(lifeStoryColor.toLowerCase().equals("red")){
+            mLifeStoryColor = Color.RED;
+        } else if (lifeStoryColor.toLowerCase().equals("green")) {
+            mLifeStoryColor = Color.GREEN;
+        } else if(lifeStoryColor.toLowerCase().equals("blue")) {
+            mLifeStoryColor = Color.BLUE;
+        } else{
+            mLifeStoryColor = Color.YELLOW;
+        }
+    }
+
     public int getSpouseStoryColor() {
         return mSpouseStoryColor;
     }
 
+    public void setSpouseStoryColor(String spouseStoryColor) {
+        if(spouseStoryColor.toLowerCase().equals("red")){
+            mSpouseStoryColor = Color.RED;
+        } else if (spouseStoryColor.toLowerCase().equals("green")) {
+            mSpouseStoryColor = Color.GREEN;
+        } else if(spouseStoryColor.toLowerCase().equals("blue")) {
+            mSpouseStoryColor = Color.BLUE;
+        } else{
+            mSpouseStoryColor = Color.YELLOW;
+        }
+    }
+
     public int getFamilyTreeColor(){
         return mFamilyTreeColor;
+    }
+
+    public void setFamilyTreeColor(String familyTreeColor) {
+        if(familyTreeColor.toLowerCase().equals("red")){
+            mFamilyTreeColor = Color.RED;
+        } else if (familyTreeColor.toLowerCase().equals("green")) {
+            mFamilyTreeColor = Color.GREEN;
+        } else if(familyTreeColor.toLowerCase().equals("blue")) {
+            mFamilyTreeColor = Color.BLUE;
+        } else{
+            mFamilyTreeColor = Color.YELLOW;
+        }
     }
 
     public FamilyMapEvent getEarliestEvent(Person person) {
@@ -392,5 +432,17 @@ public class FamilyMap {
             }
         }
         return null;
+    }
+
+    public void resetUserSession() {
+        instance = null;
+    }
+
+    public void setAmazonMap(AmazonMap amazonMap) {
+        mAmazonMap = amazonMap;
+    }
+
+    public AmazonMap getAmazonMap() {
+        return mAmazonMap;
     }
 }

@@ -6,6 +6,7 @@
                 android:paddingBottom="8dp">
 
     <LinearLayout
+        android:id="@+id/type_text_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -26,12 +27,14 @@
     </LinearLayout>
 
     <Spinner
-        android:id="@+id/tree_line_color_spinner"
-        android:layout_width="20dp"
-        android:layout_height="40dp"
+        android:id="@+id/map_type_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:entries="@array/colors"
+        android:entries="@array/map_types"
         android:layout_gravity="center"
+        android:layout_toRightOf="@id/type_text_layout"
+        android:paddingLeft="32dp"
         android:layout_alignParentRight="true"/>
 
 </RelativeLayout>
