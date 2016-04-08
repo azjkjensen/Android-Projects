@@ -207,7 +207,7 @@ public class MapFragment extends Fragment {
         }
     }
 
-    private void drawMapLines() {
+    public void drawMapLines() {
         for(Polyline pl : mPolyLines){
             pl.remove();
         }
@@ -326,7 +326,7 @@ public class MapFragment extends Fragment {
                 JSONArray eventArray = response.getJSONArray("data");
                 mFamilyMap.setUserEvents(parseJSONIntoEventArray(eventArray));
             }catch (JSONException jsone){
-                Log.e("json", jsone.getMessage());
+                Log.e("json", jsone.getMessage() + "/n" + message);
             }
 
             //Populate the map with pins for each event
@@ -357,17 +357,33 @@ public class MapFragment extends Fragment {
                     JSONObject current = eventArray.getJSONObject(i);
 
                     FamilyMapEvent event = new FamilyMapEvent();
-                    event.setEventId(current.getString("eventID"));
-                    event.setPersonId(current.getString("personID"));
-                    event.setLatitude(Float.parseFloat(current.getString("latitude")));
-                    event.setLongitude(Float.parseFloat(current.getString("longitude")));
-                    event.setCountry(current.getString("country"));
-                    event.setCity(current.getString("city"));
-                    event.setDescription(current.getString("description"));
+                    if(current.has("eventID")) {
+                        event.setEventId(current.getString("eventID"));
+                    } else continue;
+                    if(current.has("personID")) {
+                        event.setPersonId(current.getString("personID"));
+                    } else continue;
+                    if(current.has("latitude")) {
+                        event.setLatitude(Float.parseFloat(current.getString("latitude")));
+                    } else continue;
+                    if(current.has("longitude")) {
+                        event.setLongitude(Float.parseFloat(current.getString("longitude")));
+                    } else continue;
+                    if(current.has("country")) {
+                        event.setCountry(current.getString("country"));
+                    } else continue;
+                    if(current.has("city")) {
+                        event.setCity(current.getString("city"));
+                    } else continue;
+                    if(current.has("description")) {
+                        event.setDescription(current.getString("description"));
+                    } else continue;
                     if(current.has("year")) {
                         event.setYear(current.getString("year"));
-                    }
-                    event.setDescendant(current.getString("descendant"));
+                    } else continue;
+                    if(current.has("descendant")) {
+                        event.setDescendant(current.getString("descendant"));
+                    } else continue;
 
                     result.add(event);
                 }

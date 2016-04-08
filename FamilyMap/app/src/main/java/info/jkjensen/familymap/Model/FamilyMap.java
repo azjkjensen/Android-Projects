@@ -38,8 +38,8 @@ public class FamilyMap {
     private boolean showSpouseLines = true;
 
     private int mLifeStoryColor = Color.RED;
-    private int mSpouseStoryColor = Color.CYAN;
-    private int mFamilyTreeColor = Color.DKGRAY;
+    private int mSpouseStoryColor = Color.BLUE;
+    private int mFamilyTreeColor = Color.GREEN;
     private AmazonMap mAmazonMap;
 
     public static FamilyMap getInstance() {
@@ -389,9 +389,12 @@ public class FamilyMap {
         for(FamilyMapEvent e : mUserEvents){
             if(e.getPersonId().equals(person.getPersonID())){
                 if(earliest == null) earliest = e;
-                if(Integer.parseInt(e.getYear()) < Integer.parseInt(earliest.getYear())
-                        || e.getDescription().toLowerCase().equals("birth")){
-                    earliest = e;
+                if(Integer.parseInt(e.getYear()) < Integer.parseInt(earliest.getYear())){
+                    if(e.getDescription().toLowerCase().equals("birth")){
+                        return e;
+                    } else {
+                        earliest = e;
+                    }
                 }
             }
         }
@@ -406,9 +409,9 @@ public class FamilyMap {
     }
 
     private ArrayList<FamilyMapEvent> getAncestors(Person currentPerson, ArrayList<FamilyMapEvent> result){
-        FamilyMapEvent birth = getBirthEvent(currentPerson);
-        if(birth != null) {
-            result.add(birth);
+        FamilyMapEvent earliestEventForPerson = getEarliestEvent(currentPerson);
+        if(earliestEventForPerson != null) {
+            result.add(earliestEventForPerson);
         }
 
         if(currentPerson.hasFather()){

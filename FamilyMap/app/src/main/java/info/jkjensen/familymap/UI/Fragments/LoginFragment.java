@@ -133,19 +133,20 @@ public class LoginFragment extends Fragment {
                 mFamilyMap.setAuthToken(response.getString("Authorization"));
                 mFamilyMap.setUsername(response.getString("userName"));
                 mFamilyMap.setUserId(response.getString("personId"));
+                mFamilyMap.mIsUserLoggedIn = true;
+                return "Success";
 
 //                ((MainActivity) getActivity()).onLogin();
             } catch (Exception e){
                 Log.e("http", e.getMessage());
                 return e.getMessage();
             }
-            return "ERROR";
         }
 
         @Override
         protected void onPostExecute(String message) {
             super.onPostExecute(message);
-            mFamilyMap.mIsUserLoggedIn = true;
+            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT);
             if(mFamilyMap.mIsUserLoggedIn) {
                 try {
                     mGetUserInfoURL = new URL("http://" + getHostIP() + ":" + getPort() +
@@ -155,6 +156,7 @@ public class LoginFragment extends Fragment {
                 }
 
                 mFamilyMap.setHostIP(mHostIP.getText().toString());
+                mFamilyMap.setPort(mPort.getText().toString());
 
                 RetrieveUserInfoTask task = new RetrieveUserInfoTask();
                 task.execute();

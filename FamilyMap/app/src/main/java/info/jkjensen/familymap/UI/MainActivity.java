@@ -57,6 +57,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if(mFamilyMap.mIsUserLoggedIn){
+
+            FragmentManager fm = getSupportFragmentManager();
+            ((MapFragment)fm.findFragmentByTag("mapfragment")).drawMapLines();
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         Log.i("toolbar", Boolean.toString(mFamilyMap.mIsUserLoggedIn));
         getMenuInflater().inflate(R.menu.activity_main, menu);

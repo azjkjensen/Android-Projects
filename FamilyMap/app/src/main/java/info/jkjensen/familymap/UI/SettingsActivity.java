@@ -3,6 +3,7 @@ package info.jkjensen.familymap.UI;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.amazon.geo.mapsv2.AmazonMap;
 
 import info.jkjensen.familymap.Model.FamilyMap;
 import info.jkjensen.familymap.R;
+import info.jkjensen.familymap.UI.Fragments.MapFragment;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -127,6 +129,9 @@ public class SettingsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
+//
+//                FragmentManager fm = getSupportFragmentManager();
+//                ((MapFragment)fm.findFragmentByTag("mapfragment")).drawMapLines();
                 onBackPressed();
                 return true;
             default:
