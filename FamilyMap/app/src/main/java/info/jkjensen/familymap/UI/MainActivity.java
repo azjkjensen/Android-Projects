@@ -60,9 +60,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(mFamilyMap.mIsUserLoggedIn){
-
             FragmentManager fm = getSupportFragmentManager();
-            ((MapFragment)fm.findFragmentByTag("mapfragment")).drawMapLines();
+            MapFragment currentMap = ((MapFragment)fm.findFragmentByTag("mapfragment"));
+            if(currentMap != null){
+                currentMap.drawMapLines();
+            }
         }
     }
 

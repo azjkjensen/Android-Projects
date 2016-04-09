@@ -128,6 +128,7 @@ public class PersonActivity extends AppCompatActivity {
                 // TODO: Pop back to running MainActivity
                 onBackPressed();
                 intent = new Intent(this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 return true;
             case android.R.id.home:
