@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         if(mFamilyMap.mIsUserLoggedIn){
             FragmentManager fm = getSupportFragmentManager();
             MapFragment currentMap = ((MapFragment)fm.findFragmentByTag("mapfragment"));
-            if(currentMap != null){
+            if(currentMap != null && mFamilyMap.getSelectedEvent() != null){
                 currentMap.drawMapLines();
             }
         }
@@ -74,8 +74,11 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.activity_main, menu);
 
         mMenuItemFilter = menu.findItem(R.id.menu_item_filter);
+        mMenuItemFilter.setEnabled(false);
         mMenuItemSearch = menu.findItem(R.id.menu_item_search);
+        mMenuItemSearch.setEnabled(false);
         mMenuItemSettings = menu.findItem(R.id.menu_item_settings);
+        mMenuItemSearch.setEnabled(false);
 
         if(!FamilyMap.getInstance().mIsUserLoggedIn){
             mMenuItemFilter.setVisible(false);
@@ -125,5 +128,17 @@ public class MainActivity extends AppCompatActivity {
         mMapFragment = new MapFragment();
         fm.beginTransaction()
                 .add(R.id.fragment_container, mMapFragment, MAP_FRAGMENT_TAG).commit();
+    }
+
+    public MenuItem getMenuItemSearch() {
+        return mMenuItemSearch;
+    }
+
+    public MenuItem getMenuItemFilter() {
+        return mMenuItemFilter;
+    }
+
+    public MenuItem getMenuItemSettings() {
+        return mMenuItemSettings;
     }
 }

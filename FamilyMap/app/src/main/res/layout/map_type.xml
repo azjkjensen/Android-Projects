@@ -3,14 +3,16 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="8dp">
+                android:paddingBottom="8dp"
+                android:background="@drawable/borderbottom">
 
     <LinearLayout
         android:id="@+id/type_text_layout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
         android:orientation="vertical"
-        android:layout_gravity="center">
+        android:gravity="center_vertical">
 
         <TextView
             android:layout_width="wrap_content"
@@ -28,12 +30,10 @@
 
     <Spinner
         android:id="@+id/map_type_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_width="220dp"
+        android:layout_height="match_parent"
         android:entries="@array/map_types"
         android:layout_gravity="center"
-        android:layout_toRightOf="@id/type_text_layout"
         android:paddingLeft="32dp"
         android:layout_alignParentRight="true"/>
 

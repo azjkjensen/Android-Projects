@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.amazon.geo.mapsv2.AmazonMap;
@@ -39,6 +40,7 @@ import info.jkjensen.familymap.Model.FamilyMapEvent;
 import info.jkjensen.familymap.Model.FamilyMap;
 import info.jkjensen.familymap.Model.Person;
 import info.jkjensen.familymap.R;
+import info.jkjensen.familymap.UI.MainActivity;
 import info.jkjensen.familymap.UI.PersonActivity;
 import info.jkjensen.familymap.WebTools.HttpClient;
 
@@ -54,7 +56,7 @@ public class MapFragment extends Fragment {
     //View layouts
     com.amazon.geo.mapsv2.SupportMapFragment mMapFragment;
     AmazonMap mAmazonMap;
-    LinearLayout mPersonLayout;
+    RelativeLayout mPersonLayout;
     TextView mNameView;
     TextView mInfoView;
     private ImageView mGenderIcon;
@@ -140,7 +142,7 @@ public class MapFragment extends Fragment {
         personRequestTask.execute();
 
         mFamilyMap.resetCurrentPerson();
-        mPersonLayout = (LinearLayout) v.findViewById(R.id.layout_person);
+        mPersonLayout = (RelativeLayout) v.findViewById(R.id.layout_person);
         mPersonLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -427,6 +429,11 @@ public class MapFragment extends Fragment {
             }catch (JSONException jsone){
                 Log.e("json", jsone.getMessage());
             }
+
+
+            ((MainActivity)getActivity()).getMenuItemFilter().setEnabled(true);
+            ((MainActivity)getActivity()).getMenuItemSearch().setEnabled(true);
+            ((MainActivity)getActivity()).getMenuItemSettings().setEnabled(true);
         }
 
         /**
