@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         mMenuItemSearch = menu.findItem(R.id.menu_item_search);
         mMenuItemSearch.setEnabled(false);
         mMenuItemSettings = menu.findItem(R.id.menu_item_settings);
-        mMenuItemSearch.setEnabled(false);
+        mMenuItemSettings.setEnabled(false);
 
         if(!FamilyMap.getInstance().mIsUserLoggedIn){
             mMenuItemFilter.setVisible(false);

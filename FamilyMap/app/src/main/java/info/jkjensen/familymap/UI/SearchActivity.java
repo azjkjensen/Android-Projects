@@ -43,8 +43,7 @@ public class SearchActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.search_recycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         ArrayList<Object> tempList = new ArrayList<>();
-//        tempList.addAll(mFamilyMap.getUserPersons());
-//        tempList.addAll(mFamilyMap.getUserEvents());
+
         mRecyclerView.setAdapter(new ResultAdapter(tempList));
 
         mSearchBar = (EditText) findViewById(R.id.search_bar);

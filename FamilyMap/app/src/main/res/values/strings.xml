@@ -38,4 +38,6 @@
     <string name="sync_data_hint">from FamilyMap Server</string>
     <string name="logout">Logout</string>
     <string name="logout_hint">Return to Login Screen</string>
+    <string name="filter_title">Filter Title</string>
+    <string name="filter_description">Filter Description</string>
 </resources>

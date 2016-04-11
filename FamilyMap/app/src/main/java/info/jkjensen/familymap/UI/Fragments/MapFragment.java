@@ -379,6 +379,9 @@ public class MapFragment extends Fragment {
                     } else continue;
                     if(current.has("description")) {
                         event.setDescription(current.getString("description"));
+                        if(!mFamilyMap.getEventsEnabled().keySet().contains(event.getDescription())){
+                            mFamilyMap.getEventsEnabled().put(event.getDescription(), true);
+                        }
                     } else continue;
                     if(current.has("year")) {
                         event.setYear(current.getString("year"));

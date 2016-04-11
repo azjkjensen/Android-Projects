@@ -18,6 +18,8 @@ public class FamilyMap {
     public boolean mIsUserLoggedIn = false;
 
     private ArrayList<FamilyMapEvent> mUserEvents;
+    private ArrayList<FamilyMapEvent> mShowingEvents;
+
     private HashMap<String, Float> mEventTypeColors;
     private ArrayList<String> mEventTypes;
     private ArrayList<Person> mUserPersons;
@@ -37,10 +39,17 @@ public class FamilyMap {
     private boolean showFamilyTreeLines = true;
     private boolean showSpouseLines = true;
 
+    private HashMap<String, Boolean> mEventsEnabled;
+
     private int mLifeStoryColor = Color.RED;
     private int mSpouseStoryColor = Color.BLUE;
     private int mFamilyTreeColor = Color.GREEN;
     private AmazonMap mAmazonMap;
+
+    private boolean mShowMaleEvents = true;
+    private boolean mShowFemaleEvents = true;
+    private boolean mShowMothersEvents = true;
+    private boolean mShowFathersEvents = true;
 
     public static FamilyMap getInstance() {
         if(instance == null){
@@ -50,6 +59,7 @@ public class FamilyMap {
     }
 
     private FamilyMap() {
+        mEventsEnabled = new HashMap<>();
     }
 
     public String getAuthToken() {
@@ -100,6 +110,32 @@ public class FamilyMap {
         mUserEvents = userEvents;
         mEventTypeColors = new HashMap<>();
         setEventTypes();
+    }
+
+    public ArrayList<FamilyMapEvent> getShowingEvents() {
+        return mShowingEvents;
+    }
+
+    public void setShowingEvents() {
+        //Change to a set then back
+        if(mShowMaleEvents){
+
+        }
+        if(mShowFemaleEvents){
+
+        }
+        for(String eventName : mEventsEnabled.keySet()){
+            FamilyMapEvent event = null;
+            for(FamilyMapEvent e : mUserEvents){
+                if(eventName.equals(e.getDescription())){
+                    event = e;
+                    break;
+                }
+            }
+            if(mEventsEnabled.get(eventName) && event != null){
+                mShowingEvents.add(event);
+            }
+        }
     }
 
     public void setHostIP(String hostIP) {
@@ -447,5 +483,41 @@ public class FamilyMap {
 
     public AmazonMap getAmazonMap() {
         return mAmazonMap;
+    }
+
+    public HashMap<String, Boolean> getEventsEnabled() {
+        return mEventsEnabled;
+    }
+
+    public boolean showMaleEvents() {
+        return mShowMaleEvents;
+    }
+
+    public boolean showFemaleEvents() {
+        return mShowFemaleEvents;
+    }
+
+    public boolean showMothersEvents() {
+        return mShowMothersEvents;
+    }
+
+    public boolean showFathersEvents() {
+        return mShowFathersEvents;
+    }
+
+    public void setShowMaleEvents(boolean showMaleEvents) {
+        mShowMaleEvents = showMaleEvents;
+    }
+
+    public void setShowFemaleEvents(boolean showFemaleEvents) {
+        mShowFemaleEvents = showFemaleEvents;
+    }
+
+    public void setShowMothersEvents(boolean showMothersEvents) {
+        mShowMothersEvents = showMothersEvents;
+    }
+
+    public void setShowFathersEvents(boolean showFathersEvents) {
+        mShowFathersEvents = showFathersEvents;
     }
 }
