@@ -14,16 +14,21 @@ import java.util.HashMap;
 public class FamilyMap {
     private static FamilyMap instance = null;
 
-
+    /**Signifies that the user is logged in*/
     public boolean mIsUserLoggedIn = false;
 
+    /**All user events in the model*/
     private ArrayList<FamilyMapEvent> mUserEvents;
     private ArrayList<FamilyMapEvent> mEventsCopyMASTER;
 
+    /**Mapping of event desccriptions to colors */
     private HashMap<String, Float> mEventTypeColors;
+    /**List of all possible event descriptions in the model*/
     private ArrayList<String> mEventTypes;
+    /**List of all Person objects listed in the model*/
     private ArrayList<Person> mUserPersons;
 
+    /*API access information*/
     private String mAuthToken;
     private String mUsername;
     private String mUserId;
@@ -33,24 +38,33 @@ public class FamilyMap {
     private String mHostIP;
     private String mPort;
     private Person mCurrentPerson;
+
+    /**Event that is selected on the map */
     private FamilyMapEvent mSelectedEvent = null;
 
+    /*Signify whether to show each of the lines on the map*/
     private boolean showLifeStoryLines = true;
     private boolean showFamilyTreeLines = true;
     private boolean showSpouseLines = true;
 
+    /**THe events that are enabled through filters*/
     private HashMap<String, Boolean> mEventsEnabled;
 
+    /*Colors of each of the lines on the map*/
     private int mLifeStoryColor = Color.RED;
     private int mSpouseStoryColor = Color.BLUE;
     private int mFamilyTreeColor = Color.GREEN;
+
+    /**The map layout object for displaying*/
     private AmazonMap mAmazonMap;
 
+    /*Whether to show each of the required event filters*/
     private boolean mShowMaleEvents = true;
     private boolean mShowFemaleEvents = true;
     private boolean mShowMothersEvents = true;
     private boolean mShowFathersEvents = true;
 
+    /**Gets the singleton object of our model*/
     public static FamilyMap getInstance() {
         if(instance == null){
             instance = new FamilyMap();
@@ -107,6 +121,10 @@ public class FamilyMap {
         return mUserEvents;
     }
 
+    /**
+     * Sets the events to the array given, and stores a list of all possible desccriptions.
+     * @param userEvents the array to set mUserEvents to.
+     */
     public void setUserEvents(ArrayList<FamilyMapEvent> userEvents) {
         mUserEvents = userEvents;
         mEventsCopyMASTER.addAll(mUserEvents);
@@ -116,28 +134,6 @@ public class FamilyMap {
 
     public ArrayList<FamilyMapEvent> getEventsCopyMASTER() {
         return mEventsCopyMASTER;
-    }
-
-    public void setShowingEvents() {
-        //Change to a set then back
-        if(mShowMaleEvents){
-
-        }
-        if(mShowFemaleEvents){
-
-        }
-        for(String eventName : mEventsEnabled.keySet()){
-            FamilyMapEvent event = null;
-            for(FamilyMapEvent e : mUserEvents){
-                if(eventName.equals(e.getDescription())){
-                    event = e;
-                    break;
-                }
-            }
-            if(mEventsEnabled.get(eventName) && event != null){
-                mEventsCopyMASTER.add(event);
-            }
-        }
     }
 
     public void setHostIP(String hostIP) {
@@ -168,6 +164,9 @@ public class FamilyMap {
         return mEventTypeColors;
     }
 
+    /**
+     * Takes all events in the model, and creates a list of possible descriptions
+     */
     private void setEventTypes() {
         mEventTypes = new ArrayList<>();
         mEventTypeColors = new HashMap<>();
@@ -232,6 +231,11 @@ public class FamilyMap {
         return result;
     }
 
+    /**
+     * Gets all children of the person with the given id
+     * @param parentID the id of the person whose children to find
+     * @return a list of person objects for all children of the given person.
+     */
     private ArrayList<Object> getChildren(String parentID) {
         ArrayList<Object> childrenResult = new ArrayList<>();
 
@@ -247,15 +251,25 @@ public class FamilyMap {
         return childrenResult;
     }
 
-    public Person getPersonByID(String parentID) {
+    /**
+     * Gets the person from the model with the given id.
+     * @param personId the id of the person to get
+     * @return
+     */
+    public Person getPersonByID(String personId) {
         for(Person p : mUserPersons){
-            if(p.getPersonID().equals(parentID)){
+            if(p.getPersonID().equals(personId)){
                 return p;
             }
         }
         return null;
     }
 
+    /**
+     * Gets all events from the model with the given user id
+     * @param userID the id of the person whose events to get
+     * @return a list of FamilyMapEvent objects containing all person life events
+     */
     public ArrayList<Object> getLifeEvents(String userID){
         ArrayList<FamilyMapEvent> intermediateResult = new ArrayList<>();
         ArrayList<Object> result = new ArrayList<>();
@@ -269,6 +283,11 @@ public class FamilyMap {
         return result;
     }
 
+    /**
+     * Reorders the given list by specification
+     * @param input list to sort
+     * @return sorted list
+     */
     private ArrayList<Object> reorderEventsForPersonActivity(ArrayList<FamilyMapEvent> input) {
         ArrayList<Object> result = new ArrayList<>();
         ArrayList<FamilyMapEvent> inputCopy = new ArrayList<>(input.size() + 1);
@@ -303,6 +322,10 @@ public class FamilyMap {
         return result;
     }
 
+    /**
+     * Gets the current person from the model, or gets the user if there is no given person
+     * @return person
+     */
     public Person getCurrentPerson() {
         if(mCurrentPerson == null){
             mCurrentPerson = new Person();
@@ -315,6 +338,9 @@ public class FamilyMap {
         return mCurrentPerson;
     }
 
+    /**
+     * Resets the current person to the user's information
+     */
     public void resetCurrentPerson(){
         mCurrentPerson = new Person();
         mCurrentPerson.setPersonID(mUserId);
@@ -327,6 +353,11 @@ public class FamilyMap {
         mCurrentPerson = currentPerson;
     }
 
+    /**
+     * Gets the spouse id of the person with the given user id
+     * @param userID the id of the person whose spouse to get
+     * @return the id of the person's spouse
+     */
     public String getSpouseID(String userID) {
         if(mUserPersons == null) return null;
         for(Person p : mUserPersons){
@@ -337,6 +368,11 @@ public class FamilyMap {
         return null;
     }
 
+    /**
+     * Gets the person with the id associated with the given event.
+     * @param event the event to find the person from
+     * @return the Person the event belongs to
+     */
     public Person getPersonFromEvent(FamilyMapEvent event){
         for(Person p : mUserPersons){
             if(p.getPersonID().equals(event.getPersonId())){
@@ -346,6 +382,11 @@ public class FamilyMap {
         return null;
     }
 
+    /**
+     * Gets the color of the marker for the given event
+     * @param event for which to get the color
+     * @return the color for the event
+     */
     public float getEventColor(FamilyMapEvent event) {
         return mEventTypeColors.get(event.getDescription());
     }
@@ -410,6 +451,10 @@ public class FamilyMap {
         return mFamilyTreeColor;
     }
 
+    /**
+     * Set the family tree color based on the string/
+     * @param familyTreeColor the string name of the color
+     */
     public void setFamilyTreeColor(String familyTreeColor) {
         if(familyTreeColor.toLowerCase().equals("red")){
             mFamilyTreeColor = Color.RED;
@@ -422,6 +467,11 @@ public class FamilyMap {
         }
     }
 
+    /**
+     * Gets the earliest event for the given person
+     * @param person the person the event belongs to
+     * @return the earliest event for the person
+     */
     public FamilyMapEvent getEarliestEvent(Person person) {
         FamilyMapEvent earliest = null;
         for(FamilyMapEvent e : mUserEvents){
@@ -439,6 +489,11 @@ public class FamilyMap {
         return earliest;
     }
 
+    /**
+     * Gets all ancestors' events for the person with the given id
+     * @param rootID the id of the person whose ancestors to find
+     * @return list of ancestors' events
+     */
     public ArrayList<FamilyMapEvent> getAncestors(String rootID) {
         Person root = getPersonByID(rootID);
         ArrayList<FamilyMapEvent> result = new ArrayList<>();
@@ -446,6 +501,12 @@ public class FamilyMap {
         return getAncestors(root, result);
     }
 
+    /**
+     * Recursive part of ancestor getting.
+     * @param currentPerson current person we are on in the tree
+     * @param result the current list of ancestors
+     * @return the result once we have hit a base case.
+     */
     private ArrayList<FamilyMapEvent> getAncestors(Person currentPerson, ArrayList<FamilyMapEvent> result){
         FamilyMapEvent earliestEventForPerson = getEarliestEvent(currentPerson);
         if(earliestEventForPerson != null) {
@@ -465,6 +526,11 @@ public class FamilyMap {
         return result;
     }
 
+    /**
+     * Gets the birth event associated with the given person if it exists.
+     * @param person the person to get the event from
+     * @return the birth event, or null if it doesn't exist.
+     */
     public FamilyMapEvent getBirthEvent(Person person) {
         for(FamilyMapEvent event : mUserEvents){
             if(event.getPersonId().equals(person.getPersonID()) &&
@@ -475,6 +541,9 @@ public class FamilyMap {
         return null;
     }
 
+    /**
+     * Resets singleton for a new user session.
+     */
     public void resetUserSession() {
         instance = null;
     }
@@ -521,58 +590,5 @@ public class FamilyMap {
 
     public void setShowFathersEvents(boolean showFathersEvents) {
         mShowFathersEvents = showFathersEvents;
-    }
-
-    public void syncFilters() {
-        //Copy all original events into mUserEvents
-        mUserEvents.clear();
-        mUserEvents.addAll(mEventsCopyMASTER);
-        //Create all
-        ArrayList<FamilyMapEvent> eventsLengthCopy = new ArrayList<>();
-        eventsLengthCopy.clear();
-        eventsLengthCopy.addAll(mUserEvents);
-
-        if(!mShowMaleEvents){
-            for(int i = 0; i < eventsLengthCopy.size(); i++){
-                FamilyMapEvent event = eventsLengthCopy.get(i);
-                if(getPersonFromEvent(event).getGender().toLowerCase().equals("m")){
-                    mUserEvents.remove(event);
-                }
-            }
-        }
-
-        eventsLengthCopy.clear();
-        eventsLengthCopy.addAll(mUserEvents);
-        if(!mShowFemaleEvents){
-            for(int i = 0; i < eventsLengthCopy.size(); i++){
-                FamilyMapEvent event = eventsLengthCopy.get(i);
-                if(getPersonFromEvent(event).getGender().toLowerCase().equals("f")){
-                    mUserEvents.remove(event);
-                }
-            }
-        }
-
-        if(!mShowFathersEvents){
-
-        }
-        if(!mShowMothersEvents){
-
-        }
-
-        eventsLengthCopy.clear();
-        eventsLengthCopy.addAll(mUserEvents);
-        for(String eventName : mEventsEnabled.keySet()){
-            boolean isEventshown = mEventsEnabled.get(eventName);
-
-            if(!isEventshown){
-                //Get the event by name
-                for(int i = 0; i < eventsLengthCopy.size(); i++){
-                    FamilyMapEvent e = eventsLengthCopy.get(i);
-                    if(e.getDescription().equals(eventName)){
-                        mUserEvents.remove(e);
-                    }
-                }
-            }
-        }
     }
 }

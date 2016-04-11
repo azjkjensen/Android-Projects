@@ -50,7 +50,7 @@ public class FilterActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
-                mFamilyMap.syncFilters();
+//                mFamilyMap.syncFilters();
                 onBackPressed();
                 return true;
             default:
@@ -111,7 +111,7 @@ public class FilterActivity extends AppCompatActivity {
                     } else { //If it is just an event description
                         mEventsEnabled.put(mFilterString.toLowerCase(), isChecked);
                     }
-                    mFamilyMap.syncFilters();
+//                    mFamilyMap.syncFilters();
                 }
             });
         }

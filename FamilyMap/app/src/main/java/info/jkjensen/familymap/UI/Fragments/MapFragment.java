@@ -434,10 +434,11 @@ public class MapFragment extends Fragment {
                 Log.e("json", jsone.getMessage());
             }
 
-
-            ((MainActivity)getActivity()).getMenuItemFilter().setEnabled(true);
-            ((MainActivity)getActivity()).getMenuItemSearch().setEnabled(true);
-            ((MainActivity)getActivity()).getMenuItemSettings().setEnabled(true);
+            if(getActivity().getClass().equals(MainActivity.class)) {
+                ((MainActivity) getActivity()).getMenuItemFilter().setEnabled(true);
+                ((MainActivity) getActivity()).getMenuItemSearch().setEnabled(true);
+                ((MainActivity) getActivity()).getMenuItemSettings().setEnabled(true);
+            }
         }
 
         /**
