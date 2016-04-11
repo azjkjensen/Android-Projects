@@ -62,8 +62,11 @@ public class MainActivity extends AppCompatActivity {
         if(mFamilyMap.mIsUserLoggedIn){
             FragmentManager fm = getSupportFragmentManager();
             MapFragment currentMap = ((MapFragment)fm.findFragmentByTag("mapfragment"));
-            if(currentMap != null && mFamilyMap.getSelectedEvent() != null){
-                currentMap.drawMapLines();
+            if(currentMap != null){
+                currentMap.populateMarkers();
+                if(mFamilyMap.getSelectedEvent() != null) {
+                    currentMap.drawMapLines();
+                }
             }
         }
     }

@@ -18,7 +18,7 @@ public class FamilyMap {
     public boolean mIsUserLoggedIn = false;
 
     private ArrayList<FamilyMapEvent> mUserEvents;
-    private ArrayList<FamilyMapEvent> mShowingEvents;
+    private ArrayList<FamilyMapEvent> mEventsCopyMASTER;
 
     private HashMap<String, Float> mEventTypeColors;
     private ArrayList<String> mEventTypes;
@@ -60,6 +60,7 @@ public class FamilyMap {
 
     private FamilyMap() {
         mEventsEnabled = new HashMap<>();
+        mEventsCopyMASTER = new ArrayList<>();
     }
 
     public String getAuthToken() {
@@ -108,12 +109,13 @@ public class FamilyMap {
 
     public void setUserEvents(ArrayList<FamilyMapEvent> userEvents) {
         mUserEvents = userEvents;
+        mEventsCopyMASTER.addAll(mUserEvents);
         mEventTypeColors = new HashMap<>();
         setEventTypes();
     }
 
-    public ArrayList<FamilyMapEvent> getShowingEvents() {
-        return mShowingEvents;
+    public ArrayList<FamilyMapEvent> getEventsCopyMASTER() {
+        return mEventsCopyMASTER;
     }
 
     public void setShowingEvents() {
@@ -133,7 +135,7 @@ public class FamilyMap {
                 }
             }
             if(mEventsEnabled.get(eventName) && event != null){
-                mShowingEvents.add(event);
+                mEventsCopyMASTER.add(event);
             }
         }
     }
@@ -519,5 +521,58 @@ public class FamilyMap {
 
     public void setShowFathersEvents(boolean showFathersEvents) {
         mShowFathersEvents = showFathersEvents;
+    }
+
+    public void syncFilters() {
+        //Copy all original events into mUserEvents
+        mUserEvents.clear();
+        mUserEvents.addAll(mEventsCopyMASTER);
+        //Create all
+        ArrayList<FamilyMapEvent> eventsLengthCopy = new ArrayList<>();
+        eventsLengthCopy.clear();
+        eventsLengthCopy.addAll(mUserEvents);
+
+        if(!mShowMaleEvents){
+            for(int i = 0; i < eventsLengthCopy.size(); i++){
+                FamilyMapEvent event = eventsLengthCopy.get(i);
+                if(getPersonFromEvent(event).getGender().toLowerCase().equals("m")){
+                    mUserEvents.remove(event);
+                }
+            }
+        }
+
+        eventsLengthCopy.clear();
+        eventsLengthCopy.addAll(mUserEvents);
+        if(!mShowFemaleEvents){
+            for(int i = 0; i < eventsLengthCopy.size(); i++){
+                FamilyMapEvent event = eventsLengthCopy.get(i);
+                if(getPersonFromEvent(event).getGender().toLowerCase().equals("f")){
+                    mUserEvents.remove(event);
+                }
+            }
+        }
+
+        if(!mShowFathersEvents){
+
+        }
+        if(!mShowMothersEvents){
+
+        }
+
+        eventsLengthCopy.clear();
+        eventsLengthCopy.addAll(mUserEvents);
+        for(String eventName : mEventsEnabled.keySet()){
+            boolean isEventshown = mEventsEnabled.get(eventName);
+
+            if(!isEventshown){
+                //Get the event by name
+                for(int i = 0; i < eventsLengthCopy.size(); i++){
+                    FamilyMapEvent e = eventsLengthCopy.get(i);
+                    if(e.getDescription().equals(eventName)){
+                        mUserEvents.remove(e);
+                    }
+                }
+            }
+        }
     }
 }

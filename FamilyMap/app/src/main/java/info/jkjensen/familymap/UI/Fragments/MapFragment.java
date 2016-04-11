@@ -193,8 +193,9 @@ public class MapFragment extends Fragment {
     /**
      * Populates the map with all events currently in the FamilyMap model
      */
-    private void populateMarkers() {
+    public void populateMarkers() {
         if(mFamilyMap.getUserEvents() == null) return;
+        mMarkers.clear();
         for(FamilyMapEvent current : mFamilyMap.getUserEvents()){
             LatLng point = new LatLng(current.getLatitude(), current.getLongitude());
 
