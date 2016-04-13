@@ -19,12 +19,17 @@ import java.util.List;
 import info.jkjensen.familymap.Model.FamilyMap;
 import info.jkjensen.familymap.R;
 
+/**
+ * The view for the filter activity.
+ */
 public class FilterActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
 
     /**A reference to the model for the app*/
     private FamilyMap mFamilyMap;
+
+    /**The event descriptions of all events */
     private HashMap<String, Boolean> mEventsEnabled;
 
     @Override
@@ -58,6 +63,9 @@ public class FilterActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Holder for the RecyclerView
+     */
     private class FilterHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView mTitleTextView;
         private TextView mDescTextView;
@@ -120,6 +128,9 @@ public class FilterActivity extends AppCompatActivity {
         public void onClick(View v) { }
     }
 
+    /**
+     * Adapter for the RecyclerView
+     */
     private class FilterAdapter extends RecyclerView.Adapter<FilterHolder>{
 
         private List<String> mFilterStringList;

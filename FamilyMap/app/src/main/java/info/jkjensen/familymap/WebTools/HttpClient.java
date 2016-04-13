@@ -13,10 +13,17 @@ import java.net.URL;
 
 /**
  * Created by Jk on 3/16/2016.
+ * A client to help with Http requests
  */
+public class HttpClient{
 
-public class HttpClient {
-
+    /**
+     * Login the user with a POST request
+     * @param url the URL object to use to POST
+     * @param username the username entered by the user
+     * @param password the password entered by the user
+     * @return the result string from the request
+     */
     public String userLogin(URL url, String username, String password) {
 
         try {
@@ -58,6 +65,13 @@ public class HttpClient {
         return null;
     }
 
+
+    /**
+     * Make a GET request
+     * @param url the URL object to use to POST
+     * @param authToken the token to signify an authenticated user
+     * @return the result string from the request
+     */
     public String get(URL url, String authToken){
         try {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -93,45 +107,6 @@ public class HttpClient {
             }
         }catch (IOException ioe){
             Log.e("jk_http", ioe.getMessage());
-        }
-        return null;
-    }
-
-    public String getPersonEvents(URL url, String authToken){
-        try {
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-            connection.setRequestMethod("GET");
-
-            // Set HTTP request headers, if necessary
-            connection.addRequestProperty("Authorization", authToken);
-
-            connection.connect();
-
-            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                // Get HTTP response headers, if necessary
-                // Map<String, List<String>> headers = connection.getHeaderFields();
-
-                // Get response body input stream
-                InputStream responseBody = connection.getInputStream();
-
-                // Read response body bytes
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                byte[] buffer = new byte[1024];
-                int length = 0;
-                while ((length = responseBody.read(buffer)) != -1) {
-                    baos.write(buffer, 0, length);
-                }
-
-                // Convert response body bytes to a string
-                String responseBodyData = baos.toString();
-                Log.i("http", responseBodyData + " was the response.");
-                return responseBodyData;
-            } else {
-                Log.e("http", "Server error " + connection.getResponseCode());// SERVER RETURNED AN HTTP ERROR
-            }
-        }catch (IOException ioe){
-            Log.e("http", ioe.getMessage());
         }
         return null;
     }

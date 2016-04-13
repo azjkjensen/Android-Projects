@@ -26,6 +26,7 @@ import info.jkjensen.familymap.WebTools.HttpClient;
 
 /**
  * Created by Jk on 3/16/2016.
+ * Represents the view for the login fragment
  */
 public class LoginFragment extends Fragment {
 

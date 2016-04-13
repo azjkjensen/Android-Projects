@@ -48,7 +48,6 @@ import info.jkjensen.familymap.WebTools.HttpClient;
  * Created by Jk on 3/21/2016.
  */
 public class MapFragment extends Fragment {
-    private boolean firstVisit = true;
 
     /**A reference to the model for the app*/
     private FamilyMap mFamilyMap;
@@ -147,7 +146,6 @@ public class MapFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), PersonActivity.class);
-                firstVisit = false;
                 startActivity(intent);
             }
         });
@@ -156,7 +154,10 @@ public class MapFragment extends Fragment {
     }
 
 
-
+    /**
+     * updates the UI for this fragment
+     * @param person the person selected
+     */
     private void updateUI(Person person) {
         mNameView.setText(mFamilyMap.getCurrentPerson().getFirstName() + " " +
                 mFamilyMap.getCurrentPerson().getLastName());
@@ -171,6 +172,11 @@ public class MapFragment extends Fragment {
                             R.drawable.ic_gender_female_white_48dp));
         }
     }
+
+    /**
+     * Gets the marker associated with the selected event
+     * @return the Marker
+     */
     private Marker getMarkerFromEvent(){
         int markerID = 0;
         for(int i : mMarkerEvents.keySet()){
@@ -210,6 +216,9 @@ public class MapFragment extends Fragment {
         }
     }
 
+    /**
+     * Draws all map lines
+     */
     public void drawMapLines() {
         for(Polyline pl : mPolyLines){
             pl.remove();
@@ -236,7 +245,6 @@ public class MapFragment extends Fragment {
         }
 
         //Family Tree Lines
-        // TODO: Make lines get progressively smaller
         if(mFamilyMap.showFamilyTreeLines()){
             Person currentPerson = mFamilyMap.getPersonFromEvent(mSelectedEvent);
             if(currentPerson.hasFather()) {

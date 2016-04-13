@@ -2,6 +2,7 @@ package info.jkjensen.familymap.Model;
 
 /**
  * Created by Jk on 3/30/2016.
+ * This class represents an event with the associated information.
  */
 public class FamilyMapEvent implements Comparable{
     private String mEventId;
@@ -13,10 +14,6 @@ public class FamilyMapEvent implements Comparable{
     private String mDescription;
     private String mYear;
     private String mDescendant;
-
-    public String getEventId() {
-        return mEventId;
-    }
 
     public void setEventId(String eventId) {
         mEventId = eventId;
@@ -78,14 +75,16 @@ public class FamilyMapEvent implements Comparable{
         mYear = year;
     }
 
-    public String getDescendant() {
-        return mDescendant;
-    }
-
     public void setDescendant(String descendant) {
         mDescendant = descendant;
     }
 
+    /**
+     * Overridden function for comparing events by year first, then by events that have years.
+     * @param another the Event being compared to
+     * @return -1 if this is less than another, 1 if this is greater than another,
+     *          and 0 if they are equal.
+     */
     @Override
     public int compareTo(Object another) {
         FamilyMapEvent fme = (FamilyMapEvent) another;
@@ -106,6 +105,10 @@ public class FamilyMapEvent implements Comparable{
         }
     }
 
+    /**
+     * Gets the formatted description for an event.
+     * @return
+     */
     public String getFormattedDescription(){
         return this.getDescription() +
                 ": " + this.getCity() + ", " +

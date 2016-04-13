@@ -15,6 +15,9 @@ import info.jkjensen.familymap.R;
 import info.jkjensen.familymap.UI.Fragments.LoginFragment;
 import info.jkjensen.familymap.UI.Fragments.MapFragment;
 
+/**
+ * Main activity view. Holds MapFragment and LoginFragment
+ */
 public class MainActivity extends AppCompatActivity {
 
     private static final String MAP_FRAGMENT_TAG = "mapfragment";
@@ -24,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private LoginFragment mLoginFragment;
     private MapFragment mMapFragment;
 
+    //References to each menu item.
     private MenuItem mMenuItemSearch;
     private MenuItem mMenuItemFilter;
     private MenuItem mMenuItemSettings;

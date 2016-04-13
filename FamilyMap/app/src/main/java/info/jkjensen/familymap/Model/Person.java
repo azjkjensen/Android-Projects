@@ -2,6 +2,7 @@ package info.jkjensen.familymap.Model;
 
 /**
  * Created by Jk on 3/30/2016.
+ * This class represents a person with their given information.
  */
 public class Person {
     String mDescendant;
@@ -13,10 +14,6 @@ public class Person {
     private String mFatherID = null;
     private String mMotherID = null;
     private String mRelationship = null;
-
-    public String getDescendant() {
-        return mDescendant;
-    }
 
     public void setDescendant(String descendant) {
         mDescendant = descendant;

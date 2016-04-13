@@ -27,10 +27,15 @@ import info.jkjensen.familymap.Model.FamilyMapEvent;
 import info.jkjensen.familymap.Model.Person;
 import info.jkjensen.familymap.R;
 
+/**
+ * View for SearchActivity
+ */
 public class SearchActivity extends AppCompatActivity {
 
     /**A reference to the model for the app*/
     private FamilyMap mFamilyMap;
+
+    //Views
     private RecyclerView mRecyclerView;
     private EditText mSearchBar;
 
@@ -72,6 +77,12 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Searches in all person objects of the model for the given string.
+     * Searches first name last name.
+     * @param searchText the String to be searching for.
+     * @return a list of Person objects of all results
+     */
     private ArrayList<Person> searchPeople(String searchText) {
         ArrayList<Person> result = new ArrayList<>();
 
@@ -89,6 +100,12 @@ public class SearchActivity extends AppCompatActivity {
         return result;
     }
 
+    /**
+     * Searches in all Event objects of the model for the given string.
+     * Searches country, city, description, and year.
+     * @param searchText the text to be searched for.
+     * @return a list of FamilyMapEvent objects as results of the search.
+     */
     private ArrayList<FamilyMapEvent> searchEvents(String searchText) {
         ArrayList<FamilyMapEvent> result = new ArrayList<>();
 
@@ -123,8 +140,10 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
-    private class ResultHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener{
+    /**
+     * Holder for RecyclerView
+     */
+    private class ResultHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private final ImageView mIconView;
         private TextView mNameTextView;
         private TextView mResultInformation;
@@ -184,6 +203,9 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Adapter for RecyclerView
+     */
     private class ResultAdapter extends RecyclerView.Adapter<ResultHolder>{
 
         private List<Object> mObjectList;

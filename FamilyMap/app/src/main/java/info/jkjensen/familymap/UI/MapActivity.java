@@ -12,13 +12,16 @@ import info.jkjensen.familymap.R;
 import info.jkjensen.familymap.UI.Fragments.LoginFragment;
 import info.jkjensen.familymap.UI.Fragments.MapFragment;
 
+/**
+ * View controller for mapActivity
+ */
 public class MapActivity extends AppCompatActivity {
 
     /**A reference to the model for the app*/
     private FamilyMap mFamilyMap;
-    private MapFragment mMapFragment;
 
-    private MenuItem mMenuItemGoToTop;
+    ///Views
+    private MapFragment mMapFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +46,6 @@ public class MapActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_person, menu);
 
-        mMenuItemGoToTop = menu.findItem(R.id.menu_item_top);
-
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -53,7 +54,6 @@ public class MapActivity extends AppCompatActivity {
         Intent intent;
         switch (item.getItemId()){
             case R.id.menu_item_top:
-                // TODO: Pop back to running MainActivity
                 mFamilyMap.resetSelectedEvent();
                 intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
